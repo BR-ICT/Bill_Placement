@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 5.5.2  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TEST BILL PLACEMENT" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6724ff84-68d6-4d52-8dcc-9a57e5b1059c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CG" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CT" mode="Opaque" backcolor="#005FB3">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="startdate" class="java.lang.String"/>
+	<parameter name="enddate" class="java.lang.String"/>
+	<parameter name="Pinvround" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT CUSTOMER.OKCUNO
+,SUBSTRING(bill.BPH_BPDT,7,2)||'/' ||SUBSTRING(bill.BPH_BPDT,5,2)|| '/' ||SUBSTRING(bill.BPH_BPDT,1,4) AS Datedetail
+--,'' AS BPH_CLDT
+,SUBSTRING(bill.BPH_STDT,7,2)||'/' ||SUBSTRING(bill.BPH_STDT,5,2) || '-' || SUBSTRING(bill.BPH_FNDT,7,2) ||'/' ||SUBSTRING(bill.BPH_FNDT,5,2) AS INVOICE
+,'BILL' || CAST(ROW_NUMBER() OVER (PARTITION BY OKCUNO ORDER BY OKCUNO) AS VARCHAR(20)) AS Times
+FROM BRLDTA0100.BP_HBILL bill
+LEFT JOIN M3FDBPRD.OCUSMA customer ON  CUSTOMER.OKCONO = BILL.BPH_CONO  AND CUSTOMER.OKCUNO = BILL.BPH_CUNO 
+JOIN BRLDTA0100.BP_MASTER master ON master.BPM_CONO  = bill.BPH_CONO 
+WHERE (BPH_BPDT BETWEEN $P{startdate} AND $P{enddate}) and master.BPM_RINV = $P{Pinvround}
+GROUP BY OKCUNO,BPH_FNDT,BILL.BPH_BPDT,BPH_CLDT ,BPH_STDT
+UNION
+SELECT CUSTOMER.OKCUNO
+--,''
+,CASE WHEN BPH_CLDT BETWEEN $P{startdate} AND $P{enddate}
+THEN SUBSTRING(bill.BPH_CLDT,7,2)||'/' ||SUBSTRING(bill.BPH_CLDT,5,2)|| '/' ||SUBSTRING(bill.BPH_CLDT,1,4)
+ELSE '' END AS Datedetail
+,SUBSTRING(bill.BPH_STDT,7,2)||'/' ||SUBSTRING(bill.BPH_STDT,5,2) || '-' || SUBSTRING(bill.BPH_FNDT,7,2) ||'/' ||SUBSTRING(bill.BPH_FNDT,5,2) AS INVOICE
+,'PAY' || CAST(ROW_NUMBER() OVER (PARTITION BY OKCUNO ORDER BY OKCUNO) AS VARCHAR(20)) AS Times
+FROM BRLDTA0100.BP_HBILL bill
+LEFT JOIN M3FDBPRD.OCUSMA customer ON  CUSTOMER.OKCONO = BILL.BPH_CONO  AND CUSTOMER.OKCUNO = BILL.BPH_CUNO 
+JOIN BRLDTA0100.BP_MASTER master ON master.BPM_CONO  = bill.BPH_CONO 
+WHERE (BPH_CLDT BETWEEN $P{startdate} AND $P{enddate}) and master.BPM_RINV = $P{Pinvround}
+GROUP BY OKCUNO,BPH_FNDT,BILL.BPH_BPDT,BPH_CLDT ,BPH_STDT
+ORDER BY OKCUNO]]>
+	</queryString>
+	<field name="OKCUNO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="OKCUNO"/>
+	</field>
+	<field name="DATEDETAIL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DATEDETAIL"/>
+	</field>
+	<field name="INVOICE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="INVOICE"/>
+	</field>
+	<field name="TIMES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIMES"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<summary>
+		<band height="555" splitType="Stretch">
+			<crosstab>
+				<reportElement x="0" y="0" width="760" height="555" uuid="1c8c1008-7ee5-472c-a1dc-e2bac5dad39b">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab_CH"/>
+					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab_CG"/>
+					<property name="com.jaspersoft.studio.crosstab.style.total" value="Crosstab_CT"/>
+					<property name="com.jaspersoft.studio.crosstab.style.detail" value="Crosstab_CD"/>
+				</reportElement>
+				<rowGroup name="OKCUNO" width="60">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{OKCUNO}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField>
+								<reportElement x="0" y="0" width="60" height="20" uuid="e16c74d2-b63f-401e-b373-56328a4bd827"/>
+								<textFieldExpression><![CDATA[$V{OKCUNO}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="-2147483648" height="-2147483648" uuid="ec60d5e2-2f38-4205-882e-e1f7297dae5f"/>
+								<text><![CDATA[Total OKCUNO]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="TIMES" height="20">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{TIMES}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField>
+								<reportElement x="0" y="0" width="60" height="20" uuid="d7fe4dc2-5291-4163-9365-d36f1c1274e6"/>
+								<textFieldExpression><![CDATA[$V{TIMES}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="-2147483648" height="-2147483648" uuid="918190a4-d82e-4fe4-aa5c-bb93adcc9d4d"/>
+								<text><![CDATA[Total TIMES]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="DATEDETAIL_MEASURE" class="java.lang.String">
+					<measureExpression><![CDATA[$F{DATEDETAIL}]]></measureExpression>
+				</measure>
+				<crosstabCell width="60" height="20">
+					<cellContents mode="Opaque" style="Crosstab_CD">
+						<textField isBlankWhenNull="true">
+							<reportElement x="0" y="0" width="60" height="20" uuid="f51cc0ae-13d9-446b-b28e-dcec65c84dcd"/>
+							<textFieldExpression><![CDATA[$V{DATEDETAIL_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" columnTotalGroup="TIMES">
+					<cellContents mode="Opaque" style="Crosstab_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="37bfec75-bd36-4062-b329-9ed685a1eb3a"/>
+							<textFieldExpression><![CDATA[$V{DATEDETAIL_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCUNO">
+					<cellContents mode="Opaque" style="Crosstab_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="573c6f24-5586-49d4-b8bb-f8e13b838063"/>
+							<textFieldExpression><![CDATA[$V{DATEDETAIL_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCUNO" columnTotalGroup="TIMES">
+					<cellContents mode="Opaque" style="Crosstab_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="a987ac40-7af4-44da-9813-fd27b1f6fcf5"/>
+							<textFieldExpression><![CDATA[$V{DATEDETAIL_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>

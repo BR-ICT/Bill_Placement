@@ -1,0 +1,1231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Report_Billplacement_new" pageWidth="5000" pageHeight="1000" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="5830c67b-cef7-41e1-afaf-a5911890188b">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="false"/>
+	<style name="Payment_color" mode="Transparent" forecolor="#49BA6D" backcolor="#FFFFFF">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{DATEDETAIL}.contains("BILL")]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FF0400" markup="styled"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{DATEDETAIL}.contains("PAY")]]></conditionExpression>
+			<style mode="Opaque" backcolor="#00FFFF"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{DATEDETAIL}.contains("NODETAIL")]]></conditionExpression>
+			<style mode="Opaque" backcolor="#0048FF"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{DATEDETAIL}.contains("Amount")]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FFF200"/>
+		</conditionalStyle>
+	</style>
+	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CG" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CT" mode="Opaque" backcolor="#005FB3">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab 1_CH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{DATEDETAIL}.contains("BILL")]]></conditionExpression>
+			<style mode="Opaque" backcolor="#00FFF7" markup="styled"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{DATEDETAIL}.contains("PAY")]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FF8AF5"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{DATEDETAIL}.contains("NODETAIL")]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FF9B4F"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{DATEDETAIL}.contains("Amount")]]></conditionExpression>
+			<style mode="Opaque" backcolor="#85F200"/>
+		</conditionalStyle>
+	</style>
+	<style name="Crosstab 1_CG" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab 1_CT" mode="Opaque" backcolor="#005FB3">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab 1_CD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="startdate" class="java.lang.String"/>
+	<parameter name="enddate" class="java.lang.String"/>
+	<parameter name="Pinvround" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM (
+--BILL
+SELECT CUSTOMER.OKCUNO,BPM_RINV,master.BPM_TYPE,BPM_REMARK,customer.OKCUNM,TRIM(customer.oksmcd) AS oksmcd ,customer.okpycd,customer.okcfc3
+,'BILL' AS DATEDETAIL
+,SUBSTRING(bill.BPH_BPDT,7,2)||'/' ||SUBSTRING(bill.BPH_BPDT,5,2)|| '/' ||SUBSTRING(bill.BPH_BPDT,1,4) AS Dateloc
+, BPH_BPDT||'A' AS sortingorder,BPH_BPDT AS rawdate,
+ LEFT(XMLSERIALIZE(XMLAGG(XMLTEXT(SUBSTRING(bill.BPH_STDT,7,2)||'/' ||SUBSTRING(bill.BPH_STDT,5,2) 
+|| '-' || SUBSTRING(bill.BPH_FNDT,7,2) ||'/' ||SUBSTRING(bill.BPH_FNDT,5,2) ||',')) AS VARCHAR(50)), LENGTH(XMLSERIALIZE(XMLAGG(XMLTEXT(SUBSTRING(bill.BPH_STDT,7,2)||'/' ||SUBSTRING(bill.BPH_STDT,5,2) 
+|| '-' || SUBSTRING(bill.BPH_FNDT,7,2) ||'/' ||SUBSTRING(bill.BPH_FNDT,5,2) ||',')) AS VARCHAR(50))) - 1 ) AS INVOICE
+,BPM_BILDESC, BPM_COLDESC, BPM_COLBY
+FROM BRLDTA0100.BP_HBILL bill
+LEFT JOIN M3FDBPRD.OCUSMA customer ON  CUSTOMER.OKCONO = BILL.BPH_CONO  AND CUSTOMER.OKCUNO = BILL.BPH_CUNO 
+JOIN BRLDTA0100.BP_MASTER master ON master.BPM_CONO  = bill.BPH_CONO  AND master.BPM_CUNO = bill.BPH_CUNO
+WHERE (BPH_BPDT BETWEEN $P{startdate} AND $P{enddate}) 
+and (master.BPM_RINV <> 7 AND master.BPM_RINV <> 15 AND master.BPM_RINV <> 30)
+GROUP BY  OKCUNO,BPM_TYPE,OKCUNM,OKSMCD,OKPYCD,OKCFC3,BPH_BPDT,BPM_BILDESC, BPM_COLDESC, BPM_COLBY,BPM_RINV,BPM_REMARK
+--PAY
+UNION
+SELECT CUSTOMER.OKCUNO,BPM_RINV,master.BPM_TYPE,BPM_REMARK,customer.OKCUNM,TRIM(customer.oksmcd) AS oksmcd,customer.okpycd,customer.okcfc3
+,CASE WHEN BPH_CLDT BETWEEN $P{startdate} AND $P{enddate}
+THEN 'PAY'
+ELSE '' END AS Datedetail,
+CASE WHEN BPH_CLDT BETWEEN $P{startdate} AND $P{enddate}
+THEN SUBSTRING(bill.BPH_CLDT,7,2)||'/' ||SUBSTRING(bill.BPH_CLDT,5,2)|| '/' ||SUBSTRING(bill.BPH_CLDT,1,4)
+ELSE '' END AS Dateloc
+,CASE WHEN BPH_CLDT BETWEEN $P{startdate} AND $P{enddate}
+THEN bill.BPH_CLDT||'B'
+ELSE '' END AS sortingorder,
+bill.BPH_CLDT AS rawdate,
+ LEFT(XMLSERIALIZE(XMLAGG(XMLTEXT(SUBSTRING(bill.BPH_STDT,7,2)||'/' ||SUBSTRING(bill.BPH_STDT,5,2) 
+|| '-' || SUBSTRING(bill.BPH_FNDT,7,2) ||'/' ||SUBSTRING(bill.BPH_FNDT,5,2) ||',')) AS VARCHAR(50)), LENGTH(XMLSERIALIZE(XMLAGG(XMLTEXT(SUBSTRING(bill.BPH_STDT,7,2)||'/' ||SUBSTRING(bill.BPH_STDT,5,2) 
+|| '-' || SUBSTRING(bill.BPH_FNDT,7,2) ||'/' ||SUBSTRING(bill.BPH_FNDT,5,2) ||',')) AS VARCHAR(50))) - 1 ) AS INVOICE
+,BPM_BILDESC, BPM_COLDESC, BPM_COLBY
+FROM BRLDTA0100.BP_HBILL bill
+LEFT JOIN M3FDBPRD.OCUSMA customer ON  CUSTOMER.OKCONO = BILL.BPH_CONO  AND CUSTOMER.OKCUNO = BILL.BPH_CUNO 
+JOIN BRLDTA0100.BP_MASTER master ON master.BPM_CONO  = bill.BPH_CONO AND master.BPM_CUNO = bill.BPH_CUNO
+LEFT JOIN BRLDTA0100.H_BILLNOTE billnote ON billnote.HB_CUNO = bill.BPH_CUNO 
+AND bill.BPH_CONO = billnote.HB_CONO AND billnote.HB_TRDT = bill.BPH_BPDT
+WHERE (BPH_CLDT BETWEEN $P{startdate} AND $P{enddate}) and (master.BPM_RINV <> 7 AND master.BPM_RINV <> 15 AND master.BPM_RINV <> 30)
+GROUP BY OKCUNO,BPM_TYPE,OKCUNM,OKSMCD,OKPYCD,OKCFC3,BPH_CLDT ,BPM_BILDESC, BPM_COLDESC, BPM_COLBY,BPM_RINV,BPM_REMARK
+UNION
+SELECT CUSTOMER.OKCUNO,BPM_RINV,master.BPM_TYPE,BPM_REMARK,customer.OKCUNM,TRIM(customer.oksmcd) AS oksmcd,customer.okpycd,customer.okcfc3
+,CASE WHEN BPH_CLDT BETWEEN $P{startdate} AND $P{enddate}
+THEN 'Amount'
+ELSE '' END AS Datedetail,
+CASE WHEN BPH_CLDT BETWEEN $P{startdate} AND $P{enddate}
+THEN SUBSTRING(bill.BPH_CLDT,7,2)||'/' ||SUBSTRING(bill.BPH_CLDT,5,2)|| '/' ||SUBSTRING(bill.BPH_CLDT,1,4)
+ELSE '' END AS Dateloc
+,CASE WHEN BPH_CLDT BETWEEN $P{startdate} AND $P{enddate}
+THEN bill.BPH_CLDT||'C'
+ELSE '' END AS sortingorder,bill.BPH_CLDT AS rawdate,
+LEFT(XMLSERIALIZE(XMLAGG(XMLTEXT(HB_BNNO||','))AS VARCHAR(50)), LENGTH(XMLSERIALIZE(XMLAGG(XMLTEXT(HB_BNNO||','))AS VARCHAR(50))) - 1)
+ AS INVOICE
+,BPM_BILDESC, BPM_COLDESC, BPM_COLBY
+FROM BRLDTA0100.BP_HBILL bill
+LEFT JOIN M3FDBPRD.OCUSMA customer ON  CUSTOMER.OKCONO = BILL.BPH_CONO  AND CUSTOMER.OKCUNO = BILL.BPH_CUNO 
+JOIN BRLDTA0100.BP_MASTER master ON master.BPM_CONO  = bill.BPH_CONO AND master.BPM_CUNO = bill.BPH_CUNO
+ JOIN BRLDTA0100.H_BILLNOTE billnote ON billnote.HB_CUNO = bill.BPH_CUNO 
+AND bill.BPH_CONO = billnote.HB_CONO AND billnote.HB_TRDT = bill.BPH_BPDT
+WHERE (BPH_CLDT BETWEEN $P{startdate} AND $P{enddate}) and (master.BPM_RINV <> 7 AND master.BPM_RINV <> 15 AND master.BPM_RINV <> 30)
+GROUP BY OKCUNO,BPM_TYPE,OKCUNM,OKSMCD,OKPYCD,OKCFC3,BPH_CLDT ,BPM_BILDESC, BPM_COLDESC, BPM_COLBY,BPM_RINV,BPM_REMARK
+UNION 
+SELECT BPM_CUNO AS OKCUNO,BPM_RINV,master.BPM_TYPE,BPM_REMARK,customer.OKCUNM, trim(OKSMCD) AS OKSMCD, OKPYCD, OKCFC3,'NODETAIL',  '0', 'A',0 AS RAWDATE, 'X',BPM_BILDESC, BPM_COLDESC, BPM_COLBY FROM BRLDTA0100.BP_MASTER master
+LEFT JOIN M3FDBPRD.OCUSMA customer ON  CUSTOMER.OKCONO = MASTER.BPM_CONO  AND CUSTOMER.OKCUNO = master.BPM_CUNO 
+WHERE (master.BPM_RINV <> 7 AND master.BPM_RINV <> 15 AND master.BPM_RINV <> 30)
+AND BPM_CUNO NOT IN 
+(SELECT BPH_CUNO FROM BRLDTA0100.BP_HBILL)
+ORDER BY OKCUNO
+) AS A
+ORDER BY SORTINGORDER]]>
+	</queryString>
+	<field name="OKCUNO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="OKCUNO"/>
+	</field>
+	<field name="BPM_RINV" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="BPM_RINV"/>
+	</field>
+	<field name="BPM_TYPE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="BPM_TYPE"/>
+	</field>
+	<field name="BPM_REMARK" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="BPM_REMARK"/>
+	</field>
+	<field name="OKCUNM" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="OKCUNM"/>
+	</field>
+	<field name="OKSMCD" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="OKSMCD"/>
+	</field>
+	<field name="OKPYCD" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="OKPYCD"/>
+	</field>
+	<field name="OKCFC3" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="OKCFC3"/>
+	</field>
+	<field name="DATEDETAIL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DATEDETAIL"/>
+	</field>
+	<field name="DATELOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DATELOC"/>
+	</field>
+	<field name="SORTINGORDER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SORTINGORDER"/>
+	</field>
+	<field name="RAWDATE" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="RAWDATE"/>
+	</field>
+	<field name="INVOICE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="INVOICE"/>
+	</field>
+	<field name="BPM_BILDESC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="BPM_BILDESC"/>
+	</field>
+	<field name="BPM_COLDESC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="BPM_COLDESC"/>
+	</field>
+	<field name="BPM_COLBY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="BPM_COLBY"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<summary>
+		<band height="60">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<crosstab>
+				<reportElement x="0" y="0" width="4952" height="60" uuid="10e9c8df-c331-4464-881e-0b43ea003822">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab 1_CH"/>
+					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab 1_CG"/>
+					<property name="com.jaspersoft.studio.crosstab.style.total" value="Crosstab 1_CT"/>
+					<property name="com.jaspersoft.studio.crosstab.style.detail" value="Crosstab 1_CD"/>
+				</reportElement>
+				<crosstabHeaderCell>
+					<cellContents>
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+						<staticText>
+							<reportElement x="90" y="20" width="80" height="20" uuid="a64581be-c458-4e5f-a82c-ce7fe590b16e"/>
+							<box>
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="TH SarabunPSK" size="11"/>
+							</textElement>
+							<text><![CDATA[Customer name]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="410" y="20" width="60" height="20" uuid="7832dcb5-62cd-44c0-b51a-78f26de6e7f0"/>
+							<box>
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="TH SarabunPSK" size="11"/>
+							</textElement>
+							<text><![CDATA[Collected by]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="170" y="20" width="30" height="20" uuid="08621040-70b6-444e-8146-89476b1573fd"/>
+							<box>
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="TH SarabunPSK" size="7"/>
+							</textElement>
+							<text><![CDATA[Credit
+ term]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="380" y="20" width="30" height="20" uuid="6d52debd-4340-4176-bf05-1d94ddc0aee4"/>
+							<box>
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="TH SarabunPSK" size="7"/>
+							</textElement>
+							<text><![CDATA[วิธีการ
+ชำระเงิน]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="30" y="20" width="60" height="20" uuid="718ea184-71a8-44a3-9ad6-c03f901b2364"/>
+							<box>
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="TH SarabunPSK" size="11"/>
+							</textElement>
+							<text><![CDATA[Customer ID]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="200" y="20" width="30" height="20" uuid="1a5ac722-46ad-4d49-87df-0eea5987c448"/>
+							<box>
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="TH SarabunPSK" size="11"/>
+							</textElement>
+							<text><![CDATA[Channel]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="0" y="20" width="30" height="20" uuid="caebb72e-faa9-457a-8d05-2585cb9d06a6"/>
+							<box>
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="TH SarabunPSK" size="11"/>
+							</textElement>
+							<text><![CDATA[TYPE]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="470" y="20" width="60" height="20" uuid="39ea0194-0897-4fe3-b0b5-397b92ac7c15"/>
+							<box>
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="TH SarabunPSK" size="11"/>
+							</textElement>
+							<text><![CDATA[Remark]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="230" y="20" width="60" height="20" uuid="9879ec56-6be5-419d-974a-6824b7921f25"/>
+							<box>
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="TH SarabunPSK" size="11"/>
+							</textElement>
+							<text><![CDATA[Billing/วางบิล]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="350" y="20" width="30" height="20" uuid="1c78b0ec-6637-42b5-ba25-4a059c7d570c"/>
+							<box>
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="TH SarabunPSK" size="9"/>
+							</textElement>
+							<text><![CDATA[Salesman]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="290" y="20" width="60" height="20" uuid="e847414b-6b1a-46db-94c7-675a98a4b81d"/>
+							<box>
+								<pen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="TH SarabunPSK" size="11"/>
+							</textElement>
+							<text><![CDATA[Collection Day/วันรับเงิน]]></text>
+						</staticText>
+					</cellContents>
+				</crosstabHeaderCell>
+				<rowGroup name="BPM_TYPE" width="30">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{BPM_TYPE}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="30" height="20" uuid="d6cbc18b-0fc6-4a6d-bc7e-0271d657f687"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="TH SarabunPSK" size="14"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{BPM_TYPE}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="db2e18e0-8ad3-4d20-b23f-3bd8c3efe538"/>
+								<text><![CDATA[Total BPM_TYPE]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="OKCUNO" width="60">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{OKCUNO}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="60" height="20" uuid="48965908-ad60-4790-a934-8687716eaa9b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="TH SarabunPSK" size="14"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{OKCUNO}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="4bcdc994-2803-4548-b951-c4c17499bf02"/>
+								<text><![CDATA[Total OKCUNO]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="OKCUNM" width="80">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{OKCUNM}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="80" height="20" uuid="75548ce3-4781-4523-8f78-0645bcad4a26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="TH SarabunPSK" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{OKCUNM}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="fb07da09-b5f1-49f2-9c01-236eeb6760b7"/>
+								<text><![CDATA[Total OKCUNM]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="BPM_RINV" width="30">
+					<bucket class="java.math.BigDecimal">
+						<bucketExpression><![CDATA[$F{BPM_RINV}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="30" height="20" uuid="3389a85f-a524-4e3b-a1a5-37e1d9d7da44"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="TH SarabunPSK" size="14"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{BPM_RINV}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="7f5c0a2c-57f2-41a9-a387-4d2c3bd6c0fa"/>
+								<text><![CDATA[Total BPM_RINV]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="OKCFC3" width="30">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{OKCFC3}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="30" height="20" uuid="b3f5a522-4c8f-4618-bf2a-c6e96a8fab5b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="TH SarabunPSK" size="14"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{OKCFC3}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="b6e64368-6733-472b-9134-6246668af471"/>
+								<text><![CDATA[Total OKCFC3]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="BPM_BILDESC" width="60">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{BPM_BILDESC}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="60" height="20" uuid="5502e8be-eed7-4fb1-ab37-8dd852b404b1"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="TH SarabunPSK" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{BPM_BILDESC}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="35b1d752-b4f8-47c4-9524-00e12e78a89f"/>
+								<text><![CDATA[Total BPM_BILDESC]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="BPM_COLDESC" width="60">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{BPM_COLDESC}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="60" height="20" uuid="c242de72-0143-4663-8c7b-579ef0458b4f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="TH SarabunPSK" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{BPM_COLDESC}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="14746e83-d70a-484a-9970-ba23ae799ed9"/>
+								<text><![CDATA[Total BPM_COLDESC]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="OKSMCD" width="30">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{OKSMCD}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="30" height="20" uuid="2a31f24d-fba0-4ebc-b514-0027360aab92"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="TH SarabunPSK" size="14"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{OKSMCD}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="2102c6f6-86ee-49b1-bee6-07c9c6435a2a"/>
+								<text><![CDATA[Total OKSMCD]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="OKPYCD" width="30">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{OKPYCD}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="30" height="20" uuid="eee74daa-f0a1-450f-b6c7-a327cb710303"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="TH SarabunPSK" size="14"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{OKPYCD}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="723f9c3a-37ac-405e-9d63-d3eccbb5b2e3"/>
+								<text><![CDATA[Total OKPYCD]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="BPM_COLBY" width="60">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{BPM_COLBY}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="60" height="20" uuid="80c368c7-91a4-4f87-a10c-b40d21f1fbb1"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="TH SarabunPSK" size="14"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{BPM_COLBY}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="65302995-67d1-44d3-b063-9fa9de65fa65"/>
+								<text><![CDATA[Total BPM_COLBY]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="BPM_REMARK" width="60">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{BPM_REMARK}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="60" height="20" uuid="f5f109e4-0ca0-4e48-a682-7cc89072dbfc"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="TH SarabunPSK" size="14"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{BPM_REMARK}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="bbfe7429-b57c-4d46-bc71-ef30900ce246"/>
+								<text><![CDATA[Total BPM_REMARK]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="RAWDATE" height="0">
+					<bucket class="java.math.BigDecimal">
+						<bucketExpression><![CDATA[$F{RAWDATE}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="60" height="0" uuid="ed3a298c-a28c-49bd-9f2c-270a81df0795">
+									<property name="com.jaspersoft.studio.unit.height" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Center">
+									<font fontName="TH SarabunPSK" size="14"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{RAWDATE}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="2cd0d32c-8268-4a78-bd70-8237b68b2b10"/>
+								<text><![CDATA[Total RAWDATE]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<columnGroup name="DATELOC" height="20">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{DATELOC}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<textField>
+								<reportElement x="0" y="0" width="60" height="20" uuid="a1f49f26-d6a1-4f57-b240-37d5ed8d9f24"/>
+								<textElement textAlignment="Center">
+									<font fontName="TH SarabunPSK" size="14"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{DATELOC}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="f40ebdd8-3960-424b-87dd-a2f71cb4dc6a"/>
+								<text><![CDATA[Total DATELOC]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<columnGroup name="SORTINGORDER" height="0">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{SORTINGORDER}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="60" height="0" uuid="81584cb2-2f54-4a64-8244-a22fa0b959aa"/>
+								<textElement textAlignment="Center">
+									<font fontName="TH SarabunPSK" size="14"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{SORTINGORDER}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="b740dcbb-d51d-4aeb-af94-a901602a521b"/>
+								<text><![CDATA[Total SORTINGORDER]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<columnGroup name="DATEDETAIL" height="20">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{DATEDETAIL}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab 1_CH">
+							<textField>
+								<reportElement x="0" y="0" width="60" height="20" uuid="fbeb1689-2c68-4ec5-97e0-fe93c28017ab"/>
+								<textElement textAlignment="Center">
+									<font fontName="TH SarabunPSK" size="14"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{DATEDETAIL}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="0" height="0" uuid="1ee0700c-b1f7-4ff4-965a-72a4715a05e6"/>
+								<text><![CDATA[Total DATEDETAIL]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="INVOICE_MEASURE" class="java.lang.String">
+					<measureExpression><![CDATA[$F{INVOICE}]]></measureExpression>
+				</measure>
+				<crosstabCell width="60" height="20">
+					<cellContents mode="Opaque" style="Crosstab 1_CD">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement x="0" y="0" width="60" height="20" uuid="bf53783b-d502-42bd-9042-7a330556cc6a"/>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="TH SarabunPSK" size="14"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" columnTotalGroup="RAWDATE">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="b9d3fb06-d111-404d-bfb1-0feceb10bb11"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" columnTotalGroup="DATELOC">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="6f9ca23e-d950-4d32-9af9-f2b976759019"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" columnTotalGroup="SORTINGORDER">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="764b7fe9-f0d4-4c65-b221-ca58bca83ca5"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" columnTotalGroup="DATEDETAIL">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="8430914a-00b7-4124-8296-0582ced483f0"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_TYPE">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="a689ff91-8553-4adb-8397-31226d776c93"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_TYPE" columnTotalGroup="RAWDATE">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="b94c02fa-1f0e-4ef6-abcb-201f67f95d32"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_TYPE" columnTotalGroup="DATELOC">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="0d208fde-dca7-4e80-9660-5b5eb2f75739"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_TYPE" columnTotalGroup="SORTINGORDER">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="a90a79c8-9fe4-4bd1-b9ee-2341597bf7a4"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_TYPE" columnTotalGroup="DATEDETAIL">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="ea6b35d1-a451-43da-a831-f791e425c246"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCUNO">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="db46e124-84e0-41bd-ab53-bee1f902be46"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCUNO" columnTotalGroup="RAWDATE">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="b38a7718-b8a6-47fe-9a8d-3a34ae95aafe"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCUNO" columnTotalGroup="DATELOC">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="db3225db-cddc-40e0-9cef-ac2a09a67c0b"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCUNO" columnTotalGroup="SORTINGORDER">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="78737d18-cf48-473b-b56c-dedc3284ab68"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCUNO" columnTotalGroup="DATEDETAIL">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="50354181-4bcb-4285-8096-25de62609742"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCUNM">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="918b73ea-4f02-4489-bd30-f060c3ee3430"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCUNM" columnTotalGroup="RAWDATE">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="6947da20-ada9-4c25-8ab2-220ae64a8cb2"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCUNM" columnTotalGroup="DATELOC">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="4348552e-fb09-4245-89d9-f0736a5229af"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCUNM" columnTotalGroup="SORTINGORDER">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="f605cd36-4c32-4ecc-8813-9c8264464e78"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCUNM" columnTotalGroup="DATEDETAIL">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="e8a3e1e6-2672-437a-a7c4-f1a45e4b7580"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_RINV">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="8ebd39ee-b2a1-4d6a-bc87-a904ca4e528c"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_RINV" columnTotalGroup="RAWDATE">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="6ef9a213-0ad2-47d1-a99a-a6382c55409e"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_RINV" columnTotalGroup="DATELOC">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="d48da089-2e25-4ecc-895b-d7f0f4febfb7"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_RINV" columnTotalGroup="SORTINGORDER">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="1a62aa6b-737a-4f46-a85c-5f322fcda6a9"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_RINV" columnTotalGroup="DATEDETAIL">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="cb8a4949-9a08-4b9b-a5c8-e41f72a74495"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKSMCD">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="c707c3b1-83b6-4f3f-9931-a6afdc3faa8b"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKSMCD" columnTotalGroup="RAWDATE">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="8d20edcb-b8e6-4c9f-af74-45c39915c8fd"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKSMCD" columnTotalGroup="DATELOC">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="7268eae6-2bcd-4d0c-bcb2-f41c1c3e9f93"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKSMCD" columnTotalGroup="SORTINGORDER">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="dcc3b4ad-97cb-4f3c-9c4b-ea4699d5d9b1"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKSMCD" columnTotalGroup="DATEDETAIL">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="24f26573-b149-44fe-9204-f957f3e14189"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKPYCD">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="18806aca-0987-4efd-b9cd-ddbe69e10c1f"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKPYCD" columnTotalGroup="RAWDATE">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="e260803b-a8ff-436e-8345-ca2d518badb6"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKPYCD" columnTotalGroup="DATELOC">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="dceccc04-176e-4073-8c97-c14b82e49273"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKPYCD" columnTotalGroup="SORTINGORDER">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="9e6be939-1842-4632-ab58-88590f0513f5"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKPYCD" columnTotalGroup="DATEDETAIL">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="c10e4ea3-0cab-4cd2-b948-0eff2977cce5"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_REMARK">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="9b9047fe-cf0e-4307-bf59-d78a521f2792"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_REMARK" columnTotalGroup="RAWDATE">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="2bfaa1b9-eb3a-4926-8048-9535c6992a03"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_REMARK" columnTotalGroup="DATELOC">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="6a9b8922-4af7-4a56-8deb-f49b8c33d0e6"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_REMARK" columnTotalGroup="SORTINGORDER">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="37289694-841d-4776-a730-b50b7071ac77"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_REMARK" columnTotalGroup="DATEDETAIL">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="1b7b3eeb-1d21-4e0a-8acd-bd8bd0555ebb"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCFC3">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="9d7beecf-1e18-48d9-9469-4a267e53f86d"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCFC3" columnTotalGroup="RAWDATE">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="c16c3587-ae49-44f9-9ecc-583292779005"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCFC3" columnTotalGroup="DATELOC">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="944acf19-5cf6-4805-be24-5b5f7e23fc6d"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCFC3" columnTotalGroup="SORTINGORDER">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="43f26d33-cc8e-4888-bccd-8a2cb4fcb795"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="OKCFC3" columnTotalGroup="DATEDETAIL">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="0076e69d-195e-4f85-8016-25958f40070d"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_BILDESC">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="15869e07-e77b-4e9d-a5f0-48d82318d959"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_BILDESC" columnTotalGroup="RAWDATE">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="2e15b189-8470-4f9b-a5b7-9e40379ba9b3"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_BILDESC" columnTotalGroup="DATELOC">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="67dcba7c-6940-4d45-82bb-c70cdf8dcbce"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_BILDESC" columnTotalGroup="SORTINGORDER">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="e6401255-ad6c-4140-bd71-cc2f23d11917"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_BILDESC" columnTotalGroup="DATEDETAIL">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="c1266458-2f5c-40a0-844d-56d61fbea3e6"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_COLDESC">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="d5032a62-d877-4254-bb76-e246cef95b75"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_COLDESC" columnTotalGroup="RAWDATE">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="61fe1c9f-0652-4e74-99e8-852aee278aa4"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_COLDESC" columnTotalGroup="DATELOC">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="011e2cb3-87e0-48e4-abd0-e0f154a7a065"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_COLDESC" columnTotalGroup="SORTINGORDER">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="9152bc75-a50b-4028-a968-120a11ff6bed"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_COLDESC" columnTotalGroup="DATEDETAIL">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="cf4f4c36-ea6c-4305-b2e3-f284aa80adc5"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_COLBY">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="3091be20-41a5-4f9e-ac44-20b809765435"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_COLBY" columnTotalGroup="RAWDATE">
+					<cellContents mode="Opaque" style="Crosstab 1_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="3b7d4fae-d6c1-48b1-b00c-beaa1515a481"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_COLBY" columnTotalGroup="DATELOC">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="b3df7582-d97f-44ca-88f5-029f768a5ceb"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_COLBY" columnTotalGroup="SORTINGORDER">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="36be8d85-2981-4df4-81a8-a52d7e3af91e"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="BPM_COLBY" columnTotalGroup="DATEDETAIL">
+					<cellContents mode="Opaque" style="Crosstab 1_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="4501201e-5ef3-476d-a398-5921e8af4773"/>
+							<textFieldExpression><![CDATA[$V{INVOICE_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>

@@ -48,10 +48,7 @@ public class Action extends HttpServlet {
                 out.print(Select.Testforreply());
                 out.flush();
                 break;
-            case "getRentalAddon":
-                out.print(Select.getRentalAddon(request.getParameter("cono"), request.getParameter("divi"), request.getParameter("whs"), request.getParameter("period")));
-                out.flush();
-                break;
+           
             case "getHeaderDate":
                 out.print(Select.getHeaderDate(request.getParameter("month"), request.getParameter("year"), request.getParameter("invoicerd")));
                 out.flush();
@@ -72,43 +69,14 @@ public class Action extends HttpServlet {
                 out.print(Select.getMonthMaster(request.getParameter("year"), request.getParameter("invround")));
                 out.flush();
                 break;
-            case "getWarehouse":
-                out.print(Select.getWarehouse(request.getParameter("cono"), request.getParameter("divi"), request.getParameter("fac")));
-                out.flush();
-                break;
-            case "getWarehouseDetail":
-                out.print(Select.getWarehouseDetail(request.getParameter("cono"), request.getParameter("divi")));
-                out.flush();
-                break;
-            case "getPeriod":
-                out.print(Select.getPeriod(request.getParameter("cono"), request.getParameter("divi"), request.getParameter("whs")));
-                out.flush();
-                break;
-            case "getAddonCode":
-                out.print(Select.getAddonCode(request.getParameter("cono"), request.getParameter("divi")));
-                out.flush();
-                break;
+           
+     
             case "getCompany":
                 out.print(Select.getCompany());
                 out.flush();
                 break;
-            case "getRentalHead":
-                out.print(Select.getRentalHead(request.getParameter("cono"), request.getParameter("divi"), request.getParameter("whs")));
-                out.flush();
-                break;
-            case "getRentalDetail":
-                out.print(Select.getViewRentalDetail02(request.getParameter("cono"), request.getParameter("divi"), request.getParameter("whs"), request.getParameter("period")));
-                out.flush();
-                break;
 
-            case "getDatetruckDetail":
-                out.print(Select.getDatetruckDetail(request.getParameter("cono"), request.getParameter("divi"), request.getParameter("datetruck")));
-                out.flush();
-                break;
-            case "getDateTruck":
-                out.print(Select.getDateTruck(request.getParameter("cono"), request.getParameter("divi")));
-                out.flush();
-                break;
+
             case "getMasterFinance":
                 out.print(Select.getMasterFinance());
                 out.flush();
@@ -162,30 +130,9 @@ public class Action extends HttpServlet {
                 out.flush();
                 break;
 
-            case "GRNsubmit":
-                out.print(Select.GRNsubmit(request.getParameter("cono"), request.getParameter("divi"), request.getParameter("datetruck"), request.getParameter("pono")));
-                out.flush();
-                break;
-
-            case "checkRentalDetail":
-//                out.print(Select.checkRentalDetail(request.getParameter("RHCONO"), request.getParameter("RHDIVI"), request.getParameter("RHWARE"), request.getParameter("RHFDAT"), request.getParameter("RHTDAT")));
-                out.flush();
-                break;
-            case "confirmPo":
-                out.print(Select.ConfirmPO(request.getParameter("cono"), request.getParameter("divi"), request.getParameter("datetruck")));
-                out.flush();
-                break;
-
             // Insert
-            case "addRentalHead":
-                out.print(Insert.insertRentalHead(request.getParameter("cono"), request.getParameter("divi"), request.getParameter("whs"), request.getParameter("round"), request.getParameter("fromdate"), request.getParameter("todate")));
-                out.flush();
-                break;
+          
             case "addRentalDetail":
-                out.flush();
-                break;
-            case "addRentalAddon":
-                out.print(Insert.insertRentalAddon(request.getParameter("cono"), request.getParameter("divi"), request.getParameter("whs"), request.getParameter("period"), request.getParameter("code"), request.getParameter("amt")));
                 out.flush();
                 break;
             case "addFinanceMaster":
@@ -226,15 +173,9 @@ public class Action extends HttpServlet {
                 out.print(Update.updateRentalAddon(request.getParameter("cono"), request.getParameter("divi"), request.getParameter("whs"), request.getParameter("period"), request.getParameter("line"), request.getParameter("amt")));
                 out.flush();
                 break;
-            case "copyRentalHead":
-                out.print(Insert.copyRentalHead(request.getParameter("cono"), request.getParameter("divi"), request.getParameter("whs"), request.getParameter("period"), request.getParameter("round"), request.getParameter("fromdatecopy"), request.getParameter("todatecopy")));
-                out.flush();
-                break;
+            
             // Delete
-            case "deleteRentalHead":
-                out.print(Delete.deleteRentalHead(request.getParameter("cono"), request.getParameter("divi"), request.getParameter("whs"), request.getParameter("period")));
-                out.flush();
-                break;
+           
             case "deleteFinanceMaster":
                 out.print(Delete.deleteFinanceMaster(request.getParameter("company"), request.getParameter("customerid")));
                 out.flush();
@@ -247,10 +188,7 @@ public class Action extends HttpServlet {
                 out.print(Delete.deleteHeaderMonth(request.getParameter("year"), request.getParameter("month"), request.getParameter("invround")));
                 out.flush();
                 break;
-            case "deleteRentalDetail":
-                out.print(Delete.deleteRentalDetail(request.getParameter("cono"), request.getParameter("divi"), request.getParameter("whs"), request.getParameter("period"), request.getParameter("line")));
-                out.flush();
-                break;
+           
             case "deleteStartDatecustomer":
                 out.print(Select.deleteStartDatecustomer(request.getParameter("customer")));
                 out.flush();
@@ -259,10 +197,7 @@ public class Action extends HttpServlet {
                 out.print(Select.deleteHeaderDatecustomer(request.getParameter("customer")));
                 out.flush();
                 break;
-            case "deleteRentalAddon":
-                out.print(Delete.deleteRentalAddon(request.getParameter("cono"), request.getParameter("divi"), request.getParameter("whs"), request.getParameter("period"), request.getParameter("line")));
-                out.flush();
-                break;
+            
 //            case "submitPO":
 //                out.print();
 //                out.flush();

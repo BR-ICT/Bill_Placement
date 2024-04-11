@@ -40,6 +40,13 @@
             <h3>รายการตารางวันลูกค้า</h3>
             <br>
             <div class="form-label-group">
+
+                <label for="date" id="vDatelab" style="">Start date:</label>
+                <input type="date" id="vStartDate" name="startdate" style="">
+                <br>
+                <label for="date" id="vDatelab" style="">End date:</label>
+                <input type="date" id="vEndDate" name="enddate" style="">
+                <br>
                 <label for="txtPeriod">Invoice Round</label>
                 <select style="width: 100px" name="invoiceround"  id="vInvround" required>
                     <option value="" selected="selected">Invoice Round!</option>
@@ -48,22 +55,24 @@
                     <option value="30" >30 Days</option>
                     <option value="Special" >Special Case</option>
                 </select>
-                <br>
-                <label for="txtPeriod">Year :</label>
-                <select style="width: 75px" name="Year"  id="vYear" required>
-                    <option value="" selected="selected">Select Year!</option>
-                </select>
-                <label for="txtPeriod">Month :</label>
-                <select style="width: 50px" name="Month"  id="vMonth" required>
-                    <option value="" selected="selected">Select Month!</option>
-                </select>
-                
+                <!--<label for="txtPeriod">Year :</label>-->
+                <!--<select style="width: 75px" name="Year"  id="vYear" required>-->
+                <!--<option value="" selected="selected">Select Year!</option>-->
+                <!--</select>-->
+                <!--<label for="txtPeriod">Month :</label>-->
+                <!--                <select style="width: 50px" name="Month"  id="vMonth" required>
+                                    <option value="" selected="selected">Select Month!</option>
+                                </select>-->
+
             </div>
         </form>
         <form align="center">
             <hr class="my-4">
-            <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="customer_calender" type="submit">เรียกรายงาน</button>
-            <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="customer_calenderXLSX" type="submit">เรียกรายงาน Excel</button>
+<!--            <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="customer_calender" type="submit">เรียกรายงาน</button>
+
+            <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="customer_calenderXLSX" type="submit">เรียกรายงาน Excel</button>-->
+            <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="Report_Billplacement_new" type="submit">เรียกรายงาน</button>
+            <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="Report_Billplacement_newXLSX" type="submit">เรียกรายงาน Excel</button>
         </form>
 
     </div>
@@ -83,9 +92,9 @@
         }).done(function (response) {
             console.log(response);
             warehouse = response;
-             $('#vYear').empty().append('<option value="" selected="selected">Select Year!!</option>');
+            $('#vYear').empty().append('<option value="" selected="selected">Select Year!!</option>');
             $.each(response, function (i, obj) {
-               
+
                 var div_data = "<option value=" + obj.vYear + ">" + obj.vYear + "</option>";
                 $(div_data).appendTo('#vYear');
             });
@@ -99,7 +108,7 @@
             data: {
                 path: "getMonthMaster",
                 year: $("#vYear").val(),
-                invround:$("#vInvround").val()
+                invround: $("#vInvround").val()
             },
             async: false
         }).done(function (response) {
