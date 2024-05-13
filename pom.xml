@@ -4,7 +4,7 @@
 <groupId>com.brfarm</groupId>
   <artifactId>finance-application</artifactId>
   <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>3.0.0</version>
   <name>finance-application Maven Webapps</name>
   <url>http://maven.apache.org</url>
   <dependencies>
