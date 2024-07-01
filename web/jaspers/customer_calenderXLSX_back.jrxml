@@ -1,0 +1,3732 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 5.5.2  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape_2" language="javascript" pageWidth="5250" pageHeight="595" orientation="Landscape" columnWidth="4960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="3594ccb8-df5f-4579-93ec-eae883f18ca4">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+	<parameter name="PYearNo" class="java.lang.String"/>
+	<parameter name="PMonthNo" class="java.lang.String"/>
+	<parameter name="Pinvround" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT A.BPH_CUNO,E.OKCUNM,E.oksmcd,E.okpycd,E.okcfc3
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(A.BPH_BPDT,7,2) = '01' AND SUBSTRING(A.BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(A.BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY1_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '02' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY2_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '03' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY3_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(A.BPH_BPDT,7,2) = '04' AND SUBSTRING(A.BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(A.BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY4_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '05' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY5_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '06' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY6_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '07' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY7_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '08' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY8_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '09' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY9_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '10' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY10_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '11' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY11_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '12' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY12_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '13' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY13_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '14' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY14_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '15' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY15_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '16' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY16_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '17' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY17_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '18' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY18_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '19' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY19_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '20' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY20_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '21' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY21_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '22' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY22_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '23' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY23_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '24' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY24_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '25' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY25_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '26' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY26_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '27' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY27_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '28' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY28_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '29' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY29_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '30' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY30_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_BPDT,7,2) = '31' AND SUBSTRING(BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_BPDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY31_bill
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(A.BPH_CLDT,7,2) = '01' AND SUBSTRING(A.BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(A.BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY1_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '02' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY2_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '03' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY3_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(A.BPH_CLDT,7,2) = '04' AND SUBSTRING(A.BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(A.BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY4_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '05' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY5_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '06' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY6_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '07' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY7_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '08' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY8_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '09' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY9_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '10' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY10_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '11' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY11_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '12' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY12_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '13' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY13_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '14' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY14_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '15' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY15_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '16' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY16_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '17' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY17_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '18' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY18_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '19' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY19_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '20' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY20_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '21' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY21_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '22' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY22_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '23' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY23_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '24' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY24_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '25' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY25_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '26' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY26_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '27' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY27_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '28' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY28_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '29' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY29_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '30' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY30_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '31' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN SUBSTRING(A.BPH_STDT,7,2)||'/' ||SUBSTRING(A.BPH_STDT,5,2) || '-' || SUBSTRING(A.BPH_FNDT,7,2) ||'/' ||SUBSTRING(A.BPH_FNDT,5,2) ||','
+ELSE NULL
+END )) AS VARCHAR(50)) AS DAY31_pay
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '01' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY1_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '02' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY2_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '03' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY3_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '04' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY4_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '05' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY5_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '06' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY6_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '07' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY7_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '08' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY8_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '09' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY9_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '10' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY10_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '11' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY11_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '12' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY12_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '13' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY13_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '14' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY14_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '15' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY15_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '16' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY16_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '17' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY17_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '18' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY18_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '19' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY19_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '20' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY20_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '21' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY21_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '22' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY22_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '23' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY23_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '24' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY24_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '25' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY25_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '26' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY26_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '27' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY27_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '28' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY28_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '29' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY29_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '30' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY30_Amount
+,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(BPH_CLDT,7,2) = '31' AND SUBSTRING(BPH_CLDT,5,2) = $P{PMonthNo} AND SUBSTRING(BPH_CLDT,1,4) = $P{PYearNo}
+THEN(HB_BNNO||',')
+END )) AS VARCHAR(50)) AS DAY31_Amount
+FROM BRLDTA0100.BP_HBILL A
+Join BRLDTA0100.BP_MASTER B ON B.BPM_CONO  = A.BPH_CONO 
+AND A.BPH_CUNO = B.BPM_CUNO
+LEFT JOIN M3FDBPRD.OCUSMA E ON E.OKCUNO = A.BPH_CUNO AND e.OKCONO = A.BPH_CONO
+LEFT JOIN BRLDTA0100.H_BILLNOTE C ON  C.HB_CUNO = A.BPH_CUNO AND C.HB_CONO = A.BPH_CONO AND C.HB_TRDT = A.BPH_STDT
+WHERE B.BPM_RINV = $P{Pinvround}
+GROUP BY A.BPH_CUNO,E.OKCUNM,E.oksmcd,E.okpycd,E.okcfc3]]>
+	</queryString>
+	<field name="BPH_CUNO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="BPH_CUNO"/>
+	</field>
+	<field name="OKCUNM" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="OKCUNM"/>
+	</field>
+	<field name="OKSMCD" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="OKSMCD"/>
+	</field>
+	<field name="OKPYCD" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="OKPYCD"/>
+	</field>
+	<field name="OKCFC3" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="OKCFC3"/>
+	</field>
+	<field name="DAY1_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY1_BILL"/>
+	</field>
+	<field name="DAY2_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY2_BILL"/>
+	</field>
+	<field name="DAY3_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY3_BILL"/>
+	</field>
+	<field name="DAY4_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY4_BILL"/>
+	</field>
+	<field name="DAY5_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY5_BILL"/>
+	</field>
+	<field name="DAY6_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY6_BILL"/>
+	</field>
+	<field name="DAY7_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY7_BILL"/>
+	</field>
+	<field name="DAY8_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY8_BILL"/>
+	</field>
+	<field name="DAY9_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY9_BILL"/>
+	</field>
+	<field name="DAY10_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY10_BILL"/>
+	</field>
+	<field name="DAY11_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY11_BILL"/>
+	</field>
+	<field name="DAY12_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY12_BILL"/>
+	</field>
+	<field name="DAY13_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY13_BILL"/>
+	</field>
+	<field name="DAY14_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY14_BILL"/>
+	</field>
+	<field name="DAY15_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY15_BILL"/>
+	</field>
+	<field name="DAY16_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY16_BILL"/>
+	</field>
+	<field name="DAY17_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY17_BILL"/>
+	</field>
+	<field name="DAY18_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY18_BILL"/>
+	</field>
+	<field name="DAY19_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY19_BILL"/>
+	</field>
+	<field name="DAY20_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY20_BILL"/>
+	</field>
+	<field name="DAY21_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY21_BILL"/>
+	</field>
+	<field name="DAY22_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY22_BILL"/>
+	</field>
+	<field name="DAY23_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY23_BILL"/>
+	</field>
+	<field name="DAY24_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY24_BILL"/>
+	</field>
+	<field name="DAY25_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY25_BILL"/>
+	</field>
+	<field name="DAY26_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY26_BILL"/>
+	</field>
+	<field name="DAY27_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY27_BILL"/>
+	</field>
+	<field name="DAY28_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY28_BILL"/>
+	</field>
+	<field name="DAY29_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY29_BILL"/>
+	</field>
+	<field name="DAY30_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY30_BILL"/>
+	</field>
+	<field name="DAY31_BILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY31_BILL"/>
+	</field>
+	<field name="DAY1_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY1_PAY"/>
+	</field>
+	<field name="DAY2_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY2_PAY"/>
+	</field>
+	<field name="DAY3_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY3_PAY"/>
+	</field>
+	<field name="DAY4_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY4_PAY"/>
+	</field>
+	<field name="DAY5_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY5_PAY"/>
+	</field>
+	<field name="DAY6_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY6_PAY"/>
+	</field>
+	<field name="DAY7_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY7_PAY"/>
+	</field>
+	<field name="DAY8_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY8_PAY"/>
+	</field>
+	<field name="DAY9_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY9_PAY"/>
+	</field>
+	<field name="DAY10_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY10_PAY"/>
+	</field>
+	<field name="DAY11_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY11_PAY"/>
+	</field>
+	<field name="DAY12_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY12_PAY"/>
+	</field>
+	<field name="DAY13_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY13_PAY"/>
+	</field>
+	<field name="DAY14_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY14_PAY"/>
+	</field>
+	<field name="DAY15_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY15_PAY"/>
+	</field>
+	<field name="DAY16_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY16_PAY"/>
+	</field>
+	<field name="DAY17_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY17_PAY"/>
+	</field>
+	<field name="DAY18_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY18_PAY"/>
+	</field>
+	<field name="DAY19_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY19_PAY"/>
+	</field>
+	<field name="DAY20_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY20_PAY"/>
+	</field>
+	<field name="DAY21_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY21_PAY"/>
+	</field>
+	<field name="DAY22_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY22_PAY"/>
+	</field>
+	<field name="DAY23_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY23_PAY"/>
+	</field>
+	<field name="DAY24_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY24_PAY"/>
+	</field>
+	<field name="DAY25_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY25_PAY"/>
+	</field>
+	<field name="DAY26_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY26_PAY"/>
+	</field>
+	<field name="DAY27_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY27_PAY"/>
+	</field>
+	<field name="DAY28_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY28_PAY"/>
+	</field>
+	<field name="DAY29_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY29_PAY"/>
+	</field>
+	<field name="DAY30_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY30_PAY"/>
+	</field>
+	<field name="DAY31_PAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY31_PAY"/>
+	</field>
+	<field name="DAY1_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY1_AMOUNT"/>
+	</field>
+	<field name="DAY2_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY2_AMOUNT"/>
+	</field>
+	<field name="DAY3_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY3_AMOUNT"/>
+	</field>
+	<field name="DAY4_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY4_AMOUNT"/>
+	</field>
+	<field name="DAY5_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY5_AMOUNT"/>
+	</field>
+	<field name="DAY6_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY6_AMOUNT"/>
+	</field>
+	<field name="DAY7_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY7_AMOUNT"/>
+	</field>
+	<field name="DAY8_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY8_AMOUNT"/>
+	</field>
+	<field name="DAY9_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY9_AMOUNT"/>
+	</field>
+	<field name="DAY10_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY10_AMOUNT"/>
+	</field>
+	<field name="DAY11_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY11_AMOUNT"/>
+	</field>
+	<field name="DAY12_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY12_AMOUNT"/>
+	</field>
+	<field name="DAY13_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY13_AMOUNT"/>
+	</field>
+	<field name="DAY14_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY14_AMOUNT"/>
+	</field>
+	<field name="DAY15_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY15_AMOUNT"/>
+	</field>
+	<field name="DAY16_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY16_AMOUNT"/>
+	</field>
+	<field name="DAY17_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY17_AMOUNT"/>
+	</field>
+	<field name="DAY18_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY18_AMOUNT"/>
+	</field>
+	<field name="DAY19_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY19_AMOUNT"/>
+	</field>
+	<field name="DAY20_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY20_AMOUNT"/>
+	</field>
+	<field name="DAY21_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY21_AMOUNT"/>
+	</field>
+	<field name="DAY22_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY22_AMOUNT"/>
+	</field>
+	<field name="DAY23_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY23_AMOUNT"/>
+	</field>
+	<field name="DAY24_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY24_AMOUNT"/>
+	</field>
+	<field name="DAY25_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY25_AMOUNT"/>
+	</field>
+	<field name="DAY26_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY26_AMOUNT"/>
+	</field>
+	<field name="DAY27_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY27_AMOUNT"/>
+	</field>
+	<field name="DAY28_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY28_AMOUNT"/>
+	</field>
+	<field name="DAY29_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY29_AMOUNT"/>
+	</field>
+	<field name="DAY30_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY30_AMOUNT"/>
+	</field>
+	<field name="DAY31_AMOUNT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DAY31_AMOUNT"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="17">
+			<textField>
+				<reportElement x="34" y="0" width="26" height="15" uuid="73b581ce-9be4-4cf7-b3a1-21fd2b4112f2"/>
+				<textFieldExpression><![CDATA[$P{PMonthNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="0" width="34" height="15" uuid="ef5e26ec-c684-43fc-8d8a-adc6e9ecd18b"/>
+				<textFieldExpression><![CDATA[$P{PYearNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="34" height="15" uuid="721be5e8-dc5e-4d54-8a6e-1b4a2352767f"/>
+				<text><![CDATA[Month:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="0" width="30" height="15" uuid="60fd9a14-af88-41b1-8af8-375f6763ec65"/>
+				<text><![CDATA[Year:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="0" width="100" height="15" uuid="b8766956-c91a-4d85-83fb-f41f05ffa974"/>
+				<textFieldExpression><![CDATA[$P{Pinvround}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="124" y="0" width="66" height="15" uuid="eb56cf4f-1e2a-43cd-837e-cca7669f9639"/>
+				<text><![CDATA[Invoice round:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="72" height="60" backcolor="#F78411" uuid="70a81583-1922-4e64-9d3e-113e1226e1b9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7c532d5d-6b05-43da-90fe-7f7a9da5fa96"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Customer Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="72" y="0" width="86" height="60" backcolor="#F78411" uuid="25322a0a-072e-4889-96e4-e5b31b712907">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ef318313-6f2a-4d77-af9f-19f013c6667e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Customer name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="350" y="30" width="52" height="30" backcolor="#81F4FB" uuid="e6e14199-8fd9-4934-a899-dfd5121570ed">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="072a38ff-4821-4c96-9e01-dde2b54da915"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day1 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="402" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="5144a1e5-124e-4350-8ef8-aeeed29299ac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day1 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="454" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="44641b68-aed9-4c40-bd08-ddef21e54852">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e259523-cc1b-4fcb-a360-9d57282cb54d"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day1 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="506" y="30" width="52" height="30" backcolor="#81F4FB" uuid="df90e75c-bc46-4b3a-8e4c-a00cc9b1d4d8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9561aac5-8703-4f5c-9451-432cafb22c51"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 2 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="558" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="d48f8c01-232d-4e97-a36c-9c6334d2f67d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="20baadb4-696c-4433-aeb8-9f8735801090"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 2 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="610" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="7b3c77e7-8093-4469-8410-9207ff34d074">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6b7218d1-2b29-45e4-a60f-d7f5403cf432"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 2 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="662" y="30" width="52" height="30" backcolor="#81F4FB" uuid="ac0f0853-5932-4fa9-b80e-1bf0c6caeb17">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1b74cf6c-5c2b-476c-8a4a-068b14fc604e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 3 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="714" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="15f9ccc4-de64-4b9e-a8c9-727b38d30d52">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9ace7f12-ffde-4618-9c23-3378dd79d89f"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 3 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="766" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="13cab730-47e1-42d3-a792-2b6ae27a62a1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e28957ec-0ae0-4f02-a9e3-17beeb8b810f"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 3 amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="818" y="30" width="52" height="30" backcolor="#81F4FB" uuid="e10670c7-17cb-44b7-86f8-24abe37fe00b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d714480c-0215-4386-b033-f936b556d5d0"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 4 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="870" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="de7ae98e-a0bb-4a9e-bc04-b00367b257c5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fde08437-5699-495c-9b63-4e95863260fd"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 4 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="922" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="11392c3a-2399-4afd-967d-78481ed95ccc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c98e72c1-e8a0-49e4-bf2b-7b213dd342bc"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 4 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="974" y="30" width="52" height="30" backcolor="#81F4FB" uuid="ab7dc07e-5c27-40f3-aa9b-ce4f6703a87e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a6e90245-afe3-42b2-89d4-efec199427c9"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 5 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1026" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="490781f5-2fcf-4cd0-8dcc-3eb096beb2f1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="49015dbe-d6c6-4916-85d3-3c23354336ed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 5 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1078" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="89aa574d-b4ea-4621-a602-17c271b5ae0d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2eac4739-67b9-4423-ab0a-aa697b2fa632"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 5 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1130" y="30" width="52" height="30" backcolor="#81F4FB" uuid="8c344291-d938-4c5a-81a3-11a8a20ed8fa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9d32bb97-0816-4bc5-a634-e0a8721013f6"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 6 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1182" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="4cecc150-ee79-439c-b4f6-eacb6a6f9301">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7e53c373-bb1f-4ca3-b02a-0dd0a6db6c4f"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 6 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1234" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="0de0f7a8-b8df-459c-88a2-1f6d94441744">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2773fcc-62ef-4a75-897c-1c7c4b942dbd"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 6 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1286" y="30" width="52" height="30" backcolor="#81F4FB" uuid="b55c7db2-be20-488b-998a-3e15484bb575">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7bf807dd-ebb6-4b93-8c3b-b707b1d196a3"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 7 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1338" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="784849e2-29b3-49b8-baf6-2c9c059a349b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7af914fd-b756-4e6e-be07-cb8fc8919403"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 7 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1390" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="4248e443-2665-4bd7-87b6-cf2269c08e3f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="88f73879-fea6-4f57-bf4a-6f1265df29d7"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 7 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1442" y="30" width="52" height="30" backcolor="#81F4FB" uuid="61e9db06-10f9-492e-b460-63ac688d9feb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="01cd1e0d-0ba3-49a3-b58b-96151da1d5e3"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 8 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1494" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="b7145af6-85a7-4e70-af65-ed551be40959">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cc5c23b5-e85a-4bd2-ac7c-d0c2a29845d9"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 8 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1546" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="f57de402-bd33-44f2-895b-5a4bf64489d5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2164fb9d-39a2-44ae-b05b-30049cb44518"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 8 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1598" y="30" width="52" height="30" backcolor="#81F4FB" uuid="909e806a-c670-4a22-9389-fc3732ac944b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="204bbe96-0130-4589-8754-f66f2f86132e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 9 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1650" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="81750382-ffb4-4599-bc56-50ef056bb08c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0f4e3de2-637a-42ed-9ab9-c61ad4781b99"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 9 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1702" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="f7fc96dd-2ce2-4f0e-85d9-54754965eedb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9bfdcb99-6582-438a-b554-4af56d4358e9"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 9 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1754" y="30" width="52" height="30" backcolor="#81F4FB" uuid="03585965-7a63-43e9-ac42-2cf18f6c27fa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="667edc59-7fb3-4657-af58-f341908e4d08"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 10 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1806" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="ec8ce713-51b4-47b5-908d-9ca788560877">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="789f62b5-6175-4a8b-aa74-25a99c492fd8"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 10 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1858" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="f38a9f24-c4c2-4071-aa9b-cbdedb57036d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="febbfc96-298b-4fbd-abb7-56088711ff42"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 10 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1910" y="30" width="52" height="30" backcolor="#81F4FB" uuid="1ee2a979-25cf-425d-ac3b-c93ffa5b9697">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="67f3c4d2-bd17-4510-8e53-6d4838db7fb2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 11 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1962" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="98a6c865-a59a-48d3-88a2-53bafbd45aae">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2dcf6d18-437c-4231-b0c0-c6d2a2fefe2e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 11 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2014" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="cc3caf4a-3924-4e67-8a7a-742a8efa14f3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b8ccbd70-5d1c-4660-8798-59e32d7d8a71"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 11 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2066" y="30" width="52" height="30" backcolor="#81F4FB" uuid="8a6474f9-369f-43da-a4f9-775ca17da1e4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="65a76f1b-8966-4849-bafe-a9e9a47fab01"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 12 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2118" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="48e1ebe6-3950-4848-9d3e-949bb3316bf8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="07837ecd-da29-4e4a-b531-33f2d10875c0"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 12 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2170" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="27e216cf-46e0-4144-83f2-29381407494e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa94f20a-8812-4d9b-a293-e3c7efa6d10a"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 12 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2222" y="30" width="52" height="30" backcolor="#81F4FB" uuid="4b1b9794-ccfc-4b40-970c-10b3ad577886">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a9c2c3aa-ea22-4d2b-b528-eedbc9ddde8f"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 13 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2274" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="517b4c11-d6e5-4777-a555-4796c172f07b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="31d09102-8723-4cf1-9a66-d3767f572ded"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 13 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2326" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="ed72375e-4e72-4524-94af-446ff4f7ee7b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="08e9b87c-50cd-4f67-a667-5ac1d41ceef0"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 13 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2378" y="30" width="52" height="30" backcolor="#81F4FB" uuid="b6e447df-425e-4781-8880-737812802104">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e6ca8cbb-3a5b-41fb-9830-81914ba639e9"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 14 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2430" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="58a7b39f-39fd-4eeb-8fc6-5703b4b8a9e9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="74978df3-ef53-4730-94c9-813b2bb38dd5"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 14 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2482" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="cd38d2c2-8205-486a-9b0b-661bfcf8abd8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4ab380ec-b5c4-4bc6-8b40-08aa1c8b4eaa"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 14 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2534" y="30" width="52" height="30" backcolor="#81F4FB" uuid="0b7290ac-8d73-4f5a-a92a-f55e679c83cd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="72a6ece1-898c-4cec-8eee-8377c9c2d365"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 15 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2586" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="0f213bc1-8400-48b6-bbe4-491a315d977a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e671db2-785d-49ad-a37c-d7dd8c4f1edc"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 15 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2638" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="48b21900-21bf-4611-8b6c-06fb15cf961d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6245890b-8584-4365-8e1c-65e6b7f0843f"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 15 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2690" y="30" width="52" height="30" backcolor="#81F4FB" uuid="14004b70-f076-454c-9a56-b104d1626914">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="62386da1-335f-459d-a87d-d01056c72307"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 16 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2742" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="82787ab2-c994-4f12-9000-3a9e2b172d0c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="18a7f8b7-1384-4ad3-be7b-0311bb2186c5"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 16 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2794" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="65bced22-fa09-44fa-aaf1-864b759738cf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7a459529-aa93-4f61-862a-cbe14086d762"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 16 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2846" y="30" width="52" height="30" backcolor="#81F4FB" uuid="bb8416f6-5d87-43a0-bdab-a6e8b393421c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7e835632-5023-4cd6-86d3-6f3b4d109d18"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 17 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2898" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="e51c2dcb-2e09-4366-b0d8-dc9b5799e433">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b1493e5d-09bc-47fa-b6bc-9d22eb3b0679"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 17 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2950" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="680a2a31-20e7-46cc-bbb4-9f1b09bbe59f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8e0356fc-4128-40e1-9d60-35a45b96c256"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 17 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3002" y="30" width="52" height="30" backcolor="#81F4FB" uuid="6700ef02-bfd8-4ca7-97b3-60aecedd6c97">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="adf8d6a9-b0bb-4b36-8f8a-9e9f8e07254a"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 18 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3054" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="757c7e13-3ec1-403f-b518-a978933b0403">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="62ab3bac-e7aa-4164-ae84-468df701bcaf"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[DAY18 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3106" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="cae8111d-491f-4035-ab47-8c124a8bc1f0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2389edad-f7ab-4fcb-82ea-df11bb49dc06"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 18 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3158" y="30" width="52" height="30" backcolor="#81F4FB" uuid="49dc7d21-a176-42da-bd9d-c7146fc8ff9e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63fb726c-3a76-4cba-ae5f-4084b369c87b"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 19 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3210" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="4c11f164-06ec-4853-8b64-bc1b9a71d177">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5e085644-57c1-4639-908a-00e0a89965a6"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 19 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3262" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="0c53ae7f-41bd-461e-90d7-41ea840860b9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b75c890-c57f-448f-ae2e-b3ef46bb11e3"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 19 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3314" y="30" width="52" height="30" backcolor="#81F4FB" uuid="683f8c5d-43ad-4bfc-8a8e-a58d99f15674">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fcfbb3e6-019c-4870-bec4-be1e6ae24171"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 20 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3366" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="cbbe84f5-c433-4318-9816-848fd0dbc831">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="14aff311-674b-46ff-861e-bdcdb9dbb87d"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 20 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3418" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="21ad81b5-f613-4bb7-97ee-50cd31a4c28a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="29294077-5c34-4264-baf9-e1b1cfb5049e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 20 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3470" y="30" width="52" height="30" backcolor="#81F4FB" uuid="2eaea8de-8462-48c6-ad43-beb369977502">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eef145e7-5181-4016-b2b5-7b2d63677933"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 21 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3522" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="5ec324bd-8981-43f9-8aab-549b376cd2d0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ad535cdc-4a6c-402e-96cf-d3e6ed84f2b7"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 21 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3574" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="47af9e48-1e44-4501-a908-6493eee4a3c3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1c1b3536-8517-4ace-856e-0815d57f28c7"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 21 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3626" y="30" width="52" height="30" backcolor="#81F4FB" uuid="7321a255-58ea-41e6-a8fe-9b0093160b84">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="554ef530-90c2-4c43-9006-ebda259a7351"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 22 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3678" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="770161f4-4d9a-46a5-8c9f-1d42e9e4f234">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="667e267a-c270-410f-ac84-827d4e440bcb"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 22 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3730" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="09e3a79e-919c-4625-a9b4-2ddc55eaacb6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="36952d04-0930-449f-8215-385d3e9c4a69"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 22 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3782" y="30" width="52" height="30" backcolor="#81F4FB" uuid="2f3b2e9f-8b05-4361-9234-3b249c6359f8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d9d5f268-09d4-4c0a-8608-35d993d08516"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 23 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3834" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="116be2ed-3a65-40cd-b421-e812a4569ed8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="84737a9b-095a-48e2-adaf-8e306e4288de"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 23 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3886" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="aa291122-b312-4d78-ad3c-09925032ccbe">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ffabe67b-33ea-4d50-8ecd-ac1a5dae8126"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 23 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3938" y="30" width="52" height="30" backcolor="#81F4FB" uuid="d3fe6a3d-95a7-4c3e-ae18-2e2da262fce7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8843a7fd-6ff7-44f4-9755-77994ee13fdc"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 24 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3990" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="a7057141-fa6b-4e80-9bca-46629792e5ca">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="865d70bc-9dd0-4dc6-9a1d-9e3d4671da84"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 24 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4042" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="2646be23-f05f-40ba-a112-e44fcd25e40f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6c2e49d8-c20b-46f5-a614-ded9d24e239c"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Pay 24 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4094" y="30" width="52" height="30" backcolor="#81F4FB" uuid="7fbf24cb-9dcf-40aa-bde2-7af828c7eaff">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8c726b68-7f70-47ca-86df-bcb2b0f1e554"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 25 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4146" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="81c51254-f60d-40d4-8f07-3bc908277a75">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dd0f7d7c-8d50-4010-a260-ac05acfa0a29"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 25 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4198" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="a7647266-7f17-4b0a-8eb3-486846fcce48">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2e06a417-46e1-40f8-8c85-1a4f28579b56"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 25 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4250" y="30" width="52" height="30" backcolor="#81F4FB" uuid="e5a8a385-8d21-4c7b-9c0e-45e8d52ed66e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="779936f4-cc04-4411-917c-0f8b5c1e4aa5"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 26 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4302" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="e828263b-c87b-4981-9a7d-f3eadd24d4f2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3fae25f2-60fe-42ab-8968-30301e672619"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 26 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4354" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="5ba793b3-ade4-4074-a94f-c04136589d13">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f7527ae1-e535-44bd-a13f-e7ae61286de2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 26 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4406" y="30" width="52" height="30" backcolor="#81F4FB" uuid="56f44721-4914-4e8d-a60d-2df9f1a95d9e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cd7fb521-b545-421e-9b0c-8b33bb6272ac"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 27 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4458" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="1cf20be1-9280-42ab-87bb-a685d48ce88a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="79d47ab6-a57a-4d90-9cd1-afc9b993ab38"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 27 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4510" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="0dfcc471-5162-4bdc-a7a1-5f2e95da9c13">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b32840b6-5e0b-4fee-8f61-44c45f18fd6b"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 27 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4562" y="30" width="52" height="30" backcolor="#81F4FB" uuid="6f930509-231f-47a3-8ac5-2caba58c0fca">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8351e244-bfd8-427d-bfc9-f6d557cf7cc0"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 28 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4614" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="b43522dc-7af4-4968-8c8f-3256fb86d6f9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5b1ede0e-f75a-424b-a6dd-2938d04ac111"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 28 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4666" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="efa4128d-c2ed-474b-86eb-aabe73b45592">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="04682b98-a6e4-4f0f-85f4-c5692e967f10"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 28 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4718" y="30" width="52" height="30" backcolor="#81F4FB" uuid="af887c8c-4c11-42bd-89e5-71f3d503f4e3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e59f1b72-12e0-4ec2-9d31-eeacaa0f7af4"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 29 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4770" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="8e4ff278-d38e-4d76-b6cc-6e0408723ad0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f6ee3555-f6f6-4362-9dda-baa0868df203"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 29 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4822" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="30e2ad30-074a-4e55-89e6-e74972879495">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ce5062-86c9-4454-a382-72ff9ae66e21"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 29 Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4874" y="30" width="52" height="30" backcolor="#81F4FB" uuid="3ce92b20-5ca5-4f11-93b3-6ae019bb3a1a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="54a86b16-2989-49b3-8351-f25c22df9544"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 30 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4926" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="c265d595-a8e1-4392-a749-42fbaed32262">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f4940cb6-3f9d-4525-9a30-be9e97f308e6"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 30 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4978" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="e5364335-ae9f-4683-b1e3-300d63c6885c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="286b16a2-c601-4c89-88d2-ac521e8e9a9f"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 30 amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="5030" y="30" width="52" height="30" backcolor="#81F4FB" uuid="48810fd5-c6f9-42d3-b892-ba6987a34921">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e7586708-7ca0-43da-a3c3-31d93343ff19"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 31 Bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="5082" y="30" width="52" height="30" backcolor="#F8ADC2" uuid="f50b7215-527c-4925-bd0c-f9a1e7518ec0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa10f440-5594-4f80-9de1-ba333860d7b4"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 31 Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="5134" y="30" width="52" height="30" backcolor="#A0DAA8" uuid="921ba9c2-3d18-4d1a-8b59-e526a62c022a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d6b380b5-9ef0-4d08-a63e-7159f3d81701"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 31 amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="350" y="0" width="156" height="30" backcolor="#F78411" uuid="dea8078a-13f1-4248-987e-4ebdba956554">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="506" y="0" width="156" height="30" backcolor="#F78411" uuid="792c1a28-6f63-444a-a87e-0f618c2305dd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="662" y="0" width="156" height="30" backcolor="#F78411" uuid="9ada3111-7413-41df-8b65-bec023dc540a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="818" y="0" width="156" height="30" backcolor="#F78411" uuid="8db266db-ec99-4a2f-83ff-f9ea948add8b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="974" y="0" width="156" height="30" backcolor="#F78411" uuid="97b01eab-74f4-4b2c-89e4-442a25d4cdd8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1130" y="0" width="156" height="30" backcolor="#F78411" uuid="3aa078ff-29b7-4133-8fb5-d279e0d6d887">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 6]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1286" y="0" width="156" height="30" backcolor="#F78411" uuid="f40d0e81-e83c-4adf-a43b-8d528d4b8203">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1442" y="0" width="156" height="30" backcolor="#F78411" uuid="623e6856-d180-4d3f-b123-d8b9c86994fa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 8]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1598" y="0" width="156" height="30" backcolor="#F78411" uuid="60c1a79d-282f-4690-867e-23cbdad799d0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 9]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1754" y="0" width="156" height="30" backcolor="#F78411" uuid="710b9506-d51e-4c96-a74e-527cf4962315">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1910" y="0" width="156" height="30" backcolor="#F78411" uuid="9c2271f6-9e13-453d-bb97-c27f540320e4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 11]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2066" y="0" width="156" height="30" backcolor="#F78411" uuid="95a23f15-da3b-4b5b-8bde-5f362540d8ac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 12]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2222" y="0" width="156" height="30" backcolor="#F78411" uuid="70d0d14f-b80c-4f47-92cd-e8fe87480399">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 13]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2378" y="0" width="156" height="30" backcolor="#F78411" uuid="cd0b29b5-cafc-4ddb-b557-e666c9870a8a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 14]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2534" y="0" width="156" height="30" backcolor="#F78411" uuid="19865374-b2d4-41e0-85fb-bd12b84c82bb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 15]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2690" y="0" width="156" height="30" backcolor="#F78411" uuid="5c5a410f-f748-4370-8e9f-1a26ae8bb119">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 16]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2846" y="0" width="156" height="30" backcolor="#F78411" uuid="c6ee1ff4-882a-4c6e-9171-82e19e96a626">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 17]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3002" y="0" width="156" height="30" backcolor="#F78411" uuid="dda06776-acf6-47c1-944e-e6eed20cf99d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 18]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3158" y="0" width="156" height="30" backcolor="#F78411" uuid="04880dd2-04e4-4be3-8557-2ec1f6e279ae">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 19]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3314" y="0" width="156" height="30" backcolor="#F78411" uuid="0ee70eac-8e8c-471e-837d-e62df517c458">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 20]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3470" y="0" width="156" height="30" backcolor="#F78411" uuid="d2d084ac-d701-47d3-9756-7f08e100963c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 21]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3626" y="0" width="156" height="30" backcolor="#F78411" uuid="9afeb644-2a9e-40ab-8eb7-3e415ddd54f6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 22]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3782" y="0" width="156" height="30" backcolor="#F78411" uuid="8c7698af-3461-49b0-a2c5-b138a1bc734e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 23]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3938" y="0" width="156" height="30" backcolor="#F78411" uuid="72d4e5a2-4c7a-4e35-81c2-b2045ce98237">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 24]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4094" y="0" width="156" height="30" backcolor="#F78411" uuid="2ba24615-ccd1-4efb-b3dd-72b929695b8b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 25]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4250" y="0" width="156" height="30" backcolor="#F78411" uuid="dd7db4ca-bc0c-488f-8e99-1f22becb26c3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 26]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4406" y="0" width="156" height="30" backcolor="#F78411" uuid="cf8424e5-b652-4f10-9778-1eda606b4f6a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 27]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4562" y="0" width="156" height="30" backcolor="#F78411" uuid="876979a0-6847-4fe1-ba90-9156fc0a3fa0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 28]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4718" y="0" width="156" height="30" backcolor="#F78411" uuid="471b1c4e-d2e7-4109-9c94-30f9c6a27231">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 29]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="4874" y="0" width="156" height="30" backcolor="#F78411" uuid="6d1190e2-e4d1-423b-965b-82782c1b9fa4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 30]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="5030" y="0" width="156" height="30" backcolor="#F78411" uuid="0d7e6122-dc3c-4ac6-9ed6-0e0d6c9c23a2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day 31]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="158" y="0" width="66" height="60" backcolor="#F78411" uuid="d794437b-4224-43a1-8873-2dfd483de0fc"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Salesman]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="224" y="0" width="66" height="60" backcolor="#F78411" uuid="b8a6980a-c666-42db-95de-eda93cb23ea2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f1f8e0b3-026d-4588-b061-bd01449b4f94"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="12"/>
+				</textElement>
+				<text><![CDATA[วิธีการชำระเงิน]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="290" y="0" width="60" height="60" backcolor="#F78411" uuid="c14a3828-283b-4a71-a2ca-88045ceaefea">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e1511c62-feff-43d5-8b93-1bfe55ec2aa5"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Channel]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="72" height="30" uuid="6c238a79-4fb8-41c8-81d6-343f15fcbbe7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7c532d5d-6b05-43da-90fe-7f7a9da5fa96"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BPH_CUNO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="72" y="0" width="86" height="30" uuid="28ec90b3-a1f3-42ba-9954-32f6301be3b3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ef318313-6f2a-4d77-af9f-19f013c6667e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OKCUNM}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="350" y="0" width="52" height="30" uuid="a186d997-1b43-4303-86f6-f5f1e78c709f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="072a38ff-4821-4c96-9e01-dde2b54da915"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY1_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="402" y="0" width="52" height="30" uuid="3738087e-e28e-4159-88d9-0b0284ed3d1b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b699cc3-dfb2-4e0e-a109-5a4369e38bed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY1_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="454" y="0" width="52" height="30" uuid="545f579d-1ef4-40fe-90fe-29533ad814c0">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY1_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="506" y="0" width="52" height="30" uuid="73567c24-57fe-4e09-9921-9b983113e7a7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9561aac5-8703-4f5c-9451-432cafb22c51"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY2_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="558" y="0" width="52" height="30" uuid="73804452-f18f-4e1e-b3da-0bc9685f561f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="20baadb4-696c-4433-aeb8-9f8735801090"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY2_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="610" y="0" width="52" height="30" uuid="ae4a73dc-ba35-4c6f-a81b-0fcc5a7b45ba">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY2_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="662" y="0" width="52" height="30" uuid="fe997994-5913-464b-a444-3e49431b5f26">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1b74cf6c-5c2b-476c-8a4a-068b14fc604e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY3_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="714" y="0" width="52" height="30" uuid="292126e3-4f29-49e4-9618-b7931939d91f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9ace7f12-ffde-4618-9c23-3378dd79d89f"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY3_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="766" y="0" width="52" height="30" uuid="670a840c-0b36-4509-8fc5-d025937207c9">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY3_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="818" y="0" width="52" height="30" uuid="bde6514a-8db8-40ee-95ac-f43792c35ad2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d714480c-0215-4386-b033-f936b556d5d0"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY4_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="870" y="0" width="52" height="30" uuid="d27f2315-32bc-407d-a6f4-69093e5cd954">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fde08437-5699-495c-9b63-4e95863260fd"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY4_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="922" y="0" width="52" height="30" uuid="a81b2307-d79e-4bb8-a3a0-b96a968f6c78">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY4_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="974" y="0" width="52" height="30" uuid="33d7bd3e-377c-415b-b022-af3009c6adb3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a6e90245-afe3-42b2-89d4-efec199427c9"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY5_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1026" y="0" width="52" height="30" uuid="f08fa2a8-4021-44fd-a44e-5ec6d0682ae2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="49015dbe-d6c6-4916-85d3-3c23354336ed"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY5_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1078" y="0" width="52" height="30" uuid="943f8680-0740-4c0b-b719-b8e29a0d1a70">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY5_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1130" y="0" width="52" height="30" uuid="ec3965f0-6b1a-45d5-b8c8-8d641bced80f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9d32bb97-0816-4bc5-a634-e0a8721013f6"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY6_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1182" y="0" width="52" height="30" uuid="e152c5b5-6c2b-45cd-85ad-eb5e0d4ceca3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7e53c373-bb1f-4ca3-b02a-0dd0a6db6c4f"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY6_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1234" y="0" width="52" height="30" uuid="b93c55e6-35ca-400b-8d4c-6c6d99735f17">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY6_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1286" y="0" width="52" height="30" uuid="f6b90f4d-4b00-4612-9089-ecffba8e6def">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7bf807dd-ebb6-4b93-8c3b-b707b1d196a3"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY7_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1338" y="0" width="52" height="30" uuid="547bfbf9-fafb-4744-b65c-7066c3b719e1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7af914fd-b756-4e6e-be07-cb8fc8919403"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY7_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1390" y="0" width="52" height="30" uuid="0905a210-92a4-46fa-ae23-873c3bf651db">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY7_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1442" y="0" width="52" height="30" uuid="2e926279-7eae-4e64-89ed-6fd713688522">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="01cd1e0d-0ba3-49a3-b58b-96151da1d5e3"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY8_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1494" y="0" width="52" height="30" uuid="bdc9bb5f-81de-4288-a06a-4920cde6dc4d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cc5c23b5-e85a-4bd2-ac7c-d0c2a29845d9"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY8_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1546" y="0" width="52" height="30" uuid="ba48314d-0965-4cb0-9d7f-1f6975150386">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY8_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1598" y="0" width="52" height="30" uuid="2a63b7b9-c756-4064-91ab-2a9aeb462c9a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="204bbe96-0130-4589-8754-f66f2f86132e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY9_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1650" y="0" width="52" height="30" uuid="1cb8f7ef-907b-4b99-a61c-990790abca4e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0f4e3de2-637a-42ed-9ab9-c61ad4781b99"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY9_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1702" y="0" width="52" height="30" uuid="cc356d54-0688-45f0-a9c9-4af6d535c758">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY9_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1754" y="0" width="52" height="30" uuid="56acfb41-0e5f-41d9-a42b-ea4f6405a215">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="667edc59-7fb3-4657-af58-f341908e4d08"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY10_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1806" y="0" width="52" height="30" uuid="aae0c885-c1f9-4ac0-9dd4-adc4aa237273">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="789f62b5-6175-4a8b-aa74-25a99c492fd8"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY10_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1858" y="0" width="52" height="30" uuid="104cc3a0-d450-49e9-bef4-de3de2f93b3e">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY10_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1910" y="0" width="52" height="30" uuid="ac36fa1c-d3d0-4e94-8e64-b07f70a1c1f9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="67f3c4d2-bd17-4510-8e53-6d4838db7fb2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY11_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1962" y="0" width="52" height="30" uuid="9e95209f-3866-4912-b6c3-ece3b7167742">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2dcf6d18-437c-4231-b0c0-c6d2a2fefe2e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY11_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2014" y="0" width="52" height="30" uuid="f5de451f-677a-4285-a208-c27aa1260e2a">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY11_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2066" y="0" width="52" height="30" uuid="cc9e18e1-f3d9-4b64-ab49-1a2905348216">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="65a76f1b-8966-4849-bafe-a9e9a47fab01"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY12_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2118" y="0" width="52" height="30" uuid="cba1afd6-b2ec-4338-8c11-a9cd8ba1063d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="07837ecd-da29-4e4a-b531-33f2d10875c0"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY12_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2170" y="0" width="52" height="30" uuid="82bf87c3-8866-4774-a50f-cc3c25c866c7">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY12_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2222" y="0" width="52" height="30" uuid="6d60e728-95d9-4f81-aa38-c4ff67e7b497">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a9c2c3aa-ea22-4d2b-b528-eedbc9ddde8f"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY13_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2274" y="0" width="52" height="30" uuid="275126b2-b333-4997-b665-85c928aab26d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="31d09102-8723-4cf1-9a66-d3767f572ded"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY13_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2326" y="0" width="52" height="30" uuid="9c0b1f5d-b747-4efb-8efa-c027fe668bf1">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY13_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2378" y="0" width="52" height="30" uuid="67f15a5f-3fc7-4dad-8f5b-7235add73e9f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e6ca8cbb-3a5b-41fb-9830-81914ba639e9"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY14_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2430" y="0" width="52" height="30" uuid="42a7361b-106c-4289-a242-4de61ff4ecec">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="74978df3-ef53-4730-94c9-813b2bb38dd5"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY14_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2482" y="0" width="52" height="30" uuid="0cf9904a-0ced-4abd-9506-661c05006f2d">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY14_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2534" y="0" width="52" height="30" uuid="b2e1f46b-bd10-48b8-a86f-3c8be06cd7b3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="72a6ece1-898c-4cec-8eee-8377c9c2d365"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY15_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2586" y="0" width="52" height="30" uuid="33e6a90b-547c-4bf5-82f5-f8063bd3f75f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e671db2-785d-49ad-a37c-d7dd8c4f1edc"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY15_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2638" y="0" width="52" height="30" uuid="e2907145-540d-4962-a00c-54e31380b0f5">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY15_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2690" y="0" width="52" height="30" uuid="1d56b80d-a44c-4c5e-9d90-3c5f56ca018f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="62386da1-335f-459d-a87d-d01056c72307"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY16_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2742" y="0" width="52" height="30" uuid="3e3ac402-ddaf-4e5f-8d55-bf3266b5a70c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="18a7f8b7-1384-4ad3-be7b-0311bb2186c5"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY16_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2794" y="0" width="52" height="30" uuid="d6dbc715-fa1f-4234-877d-cb64caf43327">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY16_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2846" y="0" width="52" height="30" uuid="2fded004-e0f9-4821-b42d-2d475c449f6f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7e835632-5023-4cd6-86d3-6f3b4d109d18"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY17_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2898" y="0" width="52" height="30" uuid="2a05e417-d697-42db-b11c-efc67e95b800">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b1493e5d-09bc-47fa-b6bc-9d22eb3b0679"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY17_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2950" y="0" width="52" height="30" uuid="6d11a07d-ec01-4b4c-87b4-51b4b1d53a53">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY17_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3002" y="0" width="52" height="30" uuid="95ca6120-f2fa-465a-b4cd-7243af96be40">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="adf8d6a9-b0bb-4b36-8f8a-9e9f8e07254a"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY18_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3054" y="0" width="52" height="30" uuid="7e2aa277-fb70-400b-8976-5133168f67cd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="62ab3bac-e7aa-4164-ae84-468df701bcaf"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY18_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3106" y="0" width="52" height="30" uuid="5af87bce-634c-4768-b8f8-462fc4c2e222">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY18_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3158" y="0" width="52" height="30" uuid="d7209ca7-8eeb-41b0-bcb7-6e0efb7142dd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63fb726c-3a76-4cba-ae5f-4084b369c87b"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY19_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3210" y="0" width="52" height="30" uuid="0161b232-eb3e-444b-9924-c10aa5594207">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5e085644-57c1-4639-908a-00e0a89965a6"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY19_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3262" y="0" width="52" height="30" uuid="a622713e-004e-4a5a-bb85-c9f50ce197a9">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY19_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3314" y="0" width="52" height="30" uuid="43ca372b-67a1-4486-9d7a-5fa2dcb4c83d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fcfbb3e6-019c-4870-bec4-be1e6ae24171"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY20_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3366" y="0" width="52" height="30" uuid="8f113d42-cca6-42ad-b067-7aefa3e7dac9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="14aff311-674b-46ff-861e-bdcdb9dbb87d"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY20_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3418" y="0" width="52" height="30" uuid="25740afb-deee-46f6-9a11-261e40f23328">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY20_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3470" y="0" width="52" height="30" uuid="d3d10ae6-5ac1-49fb-a157-d343e5263ac0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eef145e7-5181-4016-b2b5-7b2d63677933"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY21_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3522" y="0" width="52" height="30" uuid="5ade6f4f-5f61-4252-9a5b-8c794243cbe3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ad535cdc-4a6c-402e-96cf-d3e6ed84f2b7"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY21_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3574" y="0" width="52" height="30" uuid="c6963e0d-4866-4c4f-be32-bb2848056771">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY21_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3626" y="0" width="52" height="30" uuid="6b819207-22c0-4baf-91f2-03cd55ee58b2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="554ef530-90c2-4c43-9006-ebda259a7351"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY22_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3678" y="0" width="52" height="30" uuid="e72b9b6d-8c7f-4e46-abe4-5e43a06f31b1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="667e267a-c270-410f-ac84-827d4e440bcb"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY22_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3730" y="0" width="52" height="30" uuid="d2604ec5-a44c-4287-b95c-e06379220f47">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY22_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3782" y="0" width="52" height="30" uuid="9b4b36ef-177c-43b5-bd40-f511939c013f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d9d5f268-09d4-4c0a-8608-35d993d08516"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY23_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3834" y="0" width="52" height="30" uuid="8f95b2e5-acc9-471b-9500-336f40795e70">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="84737a9b-095a-48e2-adaf-8e306e4288de"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY23_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3886" y="0" width="52" height="30" uuid="1b3b6371-e211-4410-b7fa-a846ddfa54e0">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY23_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3938" y="0" width="52" height="30" uuid="b6c8127f-eb06-4904-9e2d-feb32fdc2bca">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8843a7fd-6ff7-44f4-9755-77994ee13fdc"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY24_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3990" y="0" width="52" height="30" uuid="8ea8ee0f-d250-4bf4-b173-b54f8a820a52">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="865d70bc-9dd0-4dc6-9a1d-9e3d4671da84"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY24_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4042" y="0" width="52" height="30" uuid="17192c29-e090-4399-a0ec-1d4f3cb838c7">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY24_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4094" y="0" width="52" height="30" uuid="88bc47e1-6ed6-4591-b0a0-38f28f261dce">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8c726b68-7f70-47ca-86df-bcb2b0f1e554"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY25_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4146" y="0" width="52" height="30" uuid="68446bf9-f207-4eaf-b7d8-ddaadd1e254b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dd0f7d7c-8d50-4010-a260-ac05acfa0a29"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY25_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4198" y="0" width="52" height="30" uuid="0859e71a-ed72-45de-ac9c-281b2ad5c11e">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY25_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4250" y="0" width="52" height="30" uuid="88912a58-448b-4dca-9a72-56893b72961c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="779936f4-cc04-4411-917c-0f8b5c1e4aa5"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY26_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4302" y="0" width="52" height="30" uuid="086af939-9e2f-41c2-b9c6-b7f754862e14">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3fae25f2-60fe-42ab-8968-30301e672619"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY26_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4354" y="0" width="52" height="30" uuid="a1991309-7277-4e49-85bc-5f2aeb954c94">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY26_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4406" y="0" width="52" height="30" uuid="5ef774ab-c43f-4634-838d-ecc60a560fca">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cd7fb521-b545-421e-9b0c-8b33bb6272ac"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY27_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4458" y="0" width="52" height="30" uuid="c137aa4d-1a24-4192-8652-6b8feb797f0d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="79d47ab6-a57a-4d90-9cd1-afc9b993ab38"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY27_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4510" y="0" width="52" height="30" uuid="a0443840-e458-4028-8f57-59afa04eb1f5">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY27_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4562" y="0" width="52" height="30" uuid="c3533730-fca5-4dad-b49a-422c7bb332b0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8351e244-bfd8-427d-bfc9-f6d557cf7cc0"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY28_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4614" y="0" width="52" height="30" uuid="73f22231-baf9-4ff4-9e70-abbe5752c407">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5b1ede0e-f75a-424b-a6dd-2938d04ac111"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY28_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4666" y="0" width="52" height="30" uuid="512edbbc-f717-4bdc-a980-447df70bb62b">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY28_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4718" y="0" width="52" height="30" uuid="9ba8252d-d38b-4faa-bdaa-748bd773b895">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e59f1b72-12e0-4ec2-9d31-eeacaa0f7af4"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY29_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4770" y="0" width="52" height="30" uuid="4b441ef5-793d-4ef4-aa33-d29831e3e5bc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f6ee3555-f6f6-4362-9dda-baa0868df203"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY29_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4822" y="0" width="52" height="30" uuid="8077b0c1-73ff-4c6b-881b-6072e76b263e">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY29_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4874" y="0" width="52" height="30" uuid="6a6ea2ce-23db-4113-8715-446f7e08d713">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="54a86b16-2989-49b3-8351-f25c22df9544"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY30_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4926" y="0" width="52" height="30" uuid="23576621-c8e6-4c4e-85b1-1cd9931974ab">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f4940cb6-3f9d-4525-9a30-be9e97f308e6"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY30_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4978" y="0" width="52" height="30" uuid="ddb3742c-b498-4747-a786-efc96a677f6d">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY30_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="5030" y="0" width="52" height="30" uuid="826fc369-d988-42eb-a879-2879f587e05a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e7586708-7ca0-43da-a3c3-31d93343ff19"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY31_BILL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="5082" y="0" width="52" height="30" uuid="b0e56141-4ad8-4769-9f58-059716265071">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa10f440-5594-4f80-9de1-ba333860d7b4"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY31_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="5134" y="0" width="52" height="30" uuid="63ca5f5c-95ca-4bbb-ad81-a11a034993ac">
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+					<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="true"/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAY31_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="158" y="0" width="66" height="30" uuid="5c64240b-44e7-4266-90c6-06d893162c11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OKSMCD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="224" y="0" width="66" height="30" uuid="369c8f6e-0fd5-4200-97fd-5955137bc15f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f1f8e0b3-026d-4588-b061-bd01449b4f94"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OKPYCD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="0" width="60" height="30" uuid="e896ea86-c64d-416c-8f17-5220e0d89a76">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e1511c62-feff-43d5-8b93-1bfe55ec2aa5"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OKCFC3}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

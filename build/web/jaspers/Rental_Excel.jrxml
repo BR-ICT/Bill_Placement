@@ -1,0 +1,889 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.14.0.final using JasperReports Library version 6.14.0-2ab0d8625be255bf609c78e1181801213e51db8f  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rental_Report" pageWidth="1200" pageHeight="6200" orientation="Landscape" columnWidth="1160" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4439eec3-2861-4aad-91c1-237dbcb07663">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQLServer"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="126"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="868"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="cono" class="java.lang.String"/>
+	<parameter name="divi" class="java.lang.String"/>
+	<parameter name="fac" class="java.lang.String"/>
+	<parameter name="whs" class="java.lang.String"/>
+	<parameter name="fromdate" class="java.lang.String"/>
+	<parameter name="todate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[DECLARE @pWhs VARCHAR(3), @pEDate DATETIME, @pFDate DATETIME, @pTDate DATETIME
+SET @pWhs = $P{whs} 
+SET @pFDate = $P{fromdate} 
+SET @pTDate = $P{todate} 
+SET @pEDate = DATEADD(DAY , -1, DATEADD(MONTH , DATEDIFF(MONTH , 0, @pTDate) + 1, 0))
+SELECT BRL_DOC, DATES, DOC, STATUS, WHS, AGING, ITEMNO, DESCRIPTION, LOTNO, QTY, TOTAL_KGS, DEL_ORDER
+, DEL_BRL_DOC, DEL_DATE, DEL_DOC, DEL_ITEM, DEL_PACK, DEL_KGS, DEL_FLAG
+, BAL_QTY, BAL_KGS, DATEDIFFS, ROUNDS, MODDATE, DUEDATE, DUEDATE1, DUEDATE2, DUEDATE3, FRIST_CHK, THRPAY_CHK
+, REN_FIRST, REN_1TO15, REN_16TO30, REN_31TO14
+, REN_FIRST + REN_1TO15 + REN_16TO30 + REN_31TO14 AS TOTAL
+, R_DAY, R_QTY1, R_QTY2, R_FAMT, R_RAMT, R_SAMT, R_FREEZ, R_FKEEP, R_OTHER, R_DATE, END_DATE
+FROM 
+(SELECT BRL_DOC, DATES, DOC, STATUS, WHS, AGING, ITEMNO, DESCRIPTION, LOTNO, QTY, TOTAL_KGS, DEL_ORDER
+, DEL_BRL_DOC, DEL_DATE, DEL_DOC, DEL_ITEM, DEL_PACK, DEL_KGS, DEL_FLAG, BAL_QTY, BAL_KGS
+, DATEDIFFS, ROUNDS, MODDATE, DUEDATE, DUEDATE1, DUEDATE2, DUEDATE3, FRIST_CHK
+--, CASE WHEN DAY(DUEDATE1) = 1 AND DAY(@pEDate) = 31  then 'TRUE' ELSE 'FALSE' END AS FRPAY_CHK
+, CASE WHEN DAY(DUEDATE1) = 1 AND DAY(@pEDate) = 31  then 'TRUE' ELSE 'FALSE' END AS THRPAY_CHK
+, ROUND(CASE WHEN FRIST_CHK = 'TRUE' THEN DEL_KGS * R_FAMT ELSE 0 END,2) AS REN_FIRST
+, COALESCE(CASE WHEN MONTH(DUEDATE1) = MONTH(@pEDate) THEN CASE WHEN DEL_DATE IS NULL THEN BAL_KGS * R_RAMT ELSE CASE WHEN DEL_DATE < DUEDATE THEN BAL_KGS * R_RAMT ELSE (DEL_KGS * R_RAMT) + (BAL_KGS * R_RAMT) END END END, 0) AS REN_1TO15
+, COALESCE(CASE WHEN MONTH(DUEDATE2) = MONTH(@pEDate) THEN CASE WHEN DEL_DATE IS NULL THEN BAL_KGS * R_RAMT ELSE CASE WHEN DEL_DATE < DUEDATE2 THEN BAL_KGS * R_RAMT ELSE (DEL_KGS * R_RAMT) + (BAL_KGS * R_RAMT) END END END, 0) AS REN_16TO30
+, COALESCE(CASE WHEN MONTH(DUEDATE3) = MONTH(@pEDate) THEN CASE WHEN DEL_DATE IS NULL THEN BAL_KGS * R_RAMT ELSE CASE WHEN DEL_DATE < DUEDATE3 THEN BAL_KGS * R_RAMT ELSE (DEL_KGS * R_RAMT) + (BAL_KGS * R_RAMT) END END END, 0) AS REN_31TO14
+, R_DAY, R_QTY1, R_QTY2, R_FAMT, R_RAMT, R_SAMT, R_FREEZ, R_FKEEP, R_OTHER, R_DATE, END_DATE
+FROM
+(SELECT m_Savno AS BRL_DOC, m_Date AS DATES, m_Rcno AS DOC, m_sts AS STATUS, m_Warehouse AS WHS, DATEDIFF(DAY, m_Date, @pEDate) + 1 AS AGING, m_Itemno AS ITEMNO, ProductName as DESCRIPTION, m_Lotno AS LOTNO, m_Qty AS QTY, m_Weight AS TOTAL_KGS
+, '' AS DEL_ORDER, b.th_No AS DEL_BRL_DOC, b.th_Date AS DEL_DATE, '' AS DEL_DOC, td_Itemno AS DEL_ITEM, td_Qty AS DEL_PACK, td_Weight AS DEL_KGS, a.th_Flag AS DEL_FLAG
+, COALESCE (m_Qty, 0) - COALESCE (td_Qty, 0) AS BAL_QTY, COALESCE (m_Weight, 0) - COALESCE (td_Weight, 0) AS BAL_KGS
+, DATEDIFF(DAY, m_Date, @pEDate) AS DATEDIFFS, DATEDIFF(DAY, m_Date, @pEDate) / R_DAY AS ROUNDS, (DATEDIFF(DAY, m_Date, @pEDate) / R_DAY) * R_DAY AS CALDATE, {fn MOD(DATEDIFF(DAY, m_Date, @pEDate) , R_DAY)} AS MODDATE
+, CASE WHEN DATEADD(DAY, (ROUND((DATEDIFF(DAY, m_Date, @pEDate) / R_DAY), 0) -2) * R_DAY, m_Date) BETWEEN @pFDate AND @pTDate THEN DATEADD(DAY, (ROUND((DATEDIFF(DAY, m_Date, @pEDate) / R_DAY), 0) -2) * R_DAY, m_Date)
+WHEN DATEADD(DAY, (ROUND((DATEDIFF(DAY, m_Date, @pEDate) / R_DAY), 0) -1) * R_DAY, m_Date) BETWEEN @pFDate AND @pTDate THEN DATEADD(DAY, (ROUND((DATEDIFF(DAY, m_Date, @pEDate) / R_DAY), 0) -1) * R_DAY, m_Date)
+WHEN DATEADD(DAY, (ROUND((DATEDIFF(DAY, m_Date, @pEDate) / R_DAY), 0) -0) * R_DAY, m_Date) BETWEEN @pFDate AND @pTDate THEN DATEADD(DAY, (ROUND((DATEDIFF(DAY, m_Date, @pEDate) / R_DAY), 0) -0) * R_DAY, m_Date)
+END AS DUEDATE
+, DATEADD(DAY, (ROUND((DATEDIFF(DAY, m_Date, @pEDate) / R_DAY), 0) -2) * R_DAY, m_Date) AS DUEDATE1
+, DATEADD(DAY, (ROUND((DATEDIFF(DAY, m_Date, @pEDate) / R_DAY), 0) -1) * R_DAY, m_Date) AS DUEDATE2
+, DATEADD(DAY, (ROUND((DATEDIFF(DAY, m_Date, @pEDate) / R_DAY), 0) -0) * R_DAY, m_Date) AS DUEDATE3
+, CASE WHEN m_Date BETWEEN @pFDate AND @pTDate THEN 'TRUE' ELSE 'FALSE' END AS FRIST_CHK
+--, CASE WHEN FRIST_COUNT > 0 THEN 'TRUE' ELSE 'FALSE' END AS FRIST_CHK
+--, '' AS REN_FIRST, '' AS REN_1TO15, '' AS REN_16TO30, '' AS REN_31TO14
+, R_DAY, R_QTY1, R_QTY2, R_FAMT, R_RAMT, R_SAMT, R_FREEZ, R_FKEEP, R_OTHER, R_DATE, @pEDate AS END_DATE
+FROM BRLAS400.dbo.T_ThaiMaxTra_no AS a
+INNER JOIN BRLAS400.dbo.V_ThaiMaxTra_detail AS b ON b.th_No = a.th_No 
+RIGHT OUTER JOIN BRLAS400.dbo.T_ThaiMaxTra_Rec AS c ON c.m_No = a.th_No AND c.m_Rcno = b.td_Rcno
+LEFT OUTER JOIN BRLAS400.dbo.T_RENTAL AS d ON d.R_WHLO = c.m_Warehouse 
+LEFT OUTER JOIN Im7000Data.dbo.itemdata AS e ON e.ItemCode = c.m_Itemno
+--LEFT OUTER JOIN (SELECT th_No, COUNT(*) AS FRIST_COUNT FROM BRLAS400.dbo.V_ThaiMaxTra_detail GROUP BY th_No) as f ON f.th_No = b.th_No
+WHERE m_Warehouse = @pWhs
+AND R_NO = '1' 
+--AND MONTH(DATEADD(DAY, R_DAY, m_Date)) = '03'
+--AND m_Savno = '63030444' --63030444  B64001014
+) AS a
+) AS aa
+WHERE BAL_KGS > 0
+ORDER BY BRL_DOC, DOC]]>
+	</queryString>
+	<field name="BRL_DOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BRL_DOC"/>
+		<property name="com.jaspersoft.studio.field.label" value="BRL_DOC"/>
+	</field>
+	<field name="DATES" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="DATES"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATES"/>
+	</field>
+	<field name="DOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DOC"/>
+		<property name="com.jaspersoft.studio.field.label" value="DOC"/>
+	</field>
+	<field name="STATUS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="STATUS"/>
+		<property name="com.jaspersoft.studio.field.label" value="STATUS"/>
+	</field>
+	<field name="WHS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="WHS"/>
+		<property name="com.jaspersoft.studio.field.label" value="WHS"/>
+	</field>
+	<field name="AGING" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="AGING"/>
+		<property name="com.jaspersoft.studio.field.label" value="AGING"/>
+	</field>
+	<field name="ITEMNO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ITEMNO"/>
+		<property name="com.jaspersoft.studio.field.label" value="ITEMNO"/>
+	</field>
+	<field name="DESCRIPTION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DESCRIPTION"/>
+		<property name="com.jaspersoft.studio.field.label" value="DESCRIPTION"/>
+	</field>
+	<field name="LOTNO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LOTNO"/>
+		<property name="com.jaspersoft.studio.field.label" value="LOTNO"/>
+	</field>
+	<field name="QTY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="QTY"/>
+		<property name="com.jaspersoft.studio.field.label" value="QTY"/>
+	</field>
+	<field name="TOTAL_KGS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="TOTAL_KGS"/>
+		<property name="com.jaspersoft.studio.field.label" value="TOTAL_KGS"/>
+	</field>
+	<field name="DEL_ORDER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DEL_ORDER"/>
+		<property name="com.jaspersoft.studio.field.label" value="DEL_ORDER"/>
+	</field>
+	<field name="DEL_BRL_DOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DEL_BRL_DOC"/>
+		<property name="com.jaspersoft.studio.field.label" value="DEL_BRL_DOC"/>
+	</field>
+	<field name="DEL_DATE" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="DEL_DATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="DEL_DATE"/>
+	</field>
+	<field name="DEL_DOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DEL_DOC"/>
+		<property name="com.jaspersoft.studio.field.label" value="DEL_DOC"/>
+	</field>
+	<field name="DEL_ITEM" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DEL_ITEM"/>
+		<property name="com.jaspersoft.studio.field.label" value="DEL_ITEM"/>
+	</field>
+	<field name="DEL_PACK" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="DEL_PACK"/>
+		<property name="com.jaspersoft.studio.field.label" value="DEL_PACK"/>
+	</field>
+	<field name="DEL_KGS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="DEL_KGS"/>
+		<property name="com.jaspersoft.studio.field.label" value="DEL_KGS"/>
+	</field>
+	<field name="DEL_FLAG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DEL_FLAG"/>
+		<property name="com.jaspersoft.studio.field.label" value="DEL_FLAG"/>
+	</field>
+	<field name="BAL_QTY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="BAL_QTY"/>
+		<property name="com.jaspersoft.studio.field.label" value="BAL_QTY"/>
+	</field>
+	<field name="BAL_KGS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="BAL_KGS"/>
+		<property name="com.jaspersoft.studio.field.label" value="BAL_KGS"/>
+	</field>
+	<field name="DATEDIFFS" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="DATEDIFFS"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATEDIFFS"/>
+	</field>
+	<field name="ROUNDS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ROUNDS"/>
+		<property name="com.jaspersoft.studio.field.label" value="ROUNDS"/>
+	</field>
+	<field name="MODDATE" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="MODDATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODDATE"/>
+	</field>
+	<field name="DUEDATE" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="DUEDATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="DUEDATE"/>
+	</field>
+	<field name="DUEDATE1" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="DUEDATE1"/>
+		<property name="com.jaspersoft.studio.field.label" value="DUEDATE1"/>
+	</field>
+	<field name="DUEDATE2" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="DUEDATE2"/>
+		<property name="com.jaspersoft.studio.field.label" value="DUEDATE2"/>
+	</field>
+	<field name="DUEDATE3" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="DUEDATE3"/>
+		<property name="com.jaspersoft.studio.field.label" value="DUEDATE3"/>
+	</field>
+	<field name="FRIST_CHK" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="FRIST_CHK"/>
+		<property name="com.jaspersoft.studio.field.label" value="FRIST_CHK"/>
+	</field>
+	<field name="THRPAY_CHK" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="THRPAY_CHK"/>
+		<property name="com.jaspersoft.studio.field.label" value="THRPAY_CHK"/>
+	</field>
+	<field name="REN_FIRST" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="REN_FIRST"/>
+		<property name="com.jaspersoft.studio.field.label" value="REN_FIRST"/>
+	</field>
+	<field name="REN_1TO15" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="REN_1TO15"/>
+		<property name="com.jaspersoft.studio.field.label" value="REN_1TO15"/>
+	</field>
+	<field name="REN_16TO30" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="REN_16TO30"/>
+		<property name="com.jaspersoft.studio.field.label" value="REN_16TO30"/>
+	</field>
+	<field name="REN_31TO14" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="REN_31TO14"/>
+		<property name="com.jaspersoft.studio.field.label" value="REN_31TO14"/>
+	</field>
+	<field name="TOTAL" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="TOTAL"/>
+		<property name="com.jaspersoft.studio.field.label" value="TOTAL"/>
+	</field>
+	<field name="R_DAY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="R_DAY"/>
+		<property name="com.jaspersoft.studio.field.label" value="R_DAY"/>
+	</field>
+	<field name="R_QTY1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="R_QTY1"/>
+		<property name="com.jaspersoft.studio.field.label" value="R_QTY1"/>
+	</field>
+	<field name="R_QTY2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="R_QTY2"/>
+		<property name="com.jaspersoft.studio.field.label" value="R_QTY2"/>
+	</field>
+	<field name="R_FAMT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="R_FAMT"/>
+		<property name="com.jaspersoft.studio.field.label" value="R_FAMT"/>
+	</field>
+	<field name="R_RAMT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="R_RAMT"/>
+		<property name="com.jaspersoft.studio.field.label" value="R_RAMT"/>
+	</field>
+	<field name="R_SAMT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="R_SAMT"/>
+		<property name="com.jaspersoft.studio.field.label" value="R_SAMT"/>
+	</field>
+	<field name="R_FREEZ" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="R_FREEZ"/>
+		<property name="com.jaspersoft.studio.field.label" value="R_FREEZ"/>
+	</field>
+	<field name="R_FKEEP" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="R_FKEEP"/>
+		<property name="com.jaspersoft.studio.field.label" value="R_FKEEP"/>
+	</field>
+	<field name="R_OTHER" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="R_OTHER"/>
+		<property name="com.jaspersoft.studio.field.label" value="R_OTHER"/>
+	</field>
+	<field name="R_DATE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="R_DATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="R_DATE"/>
+	</field>
+	<field name="END_DATE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="END_DATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="END_DATE"/>
+	</field>
+	<variable name="Sum_Total" class="java.lang.String" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL}]]></variableExpression>
+	</variable>
+	<group name="Group1">
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="46" height="20" uuid="8104de70-d017-4fb7-b258-d817180be292">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4d7b869-1350-4b56-bb87-e368ea5478f1"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Whs :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="46" height="20" uuid="f458be60-b7ee-4174-bbab-891aa4a15201">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4d7b869-1350-4b56-bb87-e368ea5478f1"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" isBold="true"/>
+				</textElement>
+				<text><![CDATA[From Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="46" height="20" uuid="5712a6b8-02b1-4c57-829e-177b409ba036">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4d7b869-1350-4b56-bb87-e368ea5478f1"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" isBold="true"/>
+				</textElement>
+				<text><![CDATA[To Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="46" height="20" uuid="c3f64fdf-1ef6-438a-940f-58d0e33b654c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4d7b869-1350-4b56-bb87-e368ea5478f1"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Due Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="46" y="0" width="37" height="20" uuid="bcdd2e04-2e97-4c74-9701-bad60674d344"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{whs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="46" y="20" width="37" height="20" uuid="57c64ecc-b190-4051-b169-59ce398d044a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fromdate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="46" y="40" width="37" height="20" uuid="389bfa60-256f-479c-acff-18fc4c2239af"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{todate}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="46" y="60" width="37" height="20" uuid="ccb6f9bb-80ab-4ef5-a683-547ee096a5db"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DUEDATE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30">
+			<staticText>
+				<reportElement x="0" y="0" width="46" height="30" uuid="5556b11a-a715-4968-bedd-c546a4d3808c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4d7b869-1350-4b56-bb87-e368ea5478f1"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[BRL_DOC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="0" width="37" height="30" uuid="76d36c80-d42f-4d83-8fd4-71fd3bae92e7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="16cd1f0d-8d97-43f4-a0f3-1880f6f650c2"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[DATES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="0" width="27" height="30" uuid="c5ec52a9-26e6-461b-8ed5-1b339bc7c71c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="abc25f94-f1b7-42fc-ae2f-ca3412420769"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[DOC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="0" width="27" height="30" uuid="f520ca39-f160-4463-bfaa-dde8afad2155">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f8c2824a-2d8d-4600-a3ba-8d50596f5b9f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[STATUS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="137" y="0" width="27" height="30" uuid="ea073008-de9c-48b8-bc8f-61a26786bb41">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b12c151d-a45c-4263-ad84-fd06ccc6623c"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[WHS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="164" y="0" width="27" height="30" uuid="eaf0938b-398b-4e35-96b7-5d9aa31965ef">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="20db2b4a-6387-470a-a3b6-426714190cfa"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[AGING]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="191" y="0" width="27" height="30" uuid="41986cc3-ef04-40bd-8000-74255babf7fa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="daf726d0-20e5-47b9-adcf-fc2e94d13c76"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[ITEMNO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="218" y="0" width="27" height="30" uuid="b1fd0040-4762-426e-9ba5-414c3c4bddd3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="31bd12d1-90d2-4e30-91d2-f32cbd255632"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[DESCRIPTION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="245" y="0" width="27" height="30" uuid="d61079e7-439f-40d3-99c0-2991083a0617">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2067c69d-9b9d-4333-b8a9-6dfdf160510f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[LOTNO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="272" y="0" width="27" height="30" uuid="388d34bd-e4e7-47b2-9622-0ac2bef1f546">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4d41b6b-45b8-4d28-9c21-0f435416c5b4"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[QTY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="299" y="0" width="27" height="30" uuid="10547083-af7f-4411-9946-b7e3e755bd23">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="644afba2-65b1-4fd2-a3e5-19de73edddcd"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[TOTAL_KGS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="326" y="0" width="27" height="30" uuid="dc5be28e-7470-48d3-9da1-0ab656458754">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c88414f-04c2-4b74-a814-13758a3787ed"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[DEL_ORDER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="353" y="0" width="27" height="30" uuid="d0681082-2fb1-49c2-9f08-b6cffe35c643">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8771777e-2bd1-45d3-b10c-52562e140d46"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[DEL_BRL_DOC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="27" height="30" uuid="c469b413-3b1f-4cdd-9ba2-ea5eee4be734">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ffc4142f-b020-478f-b4e5-c5a10e914166"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[DEL_DATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="0" width="27" height="30" uuid="dd18f95c-848f-4d71-85da-1e82d3a7cf28">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5a7fb4df-5f06-4b58-93e1-7248474940d0"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[DEL_DOC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="434" y="0" width="27" height="30" uuid="0132d411-2753-4f31-bd86-ba5b59269144">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="51895a38-28c1-4319-be98-da9cfcc0732b"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[DEL_ITEM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="461" y="0" width="27" height="30" uuid="c7579608-debb-49f7-b8cc-7ec2618717b7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b36b1425-af00-465d-9d53-ae6d53e5a6f5"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[DEL_PACK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="488" y="0" width="27" height="30" uuid="ff2fab43-840a-4d0b-98fb-6d079e707437">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="296d9e80-fb92-4a47-a1db-eb3554ca0493"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[DEL_KGS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="515" y="0" width="27" height="30" uuid="db801d57-db42-4f0d-b413-2a820a4fef53">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e80187a7-3404-4ba4-8a6e-0f9cc792d9e6"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[DEL_FLAG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="542" y="0" width="27" height="30" uuid="f2073574-fd69-49d8-9a06-7bd028b9cf6d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b8d5de80-3472-4aa1-9594-6ab4a0f1771d"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[BAL_QTY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="569" y="0" width="27" height="30" uuid="e65b29e1-83b1-490a-a048-a36baef73a4c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9156de21-68c8-41cf-9ba3-245834dfb727"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[BAL_KGS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="596" y="0" width="27" height="30" uuid="3be8243d-5edb-4c5f-b34f-6edf0affe75c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e6237e39-c09f-4784-b3ce-24d8b77cf062"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[DUEDATE1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="623" y="0" width="27" height="30" uuid="d62b4b59-a8e8-417b-b26b-2bfcb3c2e15b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b0ff3bd3-6bf0-4615-b14d-247320dcc9e7"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[DUEDATE2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="650" y="0" width="27" height="30" uuid="6ca05a3a-b050-4e76-a4d2-4ae282d04461">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fe0a5278-0910-4961-8a40-4811a4d8325b"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[DUEDATE3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="677" y="0" width="27" height="30" uuid="11f4a263-bd25-4e42-aa26-4af537475d36">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5d996416-18e8-49bb-a9cf-b9d3c26a34d2"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[REN_FIRST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="704" y="0" width="27" height="30" uuid="99de05ab-2b75-45bb-9a89-e6737092b56a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eef52280-18e3-47a6-904f-2cd0b06e996e"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[REN_1TO15]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="731" y="0" width="27" height="30" uuid="8f6e585a-41dd-44da-9335-bc9e44ddc8f2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b3f96e2a-08c0-4702-8ff6-e8883ef21c78"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[REN_16TO30]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="758" y="0" width="27" height="30" uuid="9f7f5439-6caa-4353-a3e5-8833b4c9939c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06cdf7ed-3c5b-4d09-bb97-d426f85d0462"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[REN_31TO14]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="785" y="0" width="35" height="30" uuid="af01065d-a3d7-4ad0-bfd6-3d5b4b5c9acf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c223787-18b3-4cef-bd5b-35d4f8826f3f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="46" height="18" uuid="6b2c7eb5-905b-43da-95fc-59b2af5fd8a0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4d7b869-1350-4b56-bb87-e368ea5478f1"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BRL_DOC}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="46" y="0" width="37" height="18" uuid="1b905e0c-7a95-4cb1-a6a5-50ed1117d705">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="16cd1f0d-8d97-43f4-a0f3-1880f6f650c2"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="83" y="0" width="27" height="18" uuid="0d3f6712-2081-49f9-8113-53246ed225b3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="abc25f94-f1b7-42fc-ae2f-ca3412420769"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="0" width="27" height="18" uuid="c6df0e75-1857-4460-9613-c78aafad0688">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f8c2824a-2d8d-4600-a3ba-8d50596f5b9f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{STATUS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="137" y="0" width="27" height="18" uuid="c03a4530-4bdf-4a15-9ae3-4b07da23669d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b12c151d-a45c-4263-ad84-fd06ccc6623c"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WHS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="164" y="0" width="27" height="18" uuid="25ee14e1-90b9-407f-858b-8ea212195466">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="20db2b4a-6387-470a-a3b6-426714190cfa"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AGING}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="191" y="0" width="27" height="18" uuid="e9ebb44d-efd6-469e-a65b-d97d4776cc6b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="daf726d0-20e5-47b9-adcf-fc2e94d13c76"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ITEMNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="218" y="0" width="27" height="18" uuid="a8a1b5c9-7325-48b4-b45e-b662784972b4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="31bd12d1-90d2-4e30-91d2-f32cbd255632"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DESCRIPTION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="245" y="0" width="27" height="18" uuid="9fb8bb42-8161-439f-b388-128292173a9e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2067c69d-9b9d-4333-b8a9-6dfdf160510f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LOTNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="272" y="0" width="27" height="18" uuid="52df9bb9-5813-40ef-b06f-1ca7932952b9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4d41b6b-45b8-4d28-9c21-0f435416c5b4"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QTY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="299" y="0" width="27" height="18" uuid="277e090f-54ee-452b-99e6-96721b975020">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="644afba2-65b1-4fd2-a3e5-19de73edddcd"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTAL_KGS}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="326" y="0" width="27" height="18" uuid="17a01863-b0c9-4042-8f48-83de7276c426">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c88414f-04c2-4b74-a814-13758a3787ed"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEL_ORDER}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="353" y="0" width="27" height="18" uuid="cccf3f8e-31b8-486f-9c77-52a3ae7dc82d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8771777e-2bd1-45d3-b10c-52562e140d46"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEL_BRL_DOC}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement x="380" y="0" width="27" height="18" uuid="1913f29a-4734-4b8b-858b-cec795707442">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ffc4142f-b020-478f-b4e5-c5a10e914166"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEL_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="407" y="0" width="27" height="18" uuid="3fda26d6-11de-4706-8ff8-554939452068">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5a7fb4df-5f06-4b58-93e1-7248474940d0"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEL_DOC}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="434" y="0" width="27" height="18" uuid="a85f0b40-81cb-4596-8b28-a124685c4988">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="51895a38-28c1-4319-be98-da9cfcc0732b"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEL_ITEM}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="461" y="0" width="27" height="18" uuid="ecbdea76-27ea-4809-91f2-924ac1df210f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b36b1425-af00-465d-9d53-ae6d53e5a6f5"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEL_PACK}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="488" y="0" width="27" height="18" uuid="ee505395-567a-4336-b1c6-21dcfee17408">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="296d9e80-fb92-4a47-a1db-eb3554ca0493"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEL_KGS}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="515" y="0" width="27" height="18" uuid="a8c5ef68-6d13-4b75-8532-6672abed9e4a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e80187a7-3404-4ba4-8a6e-0f9cc792d9e6"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEL_FLAG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="542" y="0" width="27" height="18" uuid="44116994-2f18-4d44-a957-ecee5631b39f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b8d5de80-3472-4aa1-9594-6ab4a0f1771d"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BAL_QTY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="569" y="0" width="27" height="18" uuid="72b1d1e1-5e44-463e-80b2-9e35c0cbe935">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9156de21-68c8-41cf-9ba3-245834dfb727"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BAL_KGS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="596" y="0" width="27" height="18" uuid="7527fe53-5a6f-4bfd-aa31-1195fefdac21">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e6237e39-c09f-4784-b3ce-24d8b77cf062"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DUEDATE1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="623" y="0" width="27" height="18" uuid="a766329e-4dae-4f95-9b04-2b9a9b2c484f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b0ff3bd3-6bf0-4615-b14d-247320dcc9e7"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DUEDATE2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="650" y="0" width="27" height="18" uuid="ccc19c99-82e9-4eba-bb28-cfa4139c3190">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fe0a5278-0910-4961-8a40-4811a4d8325b"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DUEDATE3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="677" y="0" width="27" height="18" uuid="167b29a3-75fa-4bb8-ab80-c04e2f822073">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5d996416-18e8-49bb-a9cf-b9d3c26a34d2"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{REN_FIRST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="704" y="0" width="27" height="18" uuid="5b24126a-d82a-4423-a1af-2da5b790499c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eef52280-18e3-47a6-904f-2cd0b06e996e"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{REN_1TO15}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="731" y="0" width="27" height="18" uuid="38cdfad2-4400-4893-917b-d2abe40ec0c1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b3f96e2a-08c0-4702-8ff6-e8883ef21c78"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{REN_16TO30}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="758" y="0" width="27" height="18" uuid="d691e415-8412-4de1-a059-288c54098861">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06cdf7ed-3c5b-4d09-bb97-d426f85d0462"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{REN_31TO14}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="785" y="0" width="35" height="18" uuid="043ac59b-2190-4af2-b2a6-8ad5b5f34be6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c223787-18b3-4cef-bd5b-35d4f8826f3f"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

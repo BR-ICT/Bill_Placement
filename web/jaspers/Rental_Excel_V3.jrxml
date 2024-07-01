@@ -1,0 +1,955 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rental_Report" pageWidth="1300" pageHeight="6200" orientation="Landscape" columnWidth="1260" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4439eec3-2861-4aad-91c1-237dbcb07663">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQLServer"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="126"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="868"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<property name="net.sf.jasperreports.text.truncate.at.char" value="true"/>
+	<parameter name="cono" class="java.lang.String"/>
+	<parameter name="divi" class="java.lang.String"/>
+	<parameter name="fac" class="java.lang.String"/>
+	<parameter name="whs" class="java.lang.String"/>
+	<parameter name="period" class="java.lang.String"/>
+	<parameter name="fromdate" class="java.lang.String"/>
+	<parameter name="todate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT RDCONO, RDDIVI, RDWARE, RDPERI, RDFDAT, RDTDAT, RDDDAT, RDLINE, RDBRL_DOC, RDDATE, RDDOC, RDSTAT, RDAGIN, RDITNO, RDITDE, RDLOTN, RDQTY, RDTOTA_KGS, RDDUE_DATE1, RDDUE_DATE2, RDDUE_DATE3
+, RDDEL_ORDER, RDDEL_BRL_DOC, RDDEL_DATE, RDDEL_DOC, RDDEL_PACK, RDDEL_KGS, RDBAL_QTY, RDBAL_KGS, RDNEBA_QTY, RDNEBA_KGS, RDTHPA_CHK, RDREN_FIRST, RDREN_1TO15, RDREN_16TO30, RDREN_31TO14, RDSUM_TOTAL, COALESCE(RAAMT, 0 ) AS RAAMT
+FROM 
+(SELECT RDCONO, RDDIVI, RDWARE, RDPERI, RDFDAT, RDTDAT, RDDDAT, RDLINE, RDBRL_DOC, COALESCE(CONVERT(VARCHAR,CONVERT(DATETIME, RDDATE), 23), '') AS RDDATE, RDDOC, RDSTAT, RDAGIN, RDITNO, RDITDE, RDLOTN, RDQTY, RDTOTA_KGS
+, COALESCE(CONVERT(VARCHAR,CONVERT(DATETIME, RDDUE_DATE1), 23), '') AS RDDUE_DATE1, COALESCE(CONVERT(VARCHAR,CONVERT(DATETIME, RDDUE_DATE2), 23), '') AS RDDUE_DATE2, COALESCE(CONVERT(VARCHAR,CONVERT(DATETIME, RDDUE_DATE3), 23), '') AS RDDUE_DATE3
+, RDDEL_ORDER, RDDEL_BRL_DOC, COALESCE(CONVERT(VARCHAR,CONVERT(DATETIME, RDDEL_DATE), 23), '') AS RDDEL_DATE, RDDEL_DOC, RDDEL_PACK, RDDEL_KGS, RDBAL_QTY, RDBAL_KGS, RDNEBA_QTY, RDNEBA_KGS
+, RDTHPA_CHK, RDREN_FIRST, RDREN_1TO15, RDREN_16TO30, RDREN_31TO14, RDSUM_TOTAL 
+FROM BRLAS400.dbo.V_RENTALDETAIL
+WHERE RDCONO =  $P{cono} 
+AND RDDIVI =  $P{divi} 
+AND RDWARE =  $P{whs} 
+AND RDPERI =  $P{period}) AS a
+LEFT JOIN 
+(SELECT RACONO, RADIVI, RAWARE, RAPERI, SUM(RAAMT) AS RAAMT
+FROM BRLAS400.dbo.T_RENTALADDON a, BRLAS400.dbo.T_RENTALCODE b
+WHERE b.RCCONO = a.RACONO
+AND b.RCDIVI = a.RADIVI 
+AND b.RCCODE = a.RACODE 
+GROUP BY RACONO, RADIVI, RAWARE, RAPERI) AS b
+ON b.RACONO = a.RDCONO
+AND b.RADIVI = a.RDDIVI
+AND b.RAWARE = a.RDWARE
+AND b.RAPERI = a.RDPERI
+ORDER BY RDLINE]]>
+	</queryString>
+	<field name="RDCONO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDCONO"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDCONO"/>
+	</field>
+	<field name="RDDIVI" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDDIVI"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDDIVI"/>
+	</field>
+	<field name="RDWARE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDWARE"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDWARE"/>
+	</field>
+	<field name="RDPERI" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDPERI"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDPERI"/>
+	</field>
+	<field name="RDFDAT" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="RDFDAT"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDFDAT"/>
+	</field>
+	<field name="RDTDAT" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="RDTDAT"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDTDAT"/>
+	</field>
+	<field name="RDDDAT" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="RDDDAT"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDDDAT"/>
+	</field>
+	<field name="RDLINE" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="RDLINE"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDLINE"/>
+	</field>
+	<field name="RDBRL_DOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDBRL_DOC"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDBRL_DOC"/>
+	</field>
+	<field name="RDDATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDDATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDDATE"/>
+	</field>
+	<field name="RDDOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDDOC"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDDOC"/>
+	</field>
+	<field name="RDSTAT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDSTAT"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDSTAT"/>
+	</field>
+	<field name="RDAGIN" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="RDAGIN"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDAGIN"/>
+	</field>
+	<field name="RDITNO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDITNO"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDITNO"/>
+	</field>
+	<field name="RDITDE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDITDE"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDITDE"/>
+	</field>
+	<field name="RDLOTN" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDLOTN"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDLOTN"/>
+	</field>
+	<field name="RDQTY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="RDQTY"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDQTY"/>
+	</field>
+	<field name="RDTOTA_KGS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="RDTOTA_KGS"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDTOTA_KGS"/>
+	</field>
+	<field name="RDDUE_DATE1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDDUE_DATE1"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDDUE_DATE1"/>
+	</field>
+	<field name="RDDUE_DATE2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDDUE_DATE2"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDDUE_DATE2"/>
+	</field>
+	<field name="RDDUE_DATE3" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDDUE_DATE3"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDDUE_DATE3"/>
+	</field>
+	<field name="RDDEL_ORDER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDDEL_ORDER"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDDEL_ORDER"/>
+	</field>
+	<field name="RDDEL_BRL_DOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDDEL_BRL_DOC"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDDEL_BRL_DOC"/>
+	</field>
+	<field name="RDDEL_DATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDDEL_DATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDDEL_DATE"/>
+	</field>
+	<field name="RDDEL_DOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDDEL_DOC"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDDEL_DOC"/>
+	</field>
+	<field name="RDDEL_PACK" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="RDDEL_PACK"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDDEL_PACK"/>
+	</field>
+	<field name="RDDEL_KGS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="RDDEL_KGS"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDDEL_KGS"/>
+	</field>
+	<field name="RDBAL_QTY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="RDBAL_QTY"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDBAL_QTY"/>
+	</field>
+	<field name="RDBAL_KGS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="RDBAL_KGS"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDBAL_KGS"/>
+	</field>
+	<field name="RDNEBA_QTY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="RDNEBA_QTY"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDNEBA_QTY"/>
+	</field>
+	<field name="RDNEBA_KGS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="RDNEBA_KGS"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDNEBA_KGS"/>
+	</field>
+	<field name="RDTHPA_CHK" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RDTHPA_CHK"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDTHPA_CHK"/>
+	</field>
+	<field name="RDREN_FIRST" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="RDREN_FIRST"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDREN_FIRST"/>
+	</field>
+	<field name="RDREN_1TO15" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="RDREN_1TO15"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDREN_1TO15"/>
+	</field>
+	<field name="RDREN_16TO30" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="RDREN_16TO30"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDREN_16TO30"/>
+	</field>
+	<field name="RDREN_31TO14" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="RDREN_31TO14"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDREN_31TO14"/>
+	</field>
+	<field name="RDSUM_TOTAL" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="RDSUM_TOTAL"/>
+		<property name="com.jaspersoft.studio.field.label" value="RDSUM_TOTAL"/>
+	</field>
+	<field name="RAAMT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="RAAMT"/>
+		<property name="com.jaspersoft.studio.field.label" value="RAAMT"/>
+	</field>
+	<variable name="Sum_RDQTY" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{RDQTY}]]></variableExpression>
+	</variable>
+	<variable name="Sum_RDTOTA_KGS" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{RDTOTA_KGS}]]></variableExpression>
+	</variable>
+	<variable name="Sum_RDDEL_PACK" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{RDDEL_PACK}]]></variableExpression>
+	</variable>
+	<variable name="Sum_RDDEL_KGS" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{RDDEL_KGS}]]></variableExpression>
+	</variable>
+	<variable name="Sum_RDBAL_QTY" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{RDBAL_QTY}]]></variableExpression>
+	</variable>
+	<variable name="Sum_RDBAL_KGS" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{RDBAL_KGS}]]></variableExpression>
+	</variable>
+	<variable name="Sum_RDNEBA_QTY" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{RDNEBA_QTY}]]></variableExpression>
+	</variable>
+	<variable name="Sum_RDNEBA_KGS" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{RDNEBA_KGS}]]></variableExpression>
+	</variable>
+	<variable name="Sum_RDREN_FIRST" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{RDREN_FIRST}]]></variableExpression>
+	</variable>
+	<variable name="Sum_RDREN_1TO15" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{RDREN_1TO15}]]></variableExpression>
+	</variable>
+	<variable name="Sum_RDTOTA_KGS_9" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{RDTOTA_KGS}]]></variableExpression>
+	</variable>
+	<variable name="Sum_RDREN_16TO30" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{RDREN_16TO30}]]></variableExpression>
+	</variable>
+	<variable name="Sum_RDREN_31TO14" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{RDREN_31TO14}]]></variableExpression>
+	</variable>
+	<variable name="Sum_RDSUM_TOTAL" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{RDSUM_TOTAL}]]></variableExpression>
+	</variable>
+	<variable name="Sum_RAAMT" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{RAAMT}]]></variableExpression>
+	</variable>
+	<variable name="Sum_GRAND_TOTAL" class="java.math.BigDecimal"/>
+	<group name="whs" isStartNewColumn="true" isStartNewPage="true" keepTogether="true">
+		<groupExpression><![CDATA[$F{RDWARE}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="44">
+				<textField pattern="#,##0.###;(#,##0.###-)">
+					<reportElement x="477" y="0" width="33" height="14" uuid="3143b6cf-3866-445d-9ca1-9ab6e93f5450"/>
+					<textElement textAlignment="Right">
+						<font fontName="TH SarabunPSK" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum_RDQTY}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.###;(#,##0.###-)">
+					<reportElement x="510" y="0" width="33" height="14" uuid="7f271073-60b1-4d84-a588-85bb255148fb"/>
+					<textElement textAlignment="Right">
+						<font fontName="TH SarabunPSK" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum_RDTOTA_KGS}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.###;(#,##0.###-)">
+					<reportElement x="834" y="0" width="33" height="14" uuid="1df88ea7-c345-4205-b281-cf22413005a0"/>
+					<textElement textAlignment="Right">
+						<font fontName="TH SarabunPSK" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum_RDDEL_PACK}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.###;(#,##0.###-)">
+					<reportElement x="867" y="0" width="33" height="14" uuid="5ae07bda-20d9-4a72-b032-7e912f8d2d5e"/>
+					<textElement textAlignment="Right">
+						<font fontName="TH SarabunPSK" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum_RDDEL_KGS}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.###;(#,##0.###-)">
+					<reportElement x="900" y="0" width="33" height="14" uuid="d69bcf26-bf77-484f-8d53-dc6266fc533e"/>
+					<textElement textAlignment="Right">
+						<font fontName="TH SarabunPSK" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum_RDBAL_QTY}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.###;(#,##0.###-)">
+					<reportElement x="933" y="0" width="33" height="14" uuid="0707b4f0-094b-43d1-9e6c-737057b800a0"/>
+					<textElement textAlignment="Right">
+						<font fontName="TH SarabunPSK" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum_RDBAL_KGS}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.###;(#,##0.###-)">
+					<reportElement x="966" y="0" width="33" height="14" uuid="4095ef92-9274-4b0e-8d4d-3ac9699232ec"/>
+					<textElement textAlignment="Right">
+						<font fontName="TH SarabunPSK" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum_RDNEBA_QTY}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.###;(#,##0.###-)">
+					<reportElement x="999" y="0" width="33" height="14" uuid="95f54af9-5797-49ff-9f4e-f9614a2e2e23"/>
+					<textElement textAlignment="Right">
+						<font fontName="TH SarabunPSK" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum_RDNEBA_KGS}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.###;(#,##0.###-)">
+					<reportElement x="1032" y="0" width="33" height="14" uuid="3a13eb40-e22c-4369-a6a9-489efc08e912"/>
+					<textElement textAlignment="Right">
+						<font fontName="TH SarabunPSK" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum_RDREN_FIRST}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.###;(#,##0.###-)">
+					<reportElement x="1065" y="0" width="33" height="14" uuid="c1f791ee-ee16-4f64-ab15-971b9c3ae6ef"/>
+					<textElement textAlignment="Right">
+						<font fontName="TH SarabunPSK" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum_RDREN_1TO15}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.###;(#,##0.###-)">
+					<reportElement x="1098" y="0" width="33" height="14" uuid="ba9842d3-a394-4d9b-a3f9-9fcd54135d1b"/>
+					<textElement textAlignment="Right">
+						<font fontName="TH SarabunPSK" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum_RDREN_16TO30}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.###;(#,##0.###-)">
+					<reportElement x="1131" y="0" width="33" height="14" uuid="b74f7e0a-b1b7-44d9-937d-cd7405fb1a0e"/>
+					<textElement textAlignment="Right">
+						<font fontName="TH SarabunPSK" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum_RDREN_31TO14}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.###;(#,##0.###-)">
+					<reportElement x="1164" y="0" width="66" height="14" uuid="207594eb-277f-4ed0-a0ca-55c0f575b259"/>
+					<textElement textAlignment="Right">
+						<font fontName="TH SarabunPSK" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum_RDSUM_TOTAL}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00#;(#,##0.00#-)">
+					<reportElement x="1164" y="14" width="66" height="15" uuid="96b1de67-d92a-4b72-b591-82a09320abef"/>
+					<textElement textAlignment="Right">
+						<font fontName="TH SarabunPSK" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum_RAAMT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1098" y="14" width="66" height="15" uuid="98834270-a1f2-4cc1-9f3d-a923c65202be">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4d7b869-1350-4b56-bb87-e368ea5478f1"/>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="TH SarabunPSK" isBold="true"/>
+					</textElement>
+					<text><![CDATA[AddOn :]]></text>
+				</staticText>
+				<textField pattern="#,##0.00#;(#,##0.00#-)">
+					<reportElement x="1164" y="29" width="66" height="15" uuid="68d56983-75f8-48c6-a535-d09921ca285a"/>
+					<textElement textAlignment="Right">
+						<font fontName="TH SarabunPSK" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum_RDSUM_TOTAL}.add($V{Sum_RAAMT})]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1098" y="29" width="66" height="15" uuid="ed094a15-df7b-415d-b654-1016306934a5">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4d7b869-1350-4b56-bb87-e368ea5478f1"/>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="TH SarabunPSK" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Grand Total :]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="33" height="20" uuid="8104de70-d017-4fb7-b258-d817180be292">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4d7b869-1350-4b56-bb87-e368ea5478f1"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Whs :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="33" height="20" uuid="f458be60-b7ee-4174-bbab-891aa4a15201">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4d7b869-1350-4b56-bb87-e368ea5478f1"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Period :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="33" y="0" width="33" height="20" uuid="bcdd2e04-2e97-4c74-9701-bad60674d344"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{whs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="33" y="20" width="33" height="20" uuid="57c64ecc-b190-4051-b169-59ce398d044a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDPERI}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="0" width="33" height="20" uuid="73b41af3-cce7-4e41-ad70-9a0a33478552">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="593c5b3b-42e6-441c-a274-17f98e544be7"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDLINE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="0" width="73" height="20" uuid="b008c55d-14b4-4836-9988-9641b834d9f4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="af217a16-7247-42c1-80a0-bd081c7e1a8b"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDBRL_DOC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="0" width="44" height="20" uuid="9fe1e5cc-ac61-4d02-86ce-1e9b6970ad9c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="59d930b4-e0ae-43ad-92fc-9aeba924602d"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDDATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="0" width="63" height="20" uuid="99a99a04-226b-4c5e-8206-d75f0b4dd13f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8d919e57-31e8-49f5-be7a-a65a8900d092"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDDOC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="213" y="0" width="33" height="20" uuid="a2340560-a5b4-47cb-8e43-444f6f3c0f8a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e6df5234-701d-44f7-86a1-525adc9ba6ec"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDSTAT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="246" y="0" width="33" height="20" uuid="a21581a0-10ae-4436-915c-45a87bace82c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7c76e261-6b14-4772-9eab-00a0d60048a1"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDAGIN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="0" width="71" height="20" uuid="9ab510c7-9449-432f-ac25-bd912d80102b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de1c5735-8037-4293-9ccb-be9a3af8907a"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDITNO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="0" width="94" height="20" uuid="6b1e69ab-a0b4-4c95-a1b1-dab8a22f3b49">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5f594cb3-8a44-4da3-83c0-589691f4592f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDITDE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="0" width="33" height="20" uuid="9318c04f-0d39-4323-8717-3d74cf06e0ec">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2e5e5f8e-65ca-4b37-b25f-854f49afe856"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDLOTN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="477" y="0" width="33" height="20" uuid="a685fe6f-266f-4828-aa52-491c699f18dd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00c1f8dc-4282-4611-90b2-18a42cc22624"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDQTY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="510" y="0" width="33" height="20" uuid="389a3ef6-1c0f-42cd-9ef8-3904f4cadf06">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="385ed5f7-11da-4dbc-a3a5-7d5b5a5e879f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDTOTA_KGS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="543" y="0" width="46" height="20" uuid="7b648947-ef83-4905-9027-c91476e49522">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="55339841-7cd9-4f34-a4ff-2c935c4bd96d"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDDUE_DATE1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="589" y="0" width="46" height="20" uuid="366dd1ac-522d-40af-9b19-f48f820d2469">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a50e8d0a-21cb-424e-8fd2-a3197c6ebbd8"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDDUE_DATE2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="635" y="0" width="46" height="20" uuid="7fae5e46-2618-44f0-8146-d68440d3b917">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c5125550-6c6b-4de0-ad64-bf3963f91b1f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDDUE_DATE3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="681" y="0" width="33" height="20" uuid="01c9a73a-b851-4566-b9af-3160947290d9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00f5f9aa-8d90-4602-8d72-56b95dd83ea9"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDDEL_ORDER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="714" y="0" width="33" height="20" uuid="9a654b19-e1e6-4fcd-9c6b-e7d0483e9fc4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3201f296-e7e4-42a0-85c5-aa8c388fcec0"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDDEL_BRL_DOC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="747" y="0" width="54" height="20" uuid="797b37e4-c470-4605-a0a7-a9c275e1279e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="62f94f40-fbe4-4985-916e-8808603e80bc"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDDEL_DATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="801" y="0" width="33" height="20" uuid="3fa74c83-8ded-4f61-879f-cc07bfa68a40">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0e706a9c-74c6-4c3a-bdd3-ce314f6fa908"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDDEL_DOC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="834" y="0" width="33" height="20" uuid="83d7b29c-d14b-4dd9-80ea-8d0f9b93ec1d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f33a70e3-7752-4912-aab8-3ad16357a03f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDDEL_PACK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="867" y="0" width="33" height="20" uuid="d626348e-579d-49b7-8fb5-ab202b62af63">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="97f4e353-0575-4b6c-ae2f-b701be139b4d"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDDEL_KGS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="900" y="0" width="33" height="20" uuid="2cc04235-5e83-4ab1-8858-f57d7319fc7d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac97b612-7c70-4465-b483-895a6dccc198"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDBAL_QTY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="933" y="0" width="33" height="20" uuid="d348df43-5932-40c0-8cfe-a5b80fe6568b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6538ae1d-d8e9-4cd8-a40f-cf504861ecee"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDBAL_KGS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="966" y="0" width="33" height="20" uuid="5dd25859-2729-4e1f-8742-1d17c7ae19cb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5a0c784c-0815-4ee9-893a-5b9f39a4253b"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDNEBA_QTY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="999" y="0" width="33" height="20" uuid="5f7a32be-ad38-47cc-8994-60fc7785f893">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="50e6571a-7894-4de3-ad4d-eb6ee3e56ec1"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDNEBA_KGS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1032" y="0" width="33" height="20" uuid="d4528686-36ae-4549-bce6-9b047d1ffcca">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de775674-31da-4052-9db6-73b9f65890a0"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDREN_FIRST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1065" y="0" width="33" height="20" uuid="549476a5-1f66-49ac-8a39-9e83a35fdf98">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4223f82c-1870-45eb-863f-82dd08cce123"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDREN_1TO15]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1098" y="0" width="33" height="20" uuid="4d498c94-5b21-451c-90ea-3497a163c85f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="33ffe9c1-d908-449a-bfea-c8bdc4b91d3e"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDREN_16TO30]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1131" y="0" width="33" height="20" uuid="4609bee9-1124-4220-8301-8dac13b8a926">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de1c57c6-a945-45ac-923a-523d0eecb15e"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDREN_31TO14]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1164" y="0" width="66" height="20" uuid="bef8b2cc-68b2-44d7-82b1-82dbfdf25199">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b7bc53b9-91ab-428c-a28a-9c7e29eb0dfa"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<text><![CDATA[RDSUM_TOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="33" height="16" uuid="f1962a4a-5b6e-4628-93a4-ede227817bd4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="593c5b3b-42e6-441c-a274-17f98e544be7"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDLINE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="33" y="0" width="73" height="16" uuid="e44d0ea0-93ea-4e0b-abee-6fa1edbb057b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="af217a16-7247-42c1-80a0-bd081c7e1a8b"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDBRL_DOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="106" y="0" width="44" height="16" uuid="1fc87a3f-0cf2-4d6e-a3a5-c3a3acceeac2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="59d930b4-e0ae-43ad-92fc-9aeba924602d"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDDATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="0" width="63" height="16" uuid="2f901862-84eb-4dec-a064-cdfba86f8f21">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8d919e57-31e8-49f5-be7a-a65a8900d092"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDDOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="213" y="0" width="33" height="16" uuid="e1d87dc8-fad6-4739-acca-002ef9417d45">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e6df5234-701d-44f7-86a1-525adc9ba6ec"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDSTAT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="246" y="0" width="33" height="16" uuid="2f545925-0b60-4942-8cc3-c23405ed9fe9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7c76e261-6b14-4772-9eab-00a0d60048a1"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDAGIN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="0" width="71" height="16" uuid="e8fda133-a811-4c24-8a2c-03ae0f249a9b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de1c5735-8037-4293-9ccb-be9a3af8907a"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDITNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="0" width="94" height="16" uuid="283686de-8351-4203-85ad-843060b8a9da">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5f594cb3-8a44-4da3-83c0-589691f4592f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDITDE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="0" width="33" height="16" uuid="aee684ac-f754-4b6c-a8cb-06b91fc659a0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2e5e5f8e-65ca-4b37-b25f-854f49afe856"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDLOTN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="477" y="0" width="33" height="16" uuid="7d943bd4-25ee-420f-8b03-17897fce9a30">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00c1f8dc-4282-4611-90b2-18a42cc22624"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDQTY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="510" y="0" width="33" height="16" uuid="cce2ced4-26c7-41d4-8d65-a881cf0e0f63">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="385ed5f7-11da-4dbc-a3a5-7d5b5a5e879f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDTOTA_KGS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="543" y="0" width="46" height="16" uuid="a1caf22d-2eba-414b-b99a-fcb2230c3cb9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="55339841-7cd9-4f34-a4ff-2c935c4bd96d"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDDUE_DATE1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="589" y="0" width="46" height="16" uuid="0ad69b8f-053d-4d46-bf57-101e1874079a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a50e8d0a-21cb-424e-8fd2-a3197c6ebbd8"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDDUE_DATE2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="635" y="0" width="46" height="16" uuid="6db3b323-2a75-4a2d-98a4-e5638acb313d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c5125550-6c6b-4de0-ad64-bf3963f91b1f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDDUE_DATE3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="681" y="0" width="33" height="16" uuid="c757d622-dcde-4455-9af6-a9f36a8a9838">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00f5f9aa-8d90-4602-8d72-56b95dd83ea9"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDDEL_ORDER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="714" y="0" width="33" height="16" uuid="d38be950-f12b-4f7a-8f15-ddc1369b55b1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3201f296-e7e4-42a0-85c5-aa8c388fcec0"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDDEL_BRL_DOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="747" y="0" width="54" height="16" uuid="d911c50e-f946-4f5a-9c9d-6387f9feb4b8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="62f94f40-fbe4-4985-916e-8808603e80bc"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDDEL_DATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="801" y="0" width="33" height="16" uuid="975e8403-7826-4fad-a173-d4d8a6a3c00a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0e706a9c-74c6-4c3a-bdd3-ce314f6fa908"/>
+				</reportElement>
+				<textElement>
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDDEL_DOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="834" y="0" width="33" height="16" uuid="fc9c2f06-b343-413c-b256-4bb6acce4fe9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f33a70e3-7752-4912-aab8-3ad16357a03f"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDDEL_PACK}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="867" y="0" width="33" height="16" uuid="e799e75a-776d-4dd7-93c5-8e8a99ad0b0c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="97f4e353-0575-4b6c-ae2f-b701be139b4d"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDDEL_KGS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="900" y="0" width="33" height="16" uuid="22b356af-d94a-4772-863c-ba3a5c50372e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac97b612-7c70-4465-b483-895a6dccc198"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDBAL_QTY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="933" y="0" width="33" height="16" uuid="ae433e0a-4fae-4651-bbb4-675d70e2b34b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6538ae1d-d8e9-4cd8-a40f-cf504861ecee"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDBAL_KGS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="966" y="0" width="33" height="16" uuid="6903d9a9-76c8-4b4c-a716-4766a2d9397e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5a0c784c-0815-4ee9-893a-5b9f39a4253b"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDNEBA_QTY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="999" y="0" width="33" height="16" uuid="7847fc31-dc92-4e3c-9cb4-1d8c4b0c23a9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="50e6571a-7894-4de3-ad4d-eb6ee3e56ec1"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDNEBA_KGS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1032" y="0" width="33" height="16" uuid="85571d09-c17b-4f1a-a9b9-369d03c14285">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de775674-31da-4052-9db6-73b9f65890a0"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDREN_FIRST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1065" y="0" width="33" height="16" uuid="0babbb2d-7d04-4215-82fb-bcabe3d8fd87">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4223f82c-1870-45eb-863f-82dd08cce123"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDREN_1TO15}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1098" y="0" width="33" height="16" uuid="9e5111f6-f3c5-4f7f-a32e-572ec3c5fe94">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="33ffe9c1-d908-449a-bfea-c8bdc4b91d3e"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDREN_16TO30}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1131" y="0" width="33" height="16" uuid="c263d635-a482-4ec2-80f2-2c53b38e968a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de1c57c6-a945-45ac-923a-523d0eecb15e"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDREN_31TO14}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1164" y="0" width="66" height="16" uuid="b1e37180-8910-4f16-a976-b98333fe2972">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b7bc53b9-91ab-428c-a28a-9c7e29eb0dfa"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="TH SarabunPSK"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RDSUM_TOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band/>
+	</pageFooter>
+</jasperReport>
