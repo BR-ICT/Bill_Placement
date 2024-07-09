@@ -721,13 +721,13 @@
             $("#vColInput2lab").show();
             $("#vColInput2").show();
         } else if (payinput === '6') {
-            $("#vColInput1lab").text('วางบิลวันที่');
+            $("#vColInput1lab").text('รอบที่ 1 : วางบิลวันที่');
             $("#vColInput1lab").show();
             $("#vColInput1").show();
             $("#vColInput2lab").text('เก็บเงินวันที่');
             $("#vColInput2lab").show();
             $("#vColInput2").show();
-            $("#vColInput3lab").text('ของเดือนถัดไปและวางบิลวันที่');
+            $("#vColInput3lab").text('ของเดือนถัดไป  | รอบที่ 2 : วางบิลวันที่');
             $("#vColInput3lab").show();
             $("#vColInput3").show();
             $("#vColInput4lab").text('เก็บเงินวันที่');
