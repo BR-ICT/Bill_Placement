@@ -22,10 +22,6 @@ import org.codehaus.jettison.json.JSONArray;
  */
 public class Insert {
 
-  
-
-  
-
     public static String addStartMonth(String year, String month, String invround, String customer, String startdate) throws Exception {
 
         String respond = "";
@@ -1595,10 +1591,10 @@ public class Insert {
             if (invroundinput.equals("1")) {
                 invroundA = String.format("%02d", Integer.parseInt(invroundA));
                 Invroundspecial = "01" + invroundA;
-                invroundinput = "30";
+                invroundA = "30";
             } else if (invroundinput.equals("2")) {
                 Invroundspecial = "2";
-                invroundinput = "30";
+                invroundA = "30";
             }
 
             if (bill.equals("1")) {
@@ -1712,7 +1708,7 @@ public class Insert {
 
     }
 
-    public static String importInvoiceData(String month, String year, String invround) throws Exception {
+    public static String importInvoiceData(String month, String year, String invround, String cono) throws Exception {
 
         Connection conn = ConnectDB2.ConnectionDB();
         String query1 = "";
@@ -1744,6 +1740,7 @@ public class Insert {
                         + "Where YEAR(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + "\n"
                         + "AND A.BPS_CONO = B.BPM_CONO \n"
                         + "AND A.BPS_CUNO = B.BPM_CUNO\n"
+                        + "AND A.BPS_CONO =" + cono + "\n"
                         + "AND B.BPM_RINV =" + invround;
                 ResultSet mRes = stmt5.executeQuery(query5);
                 while (mRes.next()) {
@@ -1764,6 +1761,7 @@ public class Insert {
                                     + "WHERE MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) <> MONTH(DATE(TIMESTAMP_FORMAT(cast(BPS_FNDT as varchar(8)), 'YYYYMMDD'))+ 1 DAYS)\n"
                                     + "AND MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_FNDT as varchar(8)), 'YYYYMMDD')) + 1 DAY) =" + nextmonth + "\n"
                                     + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_FNDT as varchar(8)), 'YYYYMMDD'))+ 1 DAY) =" + year + "\n"
+                                    + "AND B.BPM_CONO =" + cono + "\n"
                                     + "AND B.BPM_RINV =" + invround;
                             System.out.println("InsertFacility\n" + query1);
                         } else {
@@ -1776,9 +1774,11 @@ public class Insert {
                                     + "WHERE MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_FNDT as varchar(8)), 'YYYYMMDD'))+ 1 DAY) = MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD')))\n"
                                     + "AND BPS_RD = (SELECT MAX(C.BPS_RD) FROM BRLDTA0100.BP_STDATE C,BRLDTA0100.BP_MASTER D WHERE MONTH(DATE(TIMESTAMP_FORMAT(cast(c.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + nextmonth + "\n"
                                     + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(C.BPS_STDT as varchar(8)), 'YYYYMMDD'))) = " + year + " AND D.BPM_CONO = C.BPS_CONO AND D.BPM_CUNO = C.BPS_CUNO\n"
+                                    + "AND D.BPM_CONO =" + cono + "\n"
                                     + "AND D.BPM_RINV = " + invround + ")\n"
                                     + "AND MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + nextmonth + "\n"
                                     + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + "\n"
+                                    + "AND B.BPM_CONO =" + cono + "\n"
                                     + "AND B.BPM_RINV =" + invround;
                             System.out.println("InsertFacility\n" + query1);
                         }
@@ -1795,6 +1795,7 @@ public class Insert {
                                     + "AND C.BPS_CUNO = A.BPS_CUNO\n"
                                     + "AND C.BPS_CONO = A.BPS_CONO\n"
                                     + "AND B.BPM_RINV =" + invround + "\n"
+                                    + "AND B.BPM_CONO =" + cono + "\n"
                                     + "AND B.BPM_CASEINV = 0\n"
                                     + " FETCH FIRST 1 ROW ONLY)\n"
                                     + " WHERE EXISTS (SELECT YEAR(CHAR(DATE(TIMESTAMP_FORMAT(cast( C.BPS_STDT as varchar(8)), 'YYYYMMDD'))+ B.BPM_RINV DAYS - 1 DAYS )) * 10000\n"
@@ -1807,8 +1808,10 @@ public class Insert {
                                     + "AND C.BPS_CUNO = A.BPS_CUNO\n"
                                     + "AND C.BPS_CONO = A.BPS_CONO\n"
                                     + "AND B.BPM_RINV =" + invround + "\n"
+                                    + "AND B.BPM_CONO =" + cono + "\n"
                                     + "AND B.BPM_CASEINV = 0\n"
                                     + " FETCH FIRST 1 ROW ONLY)\n"
+                                    + "AND C.BPS_CONO =" + cono + "\n"
                                     + "AND MONTH(CHAR(DATE(TIMESTAMP_FORMAT(cast( C.BPS_STDT as varchar(8)), 'YYYYMMDD')))) =" + nextmonth + "\n"
                                     + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(C.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year;
                         }
@@ -1828,7 +1831,8 @@ public class Insert {
                                     + "FROM BRLDTA0100.BP_STDATE A,BRLDTA0100.BP_MASTER B\n"
                                     + "WHERE A.BPS_CONO = B.BPM_CONO AND A.BPS_CUNO = B.BPM_CUNO \n"
                                     + "AND B.BPM_RINV =" + invround + " AND C.BPS_CONO = A.BPS_CONO AND c.BPS_CUNO = A.BPS_CUNO AND A.BPS_STDT = C.BPS_STDT\n"
-                                    + "AND B.BPM_CASEINV = 0)\n"
+                                    + "AND B.BPM_CASEINV = 0\n"
+                                    + "AND B.BPM_CONO =" + cono + ")\n"
                                     + "WHERE EXISTS (SELECT CASE\n"
                                     + "	WHEN SUBSTRING(A.BPS_STDT,1,4) = '12' AND SUBSTRING(A.BPS_STDT,7,2) = '16' \n"
                                     + "	THEN (SUBSTRING(A.BPS_STDT,1,4) + 1) || '01' || '01' \n"
@@ -1842,9 +1846,12 @@ public class Insert {
                                     + "FROM BRLDTA0100.BP_STDATE A,BRLDTA0100.BP_MASTER B\n"
                                     + "WHERE A.BPS_CONO = B.BPM_CONO AND A.BPS_CUNO = B.BPM_CUNO \n"
                                     + "AND B.BPM_RINV =" + invround + " AND C.BPS_CONO = A.BPS_CONO AND c.BPS_CUNO = A.BPS_CUNO AND A.BPS_STDT = C.BPS_STDT\n"
-                                    + "AND B.BPM_CASEINV = 0)\n"
+                                    + "AND B.BPM_CASEINV = 0"
+                                    + "AND B.BPM_CONO =" + cono + ")\n"
+                                    + "AND C.BPS_CONO =" + cono + "\n"
                                     + "AND SUBSTRING(C.BPS_STDT,5,2) =" + nextmonth + "\n"
                                     + "AND SUBSTRING(C.BPS_STDT,1,4) =" + year;
+
                         }
 //       
 //30 days case
@@ -1857,6 +1864,7 @@ public class Insert {
                                     + "WHERE A.BPS_CONO = B.BPM_CONO AND A.BPS_CUNO = B.BPM_CUNO\n"
                                     + "AND B.BPM_RINV = 30\n"
                                     + "AND B.BPM_CASEINV = 0\n"
+                                    + "AND B.BPM_CONO=" + cono + "\n"
                                     + "AND C.BPS_CONO = A.BPS_CONO AND c.BPS_CUNO = A.BPS_CUNO AND A.BPS_STDT = C.BPS_STDT)\n"
                                     + "WHERE EXISTS (SELECT YEAR (DATE(DAYS(DATE(SUBSTRING(A.BPS_STDT,1,4)||'-'||SUBSTRING(A.BPS_STDT,5,2)||'-01') + 1 MONTH) - 1)) * 10000\n"
                                     + "	+ MONTH(DATE(DAYS(DATE(SUBSTRING(A.BPS_STDT,1,4)||'-'||SUBSTRING(A.BPS_STDT,5,2)||'-01') + 1 MONTH) - 1)) * 100\n"
@@ -1865,9 +1873,12 @@ public class Insert {
                                     + "WHERE A.BPS_CONO = B.BPM_CONO AND A.BPS_CUNO = B.BPM_CUNO\n"
                                     + "AND B.BPM_RINV = 30\n"
                                     + "AND B.BPM_CASEINV = 0\n"
+                                    + "AND B.BPM_CONO= " + cono + "\n"
                                     + "AND C.BPS_CONO = A.BPS_CONO AND c.BPS_CUNO = A.BPS_CUNO AND A.BPS_STDT = C.BPS_STDT)\n"
+                                    + "AND C.BPS_CONO =" + cono + "\n"
                                     + "AND SUBSTRING(C.BPS_STDT,5,2) = " + nextmonth + "\n"
                                     + "AND SUBSTRING(C.BPS_STDT,1,4) = " + year;
+
                         }
                         querycase1 = "UPDATE BRLDTA0100.BP_STDATE C\n"
                                 + "SET C.BPS_FNDT = (SELECT SUBSTRING(B.BPM_CASEINV,3,2) + \n"
@@ -1879,6 +1890,7 @@ public class Insert {
                                 + "AND B.BPM_CONO = A.BPS_CONO AND B.BPM_CUNO  = A.BPS_CUNO\n"
                                 + "AND SUBSTRING(B.BPM_CASEINV,1,2) = '01'\n"
                                 + "AND B.BPM_RINV =" + invround + "\n"
+                                + "AND A.BPS_CONO =" + cono + "\n"
                                 + "AND C.BPS_CONO = A.BPS_CONO AND c.BPS_CUNO = A.BPS_CUNO AND A.BPS_STDT = C.BPS_STDT)\n"
                                 + "WHERE EXISTS (SELECT SUBSTRING(B.BPM_CASEINV,3,2) + \n"
                                 + "MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))+1 month) * 100\n"
@@ -1889,7 +1901,9 @@ public class Insert {
                                 + "AND B.BPM_CONO = A.BPS_CONO AND B.BPM_CUNO  = A.BPS_CUNO\n"
                                 + "AND SUBSTRING(B.BPM_CASEINV,1,2) = '01'\n"
                                 + "AND B.BPM_RINV =" + invround + "\n"
+                                + "AND B.BPM_CONO =" + cono + "\n"
                                 + "AND C.BPS_CONO = A.BPS_CONO AND c.BPS_CUNO = A.BPS_CUNO AND A.BPS_STDT = C.BPS_STDT)\n"
+                                + "AND C.BPS_CONO =" + cono + "\n"
                                 + "AND SUBSTRING(C.BPS_STDT,5,2) =" + nextmonth + "\n"
                                 + "AND SUBSTRING(C.BPS_STDT,1,4) =" + year;
                         querycase2 = "UPDATE BRLDTA0100.BP_STDATE C\n"
@@ -1903,6 +1917,7 @@ public class Insert {
                                 + "AND B.BPM_CONO = A.BPS_CONO AND B.BPM_CUNO  = A.BPS_CUNO\n"
                                 + "AND SUBSTRING(B.BPM_CASEINV,1,2) = '2'\n"
                                 + "AND B.BPM_RINV = 30\n"
+                                + "AND B.BPM_CONO =" + cono + "\n"
                                 + "AND C.BPS_CONO = A.BPS_CONO AND c.BPS_CUNO = A.BPS_CUNO AND A.BPS_STDT = C.BPS_STDT)\n"
                                 + "WHERE EXISTS (SELECT \n"
                                 + "YEAR (DATE(DAYS(DATE(SUBSTRING(A.BPS_STDT,1,4)||'-'||SUBSTRING(A.BPS_STDT ,5,2)||'-01') + 2 MONTH) - 2)) * 10000\n"
@@ -1911,10 +1926,12 @@ public class Insert {
                                 + "FROM BRLDTA0100.BP_STDATE A,BRLDTA0100.BP_MASTER B\n"
                                 + "WHERE MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + nextmonth + "\n"
                                 + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + "\n"
+                                + "AND A.BPS_CONO =" + cono + "\n"
                                 + "AND B.BPM_CONO = A.BPS_CONO AND B.BPM_CUNO  = A.BPS_CUNO\n"
                                 + "AND SUBSTRING(B.BPM_CASEINV,1,2) = '2'\n"
                                 + "AND B.BPM_RINV = 30\n"
                                 + "AND C.BPS_CONO = A.BPS_CONO AND c.BPS_CUNO = A.BPS_CUNO AND A.BPS_STDT = C.BPS_STDT)\n"
+                                + "AND C.BPS_CONO =" + cono + "\n"
                                 + "AND SUBSTRING(C.BPS_STDT,5,2) =" + nextmonth + "\n"
                                 + "AND SUBSTRING(C.BPS_STDT,1,4) =" + year;
                         //Create period
@@ -1928,6 +1945,7 @@ public class Insert {
                                 + "AND C.BPS_FNDT = A.BPS_FNDT\n"
                                 + "AND MONTH(CHAR(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD')))) =" + nextmonth + "\n"
                                 + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + "\n"
+                                + "AND B.BPM_CONO =" + cono + "\n"
                                 + "AND B.BPM_RINV = " + invround + ")\n"
                                 + "WHERE EXISTS (SELECT SUBSTRING(A.BPS_STDT,3,8) || SUBSTRING(A.BPS_FNDT,3,8)\n"
                                 + "FROM BRLDTA0100.BP_STDATE A,BRLDTA0100.BP_MASTER B\n"
@@ -1938,6 +1956,7 @@ public class Insert {
                                 + "AND C.BPS_FNDT = A.BPS_FNDT\n"
                                 + "AND MONTH(CHAR(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD')))) =" + nextmonth + "\n"
                                 + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + "\n"
+                                + "AND B.BPM_CONO =" + cono + "\n"
                                 + "AND B.BPM_RINV =" + invround + ")";
                         //Create round date
                         query4 = "UPDATE BRLDTA0100.BP_STDATE T1\n"
@@ -1951,6 +1970,7 @@ public class Insert {
                                 + "AND T3.BPM_CUNO = T2.BPS_CUNO\n"
                                 + "AND T1.BPS_CONO = T3.BPM_CONO\n"
                                 + "AND T1.BPS_CUNO = T2.BPS_CUNO\n"
+                                + "AND T3.BPM_CONO =" + cono + "\n"
                                 + "AND T3.BPM_RINV =" + invround + "\n"
                                 + "GROUP BY T2.BPS_CUNO)\n"
                                 + "WHERE EXISTS(SELECT COUNT(*)\n"
@@ -1965,8 +1985,10 @@ public class Insert {
                                 + "AND T1.BPS_CUNO = T2.BPS_CUNO\n"
                                 + "AND T1.BPS_STDT = T2.BPS_STDT\n"
                                 + "AND T1.BPS_FNDT = T2.BPS_FNDT\n"
+                                + "AND T3.BPM_CONO =" + cono + "\n"
                                 + "AND T3.BPM_RINV =" + invround + "\n"
                                 + "GROUP BY T2.BPS_CUNO)\n"
+                                + "AND T1.BPS_CONO =" + cono + "\n"
                                 + "AND MONTH(CHAR(DATE(TIMESTAMP_FORMAT(cast(T1.BPS_STDT as varchar(8)), 'YYYYMMDD')))) =" + nextmonth + "\n"
                                 + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(T1.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year;
                         stmt.execute(query1);
@@ -3101,9 +3123,6 @@ public class Insert {
         return respond;
     }
 
-
-   
-
     public static JSONArray insertfinancemaster(String company, String customerid, String customertype, String roundinv, String roundbill, String roundpay) throws Exception {
 
         JSONArray mJSonArr = new JSONArray();
@@ -3193,6 +3212,7 @@ public class Insert {
                                 + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(BPS_STDT as varchar(8)), 'YYYYMMDD'))) = " + year + " AND BPS_CUNO  = '" + customerid + "') \n"
                                 + "AND MONTH(DATE(TIMESTAMP_FORMAT(cast(BPS_STDT as varchar(8)), 'YYYYMMDD'))) = " + month + "\n"
                                 + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(BPS_STDT as varchar(8)), 'YYYYMMDD'))) = " + year + "\n"
+                                + "AND BPS_CONO =" + company + "\n"
                                 + "AND BPS_CUNO  = '" + customerid + "'";
                         System.out.println("InsertFacility\n" + query1);
                     }
@@ -3211,13 +3231,15 @@ public class Insert {
                             + " FETCH FIRST 1 ROW ONLY)\n"
                             + " WHERE  MONTH(CHAR(DATE(TIMESTAMP_FORMAT(cast( C.BPS_STDT as varchar(8)), 'YYYYMMDD')))) =" + month + "\n"
                             + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(C.BPS_STDT as varchar(8)), 'YYYYMMDD'))) = " + year + "\n"
+                            + "AND C.BPS_CONO =" + company + "\n"
                             + "AND C.BPS_CUNO = '" + customerid + "'";
 
                     //Create period
                     query3 = "UPDATE BRLDTA0100.BP_STDATE\n"
                             + "SET BPS_PR = SUBSTRING(BPS_STDT,3,8) || SUBSTRING(BPS_FNDT,3,8)\n"
                             + "WHERE  MONTH(CHAR(DATE(TIMESTAMP_FORMAT(cast(BPS_STDT as varchar(8)), 'YYYYMMDD')))) =" + month + "\n"
-                            + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year;
+                            + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + "\n"
+                            + "AND BPS_CONO" + company;
                     //Create round date
                     query4 = "UPDATE BRLDTA0100.BP_STDATE T1\n"
                             + "SET BPS_RD = (\n"
@@ -3227,9 +3249,12 @@ public class Insert {
                             + "AND DATE(TIMESTAMP_FORMAT(cast( T2 .BPS_STDT as varchar(8)), 'YYYYMMDD')) <=  DATE(TIMESTAMP_FORMAT(cast( T1 .BPS_STDT as varchar(8)), 'YYYYMMDD')) \n"
                             + "AND MONTH(CHAR(DATE(TIMESTAMP_FORMAT(cast(T2.BPS_STDT as varchar(8)), 'YYYYMMDD')))) = " + month + " \n"
                             + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + " \n"
+                            + "AND T2.BPS_CONO" + company + "\n"
                             + "GROUP BY T2.BPS_CUNO )\n"
                             + "WHERE MONTH(CHAR(DATE(TIMESTAMP_FORMAT(cast(T1.BPS_STDT as varchar(8)), 'YYYYMMDD')))) =" + month + " \n"
-                            + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year;
+                            + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + "\n"
+                            + "AND BPS_CONO" + company;
+
                     stmt.execute(query1);
                     stmt2.execute(query2);
                     stmt3.execute(query3);

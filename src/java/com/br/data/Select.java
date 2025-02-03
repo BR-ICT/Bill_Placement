@@ -29,6 +29,7 @@ import org.codehaus.jettison.json.JSONArray;
  * @author Wattana
  */
 public class Select {
+
     public static String mneLogOnUrl = "https://bkrmvxm3.bangkokranch.com:21008/mne/servlet/MvxMCSvt"; //PRD
 //    public static String mneLogOnUrl = "https://bkrmvxm3.bangkokranch.com:22008/mne/servlet/MvxMCSvt";   // TST 
     static MvxSockJ sock;
@@ -302,7 +303,7 @@ public class Select {
         }
     }
 
-    public static JSONArray getMasterFinance() throws Exception {
+    public static JSONArray getMasterFinance(String cono, String divi) throws Exception {
 
         JSONArray mJSonArr = new JSONArray();
         Connection conn = ConnectDB2.ConnectionDB();
@@ -318,7 +319,8 @@ public class Select {
                         + ",COALESCE(MASTER.BPM_COLBY,'') AS Colby,COALESCE(MASTER.BPM_REMARK,'') AS REMARK\n"
                         + "FROM BRLDTA0100.BP_MASTER master, M3FDBPRD.OCUSMA cus\n"
                         + "WHERE  MASTER.BPM_CUNO = CUS.OKCUNO\n"
-                        + "AND MASTER.BPM_CONO = CUS.OKCONO";
+                        + "AND MASTER.BPM_CONO = CUS.OKCONO\n"
+                        + "AND BPM_CONO =" + cono;
                 System.out.println(query);
                 ResultSet mRes = stmt.executeQuery(query);
                 while (mRes.next()) {
@@ -409,7 +411,7 @@ public class Select {
 
     }
 
-    public static JSONArray getStartDate(String month, String year, String invoicerd) throws Exception {
+    public static JSONArray getStartDate(String month, String year, String invoicerd, String cono, String divi) throws Exception {
 
         JSONArray mJSonArr = new JSONArray();
         Connection conn = ConnectDB2.ConnectionDB();
@@ -434,6 +436,7 @@ public class Select {
                             + "AND E.BPS_FNDT = A.BPS_FNDT\n"
                             + "AND E.BPS_RD = A.BPS_RD\n"
                             + "AND B.BPM_RINV = " + invoicerd + "\n"
+                            + "AND A.BPS_CONO =" + cono + "\n"
                             + "AND MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + month + "\n"
                             + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + "\n)";
                     stmt2.execute(query2);
@@ -450,6 +453,7 @@ public class Select {
                             + "AND E.BPS_CUNO = D.BPM_CUNO AND E.BPS_CONO = E.BPS_CONO\n"
                             + "AND D.BPM_RINV =" + invoicerd + " AND MONTH(DATE(TIMESTAMP_FORMAT(cast(E.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + month + "\n"
                             + "AND YEAR(DATE(TIMESTAMP_FORMAT(cast(E.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + "\n"
+                            + "AND E.BPS_CONO =" + cono + "\n"
                             + "GROUP BY LB_BNNO,LB_INVDT,C.BPS_CUNO,C.BPS_STDT,B.LB_STS,A.HB_STS,A.HB_STS,C.BPS_FNDT\n"
                             + "ORDER BY LB_BNNO)";
                     stmt3.execute(query3);
@@ -462,6 +466,7 @@ public class Select {
                             + "AND A.BPS_CONO = C.OKCONO\n"
                             + "AND A.BPS_CUNO = C.OKCUNO 	\n"
                             + "AND B.BPM_RINV =" + invoicerd + "\n"
+                            + "AND A.BPS_CONO =" + cono + "\n"
                             + "AND  MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) = " + month + "\n"
                             + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year;
                 } else {
@@ -470,6 +475,7 @@ public class Select {
                             + "WHERE B.BPM_CUNO = A.BPS_CUNO\n"
                             + "AND A.BPS_CONO = C.OKCONO\n"
                             + "AND A.BPS_CUNO = C.OKCUNO \n"
+                            + "AND A.BPS_CONO =" + cono + "\n"
                             + "AND  MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + month + "\n"
                             + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + "\n"
                             + "AND B.BPM_RINV <> 7 AND B.BPM_RINV <> 15 AND B.BPM_RINV <> 30";

@@ -319,12 +319,12 @@
 // Change the text color of the labels to white
     $('.wrap-login100 label').css('color', 'black');
 
-//    var cono = <%out.print(session.getAttribute("cono"));%>
-//    var divi = <%out.print(session.getAttribute("divi"));%>
+    var cono = <%out.print(session.getAttribute("cono"));%>
+    var divi = <%out.print(session.getAttribute("divi"));%>
     var auth = "<%out.print(session.getAttribute("auth"));%>";
     var facility = "1A1";
-    var cono = "10";
-    var divi = "101";
+//    var cono = "10";
+//    var divi = "101";
     var warehouse;
     var period = [];
     var mode = "create";
@@ -391,7 +391,9 @@
                     url: './Action',
                     dataType: 'json',
                     data: {
-                        path: "getMasterFinance"
+                        path: "getMasterFinance",
+                        cono: cono,
+                        divi: divi
                     },
                     async: false,
                     timeout: 60000
@@ -818,9 +820,9 @@
     ;
     $("#vAddmaster").click(function () {
         var customer = $("#vCustomerInput").val();
-         var company = $("#vCompanyInput").val();
+        var company = $("#vCompanyInput").val();
         if (mode === "create") {
-           
+
             var invoiceinput = $("#vInvoiceInput").val();
             var invoiceday = $("#vInvoiceA").val();
             var type = $("#vTypeInput").val();

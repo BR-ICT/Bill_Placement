@@ -213,12 +213,12 @@
 <script>
 
 
-    //var cono = <%out.print(session.getAttribute("cono"));%>
-    //var divi = <%out.print(session.getAttribute("divi"));%>
+    var cono = <%out.print(session.getAttribute("cono"));%>
+    var divi = <%out.print(session.getAttribute("divi"));%>
     var auth = "<%out.print(session.getAttribute("auth"));%>"
     var facility = "1A1";
-    var cono = "10";
-    var divi = "101";
+//    var cono = "10";
+//    var divi = "101";
     var warehouse;
     var period = [];
     var mode = "search";
@@ -283,7 +283,9 @@
                         path: "getStartDate",
                         month: $("#vMonth").val(),
                         year: $("#vYear").val(),
-                        invoicerd: $("#vInvround").val()
+                        invoicerd: $("#vInvround").val(),
+                        cono:cono,
+                        divi:divi
                     },
                     async: false,
                     timeout: 60000
@@ -332,6 +334,7 @@
 //                alert(item.RDTOTA_KGS);
                 console.log(item);
                 formData = {};
+                formData.company = item.RCOMPANY;
                 formData.startdate = item.RSTARTDATE;
                 formData.enddate = item.RENDDATE;
                 formData.customerid = item.RCUSTOMERID;
@@ -435,7 +438,8 @@
                 path: "importInvoiceData",
                 month: month,
                 year: year,
-                invround: invround
+                invround: invround,
+                company:cono
             },
             async: false
         }).done(function (response) {

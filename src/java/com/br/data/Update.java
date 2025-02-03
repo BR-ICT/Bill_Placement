@@ -137,7 +137,7 @@ public class Update {
 
     }
 
-    public static JSONArray updateStartFinance(String startdate, String enddate, String customerid, String round, String month, String year) throws Exception {
+    public static JSONArray updateStartFinance(String startdate, String enddate, String customerid, String round, String month, String year,String company) throws Exception {
 
         JSONArray mJSonArr = new JSONArray();
         Connection conn = ConnectDB2.ConnectionDB();
@@ -151,6 +151,7 @@ public class Update {
                         + ",BPS_FNDT = " + enddate + "\n"
                         + "WHERE BPS_CUNO = '" + customerid + "'\n"
                         + "AND BPS_RD = '" + round + "'\n"
+                        + "AND BPS_CONO ='" + company + "'\n"
                         + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(BPS_STDT as varchar(8)), 'YYYYMMDD'))) = " + year + "\n"
                         + "AND MONTH(DATE(TIMESTAMP_FORMAT(cast(BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + month;
                 System.out.println("updateRentalDetail\n" + query);
