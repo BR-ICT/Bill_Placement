@@ -77,25 +77,25 @@ public class Delete {
         try {
             if (conn != null) {
 
-                if (month.equals("02")) {
+                if (month.equals("02") && year.equals("2023")) {
                     check = "1";
                     respond = "Please do not delete starting month";
                 }
                 if (check.equals("0")) {
                     Statement stmt = conn.createStatement();
-                    String query = "DELETE FROM BRLDTA0100.BP_STDATE A\n"
-                            + "WHERE EXISTS(SELECT A.BPS_CONO,A.BPS_CUNO,A.BPS_STDT,A.BPS_FNDT,A.BPS_STS,A.BPS_RD,A.BPS_PR,C.OKCUNM\n"
-                            + "FROM BRLDTA0100.BP_STDATE D,BRLDTA0100.BP_MASTER B, M3FDBPRD.OCUSMA C\n"
-                            + "WHERE B.BPM_CUNO = D.BPS_CUNO\n"
-                            + "AND D.BPS_CONO = C.OKCONO\n"
-                            + "AND D.BPS_CUNO = C.OKCUNO\n"
-                            + "AND A.BPS_CONO = D.BPS_CONO\n"
-                            + "AND A.BPS_CUNO = D.BPS_CUNO\n"
-                            + "AND A.BPS_STDT = D.BPS_STDT\n"
-                            + "AND A.BPS_FNDT  = D.BPS_FNDT \n"
-                            + "AND B.BPM_RINV =" + invround + "\n"
-                            + "AND  MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + month + "\n"
-                            + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + ")";
+                        String query = "DELETE FROM BRLDTA0100.BP_STDATE A\n"
+                                + "WHERE EXISTS(SELECT A.BPS_CONO,A.BPS_CUNO,A.BPS_STDT,A.BPS_FNDT,A.BPS_STS,A.BPS_RD,A.BPS_PR,C.OKCUNM\n"
+                                + "FROM BRLDTA0100.BP_STDATE D,BRLDTA0100.BP_MASTER B, M3FDBPRD.OCUSMA C\n"
+                                + "WHERE B.BPM_CUNO = D.BPS_CUNO\n"
+                                + "AND D.BPS_CONO = C.OKCONO\n"
+                                + "AND D.BPS_CUNO = C.OKCUNO\n"
+                                + "AND A.BPS_CONO = D.BPS_CONO\n"
+                                + "AND A.BPS_CUNO = D.BPS_CUNO\n"
+                                + "AND A.BPS_STDT = D.BPS_STDT\n"
+                                + "AND A.BPS_FNDT  = D.BPS_FNDT \n"
+                                + "AND B.BPM_RINV =" + invround + "\n"
+                                + "AND  MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + month + "\n"
+                                + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + ")";
                     System.out.println(query);
                     stmt.execute(query);
 
