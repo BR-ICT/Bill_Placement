@@ -21,7 +21,7 @@ import org.codehaus.jettison.json.JSONArray;
  */
 public class Delete {
 
-    public static JSONArray deleteFinanceMaster(String company, String customerid) throws Exception {
+    public static JSONArray deleteFinanceMaster(String company,String divi, String customerid) throws Exception {
 
         JSONArray mJSonArr = new JSONArray();
         Connection conn = ConnectDB2.ConnectionDB();
@@ -32,6 +32,7 @@ public class Delete {
                 Statement stmt = conn.createStatement();
                 String query = "DELETE FROM BRLDTA0100.BP_MASTER\n"
                         + "WHERE BPM_CONO = '" + company + "'\n"
+                        + "AND BPM_DIVI = '" + divi + "'\n"
                         + "AND BPM_CUNO = '" + customerid + "'";
                 System.out.println("deleteFinanceMaster\n" + query);
                 stmt.execute(query);
@@ -83,19 +84,19 @@ public class Delete {
                 }
                 if (check.equals("0")) {
                     Statement stmt = conn.createStatement();
-                        String query = "DELETE FROM BRLDTA0100.BP_STDATE A\n"
-                                + "WHERE EXISTS(SELECT A.BPS_CONO,A.BPS_CUNO,A.BPS_STDT,A.BPS_FNDT,A.BPS_STS,A.BPS_RD,A.BPS_PR,C.OKCUNM\n"
-                                + "FROM BRLDTA0100.BP_STDATE D,BRLDTA0100.BP_MASTER B, M3FDBPRD.OCUSMA C\n"
-                                + "WHERE B.BPM_CUNO = D.BPS_CUNO\n"
-                                + "AND D.BPS_CONO = C.OKCONO\n"
-                                + "AND D.BPS_CUNO = C.OKCUNO\n"
-                                + "AND A.BPS_CONO = D.BPS_CONO\n"
-                                + "AND A.BPS_CUNO = D.BPS_CUNO\n"
-                                + "AND A.BPS_STDT = D.BPS_STDT\n"
-                                + "AND A.BPS_FNDT  = D.BPS_FNDT \n"
-                                + "AND B.BPM_RINV =" + invround + "\n"
-                                + "AND  MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + month + "\n"
-                                + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + ")";
+                    String query = "DELETE FROM BRLDTA0100.BP_STDATE A\n"
+                            + "WHERE EXISTS(SELECT A.BPS_CONO,A.BPS_CUNO,A.BPS_STDT,A.BPS_FNDT,A.BPS_STS,A.BPS_RD,A.BPS_PR,C.OKCUNM\n"
+                            + "FROM BRLDTA0100.BP_STDATE D,BRLDTA0100.BP_MASTER B, M3FDBPRD.OCUSMA C\n"
+                            + "WHERE B.BPM_CUNO = D.BPS_CUNO\n"
+                            + "AND D.BPS_CONO = C.OKCONO\n"
+                            + "AND D.BPS_CUNO = C.OKCUNO\n"
+                            + "AND A.BPS_CONO = D.BPS_CONO\n"
+                            + "AND A.BPS_CUNO = D.BPS_CUNO\n"
+                            + "AND A.BPS_STDT = D.BPS_STDT\n"
+                            + "AND A.BPS_FNDT  = D.BPS_FNDT \n"
+                            + "AND B.BPM_RINV =" + invround + "\n"
+                            + "AND  MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + month + "\n"
+                            + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + ")";
                     System.out.println(query);
                     stmt.execute(query);
 
@@ -123,7 +124,7 @@ public class Delete {
 
     }
 
-    public static String deleteHeaderMonth(String year, String month,String invround) throws Exception {
+    public static String deleteHeaderMonth(String year, String month, String invround) throws Exception {
 
         String respond = "";
         String check = "0";
@@ -178,6 +179,5 @@ public class Delete {
         return respond;
 
     }
-
 
 }

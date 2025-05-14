@@ -76,7 +76,7 @@ public class Update {
 
     }
 
-    public static JSONArray updateFinanceMaster(String company, String customerid, String customertype,
+    public static JSONArray updateFinanceMaster(String company,String divi, String customerid, String customertype,
             String roundinv, String roundbill, String roundpay, String roundcasebill, String roundbillspecial,
             String roundcasepay, String roundpayspecial, String caseinvoice, String bildescription, String coldesciption, String colby, String remark) throws Exception {
 
@@ -102,6 +102,7 @@ public class Update {
                         + " ,BPM_COLBY = '" + colby + "'\n"
                         + " ,BPM_REMARK = '" + remark + "'\n"
                         + "WHERE  BPM_CONO =  '" + company + "' \n"
+                        + "AND  BPM_DIVI = '" + divi + "'\n"
                         + "AND  BPM_CUNO = '" + customerid + "'";
                 System.out.println("updateRentalDetail\n" + query);
                 stmt.execute(query);

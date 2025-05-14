@@ -1564,7 +1564,7 @@ public class Insert {
 
     }
 
-    public static String addMaster(String company, String customer,
+    public static String addMaster(String company, String divi, String customer,
             String invroundinput, String invroundA, String type, String bill, String bilweek1, String bilinput1, String bilinput3,
             String bilfirstweek, String pay, String pay5weekornot, String payweek1, String payweek2, String payday1, String payday2,
             String payday3, String payday4, String paydaysamemonthornot, String bildesc, String collectiondesc,
@@ -1645,7 +1645,9 @@ public class Insert {
 
                     query4 = "SELECT BPM_CUNO\n"
                             + "FROM BRLDTA0100.BP_MASTER A-- Master DATA\n"
-                            + "WHERE BPM_CUNO = '" + customer + "'";
+                            + "WHERE BPM_CUNO = '" + customer + "'\n"
+                            + "AND BPM_CONO = " + company + "\n"
+                            + "AND BPM_DIVI = " + divi + "";
                     ResultSet mRes = stmt4.executeQuery(query4);
                     while (mRes.next()) {
                         if (customer.equals(mRes.getString(1))) {
@@ -1655,8 +1657,8 @@ public class Insert {
                     }
                     if (check.equals("0")) {
                         //IMPORT NEW DATA
-                        query1 = "INSERT INTO BRLDTA0100.BP_MASTER(BPM_CONO,BPM_CUNO,BPM_TYPE,BPM_RINV,BPM_RBIL,BPM_RCOL,BPM_CASEBIL,BPM_CASECOL,BPM_RBILSP,BPM_RCOLSP,BPM_CASEINV,BPM_BILDESC,BPM_COLDESC,BPM_COLBY,BPM_REMARK)\n"
-                                + "values(" + company + ",'" + customer + "'," + type + ",'" + invroundA + "','" + bilinput1 + "','" + payday1 + "','" + bill + "','" + pay + "','" + bilspecial + "','" + payspecial + "','" + Invroundspecial + "','" + bildesc + "','" + collectiondesc + "','" + collectby + "','" + remark + "')";
+                        query1 = "INSERT INTO BRLDTA0100.BP_MASTER(BPM_CONO,BPM_DIVI,BPM_CUNO,BPM_TYPE,BPM_RINV,BPM_RBIL,BPM_RCOL,BPM_CASEBIL,BPM_CASECOL,BPM_RBILSP,BPM_RCOLSP,BPM_CASEINV,BPM_BILDESC,BPM_COLDESC,BPM_COLBY,BPM_REMARK)\n"
+                                + "values(" + company + "," + divi + ",'" + customer + "'," + type + ",'" + invroundA + "','" + bilinput1 + "','" + payday1 + "','" + bill + "','" + pay + "','" + bilspecial + "','" + payspecial + "','" + Invroundspecial + "','" + bildesc + "','" + collectiondesc + "','" + collectby + "','" + remark + "')";
 
                         stmt.execute(query1);
                         respond = "generate successfully!";
@@ -1667,7 +1669,8 @@ public class Insert {
                     query4 = "SELECT COUNT(BPM_CUNO) \n"
                             + "FROM BRLDTA0100.BP_MASTER A-- Master DATA\n"
                             + "WHERE BPM_CUNO = '" + customer + "'\n"
-                            + "AND BPM_CONO = '" + company + "'";
+                            + "AND BPM_CONO = '" + company + "'\n"
+                            + "AND BPM_DIVI = '" + divi + "'";
                     ResultSet mRes2 = stmt4.executeQuery(query4);
                     while (mRes2.next()) {
                         if ("0".equals(mRes2.getString(1))) {
@@ -1680,7 +1683,8 @@ public class Insert {
                         query1 = "UPDATE BRLDTA0100.BP_MASTER\n"
                                 + "SET BPM_REMARK = '" + remark + "'\n"
                                 + "WHERE BPM_CUNO = '" + customer + "'\n"
-                                + "AND BPM_CONO = '" + company + "'";
+                                + "AND BPM_CONO = '" + company + "'\n"
+                                + "AND BPM_DIVI = '" + divi + "'";
 
                         stmt.execute(query1);
                         respond = "change remark successfully!";
@@ -3119,7 +3123,7 @@ public class Insert {
         return respond;
     }
 
-    public static JSONArray insertfinancemaster(String company, String customerid, String customertype, String roundinv, String roundbill, String roundpay) throws Exception {
+    public static JSONArray insertfinancemaster(String company, String divi, String customerid, String customertype, String roundinv, String roundbill, String roundpay) throws Exception {
 
         JSONArray mJSonArr = new JSONArray();
         Connection conn = ConnectDB2.ConnectionDB();
@@ -3128,8 +3132,9 @@ public class Insert {
             if (conn != null) {
 
                 Statement stmt = conn.createStatement();
-                String query = "INSERT INTO BRLDTA0100.BP_MASTER (BPM_CONO,BPM_CUNO,BPM_TYPE,BPM_RINV,BPM_RBIL,BPM_RCOL)\n"
+                String query = "INSERT INTO BRLDTA0100.BP_MASTER (BPM_CONO,BPM_DIVI,BPM_CUNO,BPM_TYPE,BPM_RINV,BPM_RBIL,BPM_RCOL)\n"
                         + "VALUES ('" + company
+                        + "','" + divi
                         + "','" + customerid
                         + "','" + customertype
                         + "','" + roundinv

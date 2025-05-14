@@ -83,6 +83,7 @@
             <nav id="vNavbar" class="navbar navbar-default navigation-clean" >
                 <div class="container">
                     <div class="navbar-header"><a class="navbar-brand" href="./">Bill Placement</a><button data-toggle="collapse" class="navbar-toggle collapsed" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
+                    <div class="navbar-header"><a class="navbar-brand" href="./?page=menu" id="compname">Service Payment</a><button data-toggle="collapse" class="navbar-toggle collapsed" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
                     <div class="collapse navbar-collapse" id="navcol-1">
                         <ul class="nav navbar-nav navbar-right">
                             <li role="presentation"></li>
@@ -111,7 +112,7 @@
 </html>
 
 <script type="text/javascript">
-
+    var comp = "<%out.print(session.getAttribute("comp"));%>";
     <% if (request.getParameter("page") != null) {%>
     $("#vSection").load("./pages/<%=request.getParameter("page").toString()%>.jsp");
     <% }%>
@@ -123,5 +124,5 @@
     $('.dropdown-item').on('click', function () {
         $("#vSection").load("./pages/" + this.name + ".jsp");
     });
-
+    $("#compname").text(comp);
 </script>

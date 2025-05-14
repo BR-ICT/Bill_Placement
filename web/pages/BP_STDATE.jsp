@@ -216,11 +216,11 @@
     var cono = <%out.print(session.getAttribute("cono"));%>
     var divi = <%out.print(session.getAttribute("divi"));%>
     var auth = "<%out.print(session.getAttribute("auth"));%>"
-    var facility = "1A1";
+//    var facility = "1A1";
 //    var cono = "10";
 //    var divi = "101";
-    var warehouse;
-    var period = [];
+//    var warehouse;
+//    var period = [];
     var mode = "search";
 
 
@@ -284,8 +284,8 @@
                         month: $("#vMonth").val(),
                         year: $("#vYear").val(),
                         invoicerd: $("#vInvround").val(),
-                        cono:cono,
-                        divi:divi
+                        cono: cono,
+                        divi: divi
                     },
                     async: false,
                     timeout: 60000
@@ -304,8 +304,8 @@
                     });
                     data.resolve(response);
 
-                    console.log(response);
-                    console.log("response");
+//                    console.log(response);
+//                    console.log("response");
                 });
                 return data.promise();
             },
@@ -371,15 +371,15 @@
         },
         fields: [
             {
-            type: "control", width:10,
-            itemTemplate: function(value, item) {
-              // Customize the control column here
-              // Return an empty string to remove the delete button
-              return "";
-            }
-          },
+                type: "control", width: 10,
+                itemTemplate: function (value, item) {
+                    // Customize the control column here
+                    // Return an empty string to remove the delete button
+                    return "";
+                }
+            },
 
-            {title: "บริษัท", name: "RCOMPANY", css: "limitext", type: "text", editing: false, align: "center", width: 50},
+//            {title: "บริษัท", name: "RCOMPANY", css: "limitext", type: "text", editing: false, align: "center", width: 50},
             {title: "รหัสลูกค้า", name: "RCUSTOMERID", css: "limitext", type: "text", editing: false, align: "left", width: 50},
             {title: "ชื่อลูกค้า", name: "RCUSTOMERNAME", css: "limitext", type: "text", editing: false, align: "left", width: 100},
             {title: "วันเริ่ม Invoice", name: "RSTARTDATE", type: "text", css: "lvgb", editing: true, align: "right", width: 100},
@@ -439,7 +439,7 @@
                 month: month,
                 year: year,
                 invround: invround,
-                company:cono
+                company: cono
             },
             async: false
         }).done(function (response) {

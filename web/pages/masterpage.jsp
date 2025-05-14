@@ -177,8 +177,8 @@
     <div class="wrap-login100" style="width: 100%;margin-bottom: 0px;">
         <label for="txtPeriod">Master Table Data</label>
         <br>
-        <label for="txtPeriod" id = "vCompanyInputlab">Company(10 DEFAULT):</label>
-        <select class="form-control form-control-user" name="company" id="vCompanyInput" style="width: 300px">
+        <label for="txtPeriod" id = "vCompanyInputlab">Company:</label>
+        <select class="form-control form-control-user" name="company" id="vCompanyInput" style="width: 300px" disabled="">
             <!--<option value="" selected="selected">Select Company</option>-->
         </select>
         <!--<input type="text" id="vCompanyInput" name="company" style="width: 70px">-->
@@ -322,26 +322,10 @@
     var cono = <%out.print(session.getAttribute("cono"));%>
     var divi = <%out.print(session.getAttribute("divi"));%>
     var auth = "<%out.print(session.getAttribute("auth"));%>";
-    var facility = "1A1";
-//    var cono = "10";
-//    var divi = "101";
-    var warehouse;
-    var period = [];
     var mode = "create";
-
+//    console.log(cono)
+//    console.log(divi)
     $('#my-div').css('color', 'white');
-    $.ajax({
-        url: './Action',
-        type: 'GET',
-        dataType: 'json',
-        data: {
-            path: "getMasterFinance"
-        },
-        async: false
-    })
-            .done(function (response) {
-
-            });
 
 
     var NumberField = jsGrid.NumberField;
@@ -368,7 +352,7 @@
         height: "auto",
         editing: false,
         sorting: true,
-        paging: true,
+        paging: false,
         filtering: true,
         pageSize: 25,
         deleteConfirm: "Do you really want to delete the client?",
@@ -448,6 +432,7 @@
                 console.log(item);
                 formData = {};
                 formData.company = item.RCOMPANY;
+                formData.divi = item.BPM_DIVI;
                 formData.customerid = item.RCUSTOMERID;
                 formData.customertype = item.RCUSTOMERTYPE;
                 formData.caseinvoice = item.ROUNDCASEINV
@@ -476,6 +461,7 @@
                 console.log(item);
                 formData = {};
                 formData.company = item.RCOMPANY;
+                formData.divi = item.BPM_DIVI;
                 formData.customerid = item.RCUSTOMERID;
                 formData.path = "deleteFinanceMaster";
                 $.ajax({
@@ -497,7 +483,8 @@
                     return jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
                 }},
 
-            {title: "บริษัท", name: "RCOMPANY", css: "limitext", type: "text", editing: false, align: "center", width: 50},
+//            {title: "COMPANY", name: "RCOMPANY", css: "limitext", type: "text", editing: false, align: "center", width: 50},
+//            {title: "DIVI", name: "BPM_DIVI", css: "limitext", type: "text", editing: false, align: "center", width: 50},
             {title: "รหัสลูกค้า", name: "RCUSTOMERID", css: "limitext", type: "text", editing: false, align: "left", width: 50},
             {title: "ชื่อลูกค้า", name: "RCUSTOMERNAME", css: "limitext", type: "text", editing: false, align: "left", width: 100},
             {title: "ประเภทลูกค้า", name: "RCUSTOMERTYPE", css: "lvgb", type: "decimal", editing: true, align: "right", width: 50},
@@ -614,6 +601,7 @@
                 //console.log(div_data)
                 $(div_data).appendTo('#vCompanyInput');
             });
+            $('#vCompanyInput').val(cono);
         }
     });
 
@@ -849,6 +837,7 @@
             data: {
                 path: "addMaster",
                 company: company,
+                divi: divi,
                 customer: customer,
                 invroundinput: invoiceinput,
                 invroundA: invoiceday,

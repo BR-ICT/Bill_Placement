@@ -201,20 +201,20 @@
         <button id="vDeletecustomer" class="btn btn-success" type="submit" form="">Delete Data</button>
         <br>   
         <button id="vMode" class="btn btn-success" type="submit" form="">Per Customer</button>
-       
+
     </div>
     <div id="jsGrid"></div>
 </section>
 
 <script>
-//    var cono = <%out.print(session.getAttribute("cono"));%>
-//    var divi = <%out.print(session.getAttribute("divi"));%>
+    var cono = <%out.print(session.getAttribute("cono"));%>
+    var divi = <%out.print(session.getAttribute("divi"));%>
 
-    var facility = "1A1";
-    var cono = "10";
-    var divi = "101";
-    var warehouse;
-    var period = [];
+//    var facility = "1A1";
+//    var cono = "10";
+//    var divi = "101";
+//    var warehouse;
+//    var period = [];
     var mode = "search";
 
 
@@ -365,11 +365,11 @@
 
         },
         fields: [
-            {type: "control", width:10,
-            itemTemplate: function(value, item) {
-              // Customize the control column here
-              // Return an empty string to remove the delete button
-              return "";
+            {type: "control", width: 10,
+                itemTemplate: function (value, item) {
+                    // Customize the control column here
+                    // Return an empty string to remove the delete button
+                    return "";
                 }},
 
             {title: "บริษัท", name: "RCOMPANY", css: "limitext", type: "text", editing: false, align: "center", width: 50},
@@ -647,7 +647,7 @@
             alert(response);
         });
     });
-    
+
     $("#vCustomeridlab").hide();
     $("#vCustomer").hide();
     $("#vAdd").hide();

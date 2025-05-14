@@ -303,7 +303,7 @@ public class Select {
         }
     }
 
-    public static JSONArray getMasterFinance(String cono, String divi) throws Exception {
+        public static JSONArray getMasterFinance(String cono, String divi) throws Exception {
 
         JSONArray mJSonArr = new JSONArray();
         Connection conn = ConnectDB2.ConnectionDB();
@@ -312,7 +312,7 @@ public class Select {
             if (conn != null) {
 
                 Statement stmt = conn.createStatement();
-                String query = "SELECT master.BPM_CONO,master.BPM_CUNO,MASTER.BPM_TYPE,MASTER.BPM_RINV,\n"
+                String query = "SELECT master.BPM_CONO,BPM_DIVI,master.BPM_CUNO,MASTER.BPM_TYPE,MASTER.BPM_RINV,\n"
                         + "master.BPM_RBIL,MASTER.BPM_RCOL,CUS.OKCUNM,MASTER.BPM_CASEBIL,MASTER.BPM_CASECOL,\n"
                         + "MASTER.BPM_RBILSP,MASTER.BPM_RCOLSP,BPM_CASEINV\n"
                         + ",COALESCE(MASTER.BPM_BILDESC,'') AS BILDESC,COALESCE(MASTER.BPM_COLDESC,'') AS COLDESC\n"
@@ -324,67 +324,41 @@ public class Select {
                 System.out.println(query);
                 ResultSet mRes = stmt.executeQuery(query);
                 while (mRes.next()) {
-                    String value1 = mRes.getString(1);
-                    if (value1 != null) {
-                        value1 = value1.trim();
+                    String BPM_CASEBIL = mRes.getString("BPM_CASEBIL");
+                    if (BPM_CASEBIL != null) {
+                        BPM_CASEBIL = BPM_CASEBIL.trim();
                     }
-                    String value2 = mRes.getString(2);
-                    if (value2 != null) {
-                        value2 = value2.trim();
+                    String BPM_RBILSP = mRes.getString("BPM_RBILSP");
+                    if (BPM_RBILSP != null) {
+                        BPM_RBILSP = BPM_RBILSP.trim();
                     }
-                    String value3 = mRes.getString(3);
-                    if (value3 != null) {
-                        value3 = value3.trim();
+                    String BPM_CASECOL = mRes.getString("BPM_CASECOL");
+                    if (BPM_CASECOL != null) {
+                        BPM_CASECOL = BPM_CASECOL.trim();
                     }
-                    String value4 = mRes.getString(4);
-                    if (value4 != null) {
-                        value4 = value4.trim();
+                    String BPM_RCOLSP = mRes.getString("BPM_RCOLSP");
+                    if (BPM_RCOLSP != null) {
+                        BPM_RCOLSP = BPM_RCOLSP.trim();
                     }
-                    String value5 = mRes.getString(5);
-                    if (value5 != null) {
-                        value5 = value5.trim();
-                    }
-                    String value6 = mRes.getString(6);
-                    if (value6 != null) {
-                        value6 = value6.trim();
-                    }
-                    String value7 = mRes.getString(7);
-                    if (value7 != null) {
-                        value7 = value7.trim();
-                    }
-                    String value8 = mRes.getString(8);
-                    if (value8 != null) {
-                        value8 = value8.trim();
-                    }
-                    String value9 = mRes.getString(9);
-                    if (value9 != null) {
-                        value9 = value9.trim();
-                    }
-                    String value10 = mRes.getString(10);
-                    if (value10 != null) {
-                        value10 = value10.trim();
-                    }
-                    String value11 = mRes.getString(11);
-                    if (value11 != null) {
-                        value11 = value11.trim();
-                    }
+                    
                     Map<String, Object> mMap = new HashMap<>();
-                    mMap.put("RCOMPANY", value1);
-                    mMap.put("RCUSTOMERID", value2);
-                    mMap.put("RCUSTOMERTYPE", value3);
-                    mMap.put("ROUNDINV", value4);
-                    mMap.put("ROUNDBILL", value5);
-                    mMap.put("ROUNDPAY", value6);
-                    mMap.put("RCUSTOMERNAME", value7);
-                    mMap.put("ROUNDCASEBILL", value8);
-                    mMap.put("ROUNDBILLSPECIAL", value10);
-                    mMap.put("ROUNDCASEPAY", value9);
-                    mMap.put("ROUNDPAYSPECIAL", value11);
-                    mMap.put("ROUNDCASEINV", mRes.getString(12));
-                    mMap.put("BILLDESCRIPTION", mRes.getString(13));
-                    mMap.put("COLDESCRIPTION", mRes.getString(14));
-                    mMap.put("COLBY", mRes.getString(15));
-                    mMap.put("REMARK", mRes.getString(16));
+                    mMap.put("RCOMPANY", mRes.getString("BPM_CONO"));
+                    mMap.put("BPM_DIVI", mRes.getString("BPM_DIVI"));
+                    mMap.put("RCUSTOMERID", mRes.getString("BPM_CUNO"));
+                    mMap.put("RCUSTOMERTYPE", mRes.getString("BPM_TYPE"));
+                    mMap.put("ROUNDINV", mRes.getString("BPM_RINV"));
+                    mMap.put("ROUNDBILL", mRes.getString("BPM_RBIL"));
+                    mMap.put("ROUNDPAY",  mRes.getString("BPM_RCOL"));
+                    mMap.put("RCUSTOMERNAME",  mRes.getString("OKCUNM"));
+                    mMap.put("ROUNDCASEBILL", BPM_CASEBIL);
+                    mMap.put("ROUNDBILLSPECIAL", BPM_RBILSP);
+                    mMap.put("ROUNDCASEPAY", BPM_CASECOL);
+                    mMap.put("ROUNDPAYSPECIAL", BPM_RCOLSP);
+                    mMap.put("ROUNDCASEINV", mRes.getString("BPM_CASEINV"));
+                    mMap.put("BILLDESCRIPTION", mRes.getString("BILDESC"));
+                    mMap.put("COLDESCRIPTION", mRes.getString("COLDESC"));
+                    mMap.put("COLBY", mRes.getString("COLBY"));
+                    mMap.put("REMARK", mRes.getString("REMARK"));
                     mJSonArr.put(mMap);
 
                 }

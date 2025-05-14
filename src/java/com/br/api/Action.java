@@ -62,7 +62,8 @@ public class Action extends HttpServlet {
                 out.flush();
                 break;
             case "getMonthInvoice":
-                out.print(Select.getMonthInvoice(request.getParameter("year"), request.getParameter("invround")));
+                out.print(Select.getMonthInvoice(request.getParameter("year")
+                        , request.getParameter("invround")));
                 out.flush();
                 break;
             case "getMonthMaster":
@@ -76,7 +77,8 @@ public class Action extends HttpServlet {
                 break;
 
             case "getMasterFinance":
-                out.print(Select.getMasterFinance(request.getParameter("cono"), request.getParameter("divi")));
+                out.print(Select.getMasterFinance(request.getParameter("cono"),
+                         request.getParameter("divi")));
                 out.flush();
                 break;
 
@@ -112,6 +114,7 @@ public class Action extends HttpServlet {
                 break;
             case "addMaster":
                 out.print(Insert.addMaster(request.getParameter("company"),
+                        request.getParameter("divi"),
                         request.getParameter("customer"),
                         request.getParameter("invroundinput"),
                         request.getParameter("invroundA"),
@@ -140,7 +143,13 @@ public class Action extends HttpServlet {
 
             // Insert
             case "addFinanceMaster":
-                out.print(Insert.insertfinancemaster(request.getParameter("company"), request.getParameter("customerid"), request.getParameter("customertype"), request.getParameter("roundinv"), request.getParameter("roundbill"), request.getParameter("roundpay")));
+                out.print(Insert.insertfinancemaster(request.getParameter("company"),
+                         request.getParameter("divi"),
+                         request.getParameter("customerid"),
+                         request.getParameter("customertype"),
+                         request.getParameter("roundinv"),
+                         request.getParameter("roundbill"),
+                         request.getParameter("roundpay")));
                 out.flush();
                 break;
             case "importInvoiceData":
@@ -159,7 +168,7 @@ public class Action extends HttpServlet {
                 out.flush();
                 break;
             case "updateFinanceMaster":
-                out.print(Update.updateFinanceMaster(request.getParameter("company"),
+                out.print(Update.updateFinanceMaster(request.getParameter("company"), request.getParameter("divi"),
                         request.getParameter("customerid"), request.getParameter("customertype"),
                         request.getParameter("roundinv"), request.getParameter("roundbill"),
                         request.getParameter("roundpay"), request.getParameter("roundcasebill"),
@@ -189,7 +198,9 @@ public class Action extends HttpServlet {
 
             // Delete
             case "deleteFinanceMaster":
-                out.print(Delete.deleteFinanceMaster(request.getParameter("company"), request.getParameter("customerid")));
+                out.print(Delete.deleteFinanceMaster(request.getParameter("company"),
+                        request.getParameter("divi"),
+                         request.getParameter("customerid")));
                 out.flush();
                 break;
             case "deleteStartMonth":
