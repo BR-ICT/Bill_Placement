@@ -40,7 +40,8 @@
             <h3>รายการตารางวันลูกค้า</h3>
             <br>
             <div class="form-label-group">
-
+                <input  id="vCono" name="cono" style="">
+                <input  id="vDivi" name="divi" style="">
                 <label for="date" id="vDatelab" style="">Start date:</label>
                 <input type="date" id="vStartDate" name="startdate" style="">
                 <br>
@@ -68,9 +69,9 @@
         </form>
         <form align="center">
             <hr class="my-4">
-<!--            <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="customer_calender" type="submit">เรียกรายงาน</button>
-
-            <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="customer_calenderXLSX" type="submit">เรียกรายงาน Excel</button>-->
+            <!--            <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="customer_calender" type="submit">เรียกรายงาน</button>
+            
+                        <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="customer_calenderXLSX" type="submit">เรียกรายงาน Excel</button>-->
             <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="Report_Billplacement_new" type="submit">เรียกรายงาน</button>
             <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="Report_Billplacement_newXLSX" type="submit">เรียกรายงาน Excel</button>
         </form>
@@ -78,7 +79,12 @@
     </div>
 </div>
 <script>
-
+    var cono = <%out.print(session.getAttribute("cono"));%>
+    var divi = <%out.print(session.getAttribute("divi"));%>
+    $("#vCono").val(cono);
+    $("#vDivi").val(divi);
+    $('#vCono').hide();
+    $('#vDivi').hide();
     $("#vInvround").change(function () {
         $.ajax({
             url: './Action',

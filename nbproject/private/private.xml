@@ -2,6 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/files/java_project/FinanceCustomerDate/src/java/com/br/data/Delete.java</file>
+            <file>file:/D:/files/java_project/FinanceCustomerDate/src/java/com/br/data/Insert.java</file>
+            <file>file:/D:/files/java_project/FinanceCustomerDate/web/pages/BP_HBILL.jsp</file>
+            <file>file:/D:/files/java_project/FinanceCustomerDate/src/java/com/br/api/Action.java</file>
+        </group>
     </open-files>
 </project-private>

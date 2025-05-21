@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 5.5.2  -->
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape_2" language="javascript" pageWidth="5250" pageHeight="595" orientation="Landscape" columnWidth="4960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="3594ccb8-df5f-4579-93ec-eae883f18ca4">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
@@ -15,6 +15,8 @@
 	<parameter name="PYearNo" class="java.lang.String"/>
 	<parameter name="PMonthNo" class="java.lang.String"/>
 	<parameter name="Pinvround" class="java.lang.String"/>
+	<parameter name="cono" class="java.lang.String"/>
+	<parameter name="divi" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT B.BPM_TYPE,A.BPH_CUNO,E.OKCUNM,E.oksmcd,E.okpycd,E.okcfc3
 ,XMLSERIALIZE(XMLAGG(XMLTEXT(CASE WHEN SUBSTRING(A.BPH_BPDT,7,2) = '01' AND SUBSTRING(A.BPH_BPDT,5,2) = $P{PMonthNo} AND SUBSTRING(A.BPH_BPDT,1,4) = $P{PYearNo}
@@ -514,10 +516,12 @@ LEFT JOIN BRLDTA0100.H_BILLNOTE C ON  C.HB_CUNO = F.BPH_CUNO AND C.HB_CONO = F.B
 WHERE G.BPM_RINV = $P{Pinvround} AND A.BPH_CUNO = F.BPH_CUNO
 GROUP BY H.OKCUNM) AS DAY31_Amount
 FROM BRLDTA0100.BP_HBILL A
-Join BRLDTA0100.BP_MASTER B ON B.BPM_CONO  = A.BPH_CONO 
+Join BRLDTA0100.BP_MASTER B ON B.BPM_CONO  = A.BPH_CONO AND B.BPM_DIVI = A.BPH_DIVI
 AND A.BPH_CUNO = B.BPM_CUNO
 LEFT JOIN M3FDBPRD.OCUSMA E ON E.OKCUNO = A.BPH_CUNO AND e.OKCONO = A.BPH_CONO
 WHERE B.BPM_RINV = $P{Pinvround}
+AND B.BPM_CONO = $P{cono}
+AND B.BPM_DIVI = $P{divi}
 GROUP BY B.BPM_TYPE,A.BPH_CUNO,E.OKCUNM,E.oksmcd,E.okpycd,E.okcfc3]]>
 	</queryString>
 	<field name="BPM_TYPE" class="java.lang.String">

@@ -21,7 +21,7 @@ import org.codehaus.jettison.json.JSONArray;
  */
 public class Delete {
 
-    public static JSONArray deleteFinanceMaster(String company,String divi, String customerid) throws Exception {
+    public static JSONArray deleteFinanceMaster(String company, String divi, String customerid) throws Exception {
 
         JSONArray mJSonArr = new JSONArray();
         Connection conn = ConnectDB2.ConnectionDB();
@@ -68,7 +68,7 @@ public class Delete {
 
     }
 
-    public static String deleteStartMonth(String year, String month, String invround) throws Exception {
+    public static String deleteStartMonth(String cono, String divi, String year, String month, String invround) throws Exception {
 
         String respond = "";
         String check = "0";
@@ -90,13 +90,19 @@ public class Delete {
                             + "WHERE B.BPM_CUNO = D.BPS_CUNO\n"
                             + "AND D.BPS_CONO = C.OKCONO\n"
                             + "AND D.BPS_CUNO = C.OKCUNO\n"
+                            + "AND B.BPM_CONO = D.BPS_CONO\n"
+                            + "AND B.BPM_DIVI = D.BPS_DIVI\n"
                             + "AND A.BPS_CONO = D.BPS_CONO\n"
+                            + "AND A.BPS_DIVI = D.BPS_DIVI\n"
                             + "AND A.BPS_CUNO = D.BPS_CUNO\n"
                             + "AND A.BPS_STDT = D.BPS_STDT\n"
                             + "AND A.BPS_FNDT  = D.BPS_FNDT \n"
-                            + "AND B.BPM_RINV =" + invround + "\n"
-                            + "AND  MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + month + "\n"
-                            + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + ")";
+                            + "AND B.BPM_RINV = " + invround + "\n"
+                            + "AND B.BPM_CONO = " + cono + "\n"
+                            + "AND B.BPM_DIVI = " + divi + "\n"
+                            + "AND  MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) = " + month + "\n"
+                            + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) = " + year + ")\n"
+                            + "";
                     System.out.println(query);
                     stmt.execute(query);
 
@@ -124,7 +130,7 @@ public class Delete {
 
     }
 
-    public static String deleteHeaderMonth(String year, String month, String invround) throws Exception {
+    public static String deleteHeaderMonth(String cono, String divi, String year, String month, String invround) throws Exception {
 
         String respond = "";
         String check = "0";
@@ -144,15 +150,20 @@ public class Delete {
                             + "WHERE EXISTS(SELECT A.BPH_CONO,A.BPH_CUNO,A.BPH_STDT,A.BPH_FNDT,A.BPH_STS,C.OKCUNM\n"
                             + "FROM BRLDTA0100.BP_HBILL D,BRLDTA0100.BP_MASTER B, M3FDBPRD.OCUSMA C\n"
                             + "WHERE B.BPM_CUNO = D.BPH_CUNO\n"
+                            + "AND B.BPM_DIVI = D.BPH_DIVI\n"
+                            + "AND B.BPM_CONO = D.BPH_CONO\n"
                             + "AND D.BPH_CONO = C.OKCONO\n"
                             + "AND D.BPH_CUNO = C.OKCUNO\n"
                             + "AND A.BPH_CONO = D.BPH_CONO\n"
+                            + "AND A.BPH_DIVI = D.BPH_DIVI\n"
                             + "AND A.BPH_CUNO = D.BPH_CUNO\n"
                             + "AND A.BPH_STDT = D.BPH_STDT\n"
                             + "AND A.BPH_FNDT  = D.BPH_FNDT \n"
-                            + "AND B.BPM_RINV =" + invround + "\n"
-                            + "AND MONTH(DATE(TIMESTAMP_FORMAT(cast(BPH_STDT as varchar(8)), 'YYYYMMDD'))) =" + month + "\n"
-                            + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(BPH_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + ")";
+                            + "AND B.BPM_RINV = " + invround + "\n"
+                            + "AND B.BPM_CONO = " + cono + "\n"
+                            + "AND B.BPM_DIVI = " + divi + "\n"
+                            + "AND MONTH(DATE(TIMESTAMP_FORMAT(cast(BPH_STDT as varchar(8)), 'YYYYMMDD'))) = " + month + "\n"
+                            + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(BPH_STDT as varchar(8)), 'YYYYMMDD'))) = " + year + ")";
                     System.out.println(query);
                     stmt.execute(query);
 

@@ -87,7 +87,7 @@ public class Select {
 
     }
 
-    public static JSONArray getYearInvoice(String invround) throws Exception {
+    public static JSONArray getYearInvoice(String cono, String divi, String invround) throws Exception {
 
         JSONArray mJSonArr = new JSONArray();
         Connection conn = ConnectDB2.ConnectionDB();
@@ -99,10 +99,13 @@ public class Select {
                     String query = "SELECT DISTINCT SUBSTRING(BPS_STDT,1,4)\n"
                             + "FROM BRLDTA0100.BP_STDATE A,BRLDTA0100.BP_MASTER B\n"
                             + "WHERE A.BPS_CONO = B.BPM_CONO \n"
-                            + "AND A.BPS_CUNO =B.BPM_CUNO\n"
-                            + "AND B.BPM_RINV =" + invround + "\n"
+                            + "AND A.BPS_DIVI = B.BPM_DIVI\n"
+                            + "AND A.BPS_CUNO = B.BPM_CUNO\n"
+                            + "AND B.BPM_RINV = " + invround + "\n"
+                            + "AND B.BPM_CONO = " + cono + "\n"
+                            + "AND B.BPM_DIVI = " + divi + "\n"
                             + "ORDER By SUBSTRING(BPS_STDT,1,4) ";
-                    System.out.println("getDataTruck\n" + query);
+                    System.out.println("getYearInvoice normalcase\n" + query);
                     ResultSet mRes = stmt.executeQuery(query);
                     while (mRes.next()) {
                         Map<String, Object> mMap = new HashMap<>();
@@ -114,10 +117,14 @@ public class Select {
                     String query = "SELECT DISTINCT SUBSTRING(BPS_STDT,1,4)\n"
                             + "FROM BRLDTA0100.BP_STDATE A,BRLDTA0100.BP_MASTER B\n"
                             + "WHERE A.BPS_CONO = B.BPM_CONO \n"
-                            + "AND A.BPS_CUNO =B.BPM_CUNO\n"
-                            + "AND B.BPM_RINV <> 7 AND B.BPM_RINV <> 15\n"
+                            + "AND A.BPS_DIVI = B.BPM_DIVI\n"
+                            + "AND A.BPS_CUNO = B.BPM_CUNO\n"
+                            + "AND B.BPM_CONO = " + cono + "\n"
+                            + "AND B.BPM_DIVI = " + divi + "\n"
+                            + "AND B.BPM_RINV <> 7\n"
+                            + "AND B.BPM_RINV <> 15\n"
                             + "AND B.BPM_RINV <> 30";
-                    System.out.println("getDataTruck\n" + query);
+                    System.out.println("getYearInvoice specialcase\n" + query);
                     ResultSet mRes = stmt.executeQuery(query);
                     while (mRes.next()) {
                         Map<String, Object> mMap = new HashMap<>();
@@ -147,7 +154,7 @@ public class Select {
 
     }
 
-    public static JSONArray getYearHeader(String invround) throws Exception {
+    public static JSONArray getYearHeader(String cono, String divi, String invround) throws Exception {
 
         JSONArray mJSonArr = new JSONArray();
         Connection conn = ConnectDB2.ConnectionDB();
@@ -160,7 +167,10 @@ public class Select {
                         + "FROM BRLDTA0100.BP_HBILL A,BRLDTA0100.BP_MASTER B\n"
                         + "WHERE A.BPH_CONO = B.BPM_CONO\n"
                         + "AND A.BPH_CUNO = B.BPM_CUNO\n"
-                        + "AND B.BPM_RINV =" + invround + "\n"
+                        + "AND A.BPH_DIVI = B.BPM_DIVI\n"
+                        + "AND B.BPM_RINV = " + invround + "\n"
+                        + "AND B.BPM_CONO = " + cono + "\n"
+                        + "AND B.BPM_DIVI = " + divi + "\n"
                         + "ORDER BY SUBSTRING(BPH_STDT,1,4)";
                 System.out.println("getYearHeader\n" + query);
                 ResultSet mRes = stmt.executeQuery(query);
@@ -303,7 +313,7 @@ public class Select {
         }
     }
 
-        public static JSONArray getMasterFinance(String cono, String divi) throws Exception {
+    public static JSONArray getMasterFinance(String cono, String divi) throws Exception {
 
         JSONArray mJSonArr = new JSONArray();
         Connection conn = ConnectDB2.ConnectionDB();
@@ -340,7 +350,7 @@ public class Select {
                     if (BPM_RCOLSP != null) {
                         BPM_RCOLSP = BPM_RCOLSP.trim();
                     }
-                    
+
                     Map<String, Object> mMap = new HashMap<>();
                     mMap.put("RCOMPANY", mRes.getString("BPM_CONO"));
                     mMap.put("BPM_DIVI", mRes.getString("BPM_DIVI"));
@@ -348,8 +358,8 @@ public class Select {
                     mMap.put("RCUSTOMERTYPE", mRes.getString("BPM_TYPE"));
                     mMap.put("ROUNDINV", mRes.getString("BPM_RINV"));
                     mMap.put("ROUNDBILL", mRes.getString("BPM_RBIL"));
-                    mMap.put("ROUNDPAY",  mRes.getString("BPM_RCOL"));
-                    mMap.put("RCUSTOMERNAME",  mRes.getString("OKCUNM"));
+                    mMap.put("ROUNDPAY", mRes.getString("BPM_RCOL"));
+                    mMap.put("RCUSTOMERNAME", mRes.getString("OKCUNM"));
                     mMap.put("ROUNDCASEBILL", BPM_CASEBIL);
                     mMap.put("ROUNDBILLSPECIAL", BPM_RBILSP);
                     mMap.put("ROUNDCASEPAY", BPM_CASECOL);
@@ -400,6 +410,8 @@ public class Select {
                             + "SELECT A.BPS_CONO,A.BPS_CUNO,A.BPS_STDT,A.BPS_FNDT,A.BPS_STS,A.BPS_RD,A.BPS_PR,C.OKCUNM,D.HB_BNNO\n"
                             + "FROM BRLDTA0100.BP_STDATE A,BRLDTA0100.BP_MASTER B, M3FDBPRD.OCUSMA C,BRLDTA0100.H_BILLNOTE D\n"
                             + "WHERE B.BPM_CUNO = A.BPS_CUNO\n"
+                            + "AND B.BPM_CONO = A.BPS_CONO\n"
+                            + "AND B.BPM_DIVI = A.BPS_DIVI\n"
                             + "AND A.BPS_CONO = C.OKCONO\n"
                             + "AND A.BPS_CUNO = C.OKCUNO\n"
                             + "AND D.HB_CUNO = A.BPS_CUNO\n"
@@ -410,11 +422,13 @@ public class Select {
                             + "AND E.BPS_FNDT = A.BPS_FNDT\n"
                             + "AND E.BPS_RD = A.BPS_RD\n"
                             + "AND B.BPM_RINV = " + invoicerd + "\n"
-                            + "AND A.BPS_CONO =" + cono + "\n"
-                            + "AND MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + month + "\n"
-                            + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + "\n)";
+                            + "AND A.BPS_CONO = " + cono + "\n"
+                            + "AND A.BPS_DIVI = " + divi + "\n"
+                            + "AND MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) = " + month + "\n"
+                            + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) = " + year + "\n)";
                     stmt2.execute(query2);
                     Statement stmt3 = conn.createStatement();
+
                     String query3 = "UPDATE BRLDTA0100.BP_STDATE E\n"
                             + "SET BPS_STS = '20'\n"
                             + "WHERE EXISTS(SELECT LB_BNNO,LB_INVDT, SUM(LB_INVAMT) , C.BPS_CUNO, C.BPS_STDT,C.BPS_FNDT,B.LB_STS,A.HB_STS\n"
@@ -422,12 +436,15 @@ public class Select {
                             + "WHERE A.HB_BNNO = B.LB_BNNO\n"
                             + "AND C.BPS_CUNO = A.HB_CUNO\n"
                             + "AND A.HB_TRDT = C.BPS_STDT\n"
-                            + "AND E.BPS_CONO = C.BPS_CONO AND E.BPS_CUNO = C.BPS_CUNO\n"
-                            + "AND E.BPS_STDT = C.BPS_STDT AND E.BPS_FNDT = E.BPS_FNDT\n"
-                            + "AND E.BPS_CUNO = D.BPM_CUNO AND E.BPS_CONO = E.BPS_CONO\n"
-                            + "AND D.BPM_RINV =" + invoicerd + " AND MONTH(DATE(TIMESTAMP_FORMAT(cast(E.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + month + "\n"
-                            + "AND YEAR(DATE(TIMESTAMP_FORMAT(cast(E.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + "\n"
-                            + "AND E.BPS_CONO =" + cono + "\n"
+                            + "AND E.BPS_CONO = C.BPS_CONO AND C.BPS_CUNO = E.BPS_CUNO\n"
+                            + "AND E.BPS_DIVI = C.BPS_DIVI\n"
+                            + "AND E.BPS_STDT = C.BPS_STDT AND C.BPS_FNDT = E.BPS_FNDT\n"
+                            + "AND E.BPS_CONO = D.BPM_CONO AND E.BPS_DIVI = D.BPM_DIVI\n"
+                            + "AND E.BPS_CUNO = D.BPM_CUNO AND C.BPS_CONO = E.BPS_CONO\n"
+                            + "AND D.BPM_RINV = " + invoicerd + " AND MONTH(DATE(TIMESTAMP_FORMAT(cast(E.BPS_STDT as varchar(8)), 'YYYYMMDD'))) = " + month + "\n"
+                            + "AND YEAR(DATE(TIMESTAMP_FORMAT(cast(E.BPS_STDT as varchar(8)), 'YYYYMMDD'))) = " + year + "\n"
+                            + "AND E.BPS_CONO = " + cono + "\n"
+                            + "AND E.BPS_DIVI = " + divi + "\n"
                             + "GROUP BY LB_BNNO,LB_INVDT,C.BPS_CUNO,C.BPS_STDT,B.LB_STS,A.HB_STS,A.HB_STS,C.BPS_FNDT\n"
                             + "ORDER BY LB_BNNO)";
                     stmt3.execute(query3);
@@ -437,20 +454,26 @@ public class Select {
                     query = "SELECT A.BPS_CONO,A.BPS_CUNO,A.BPS_STDT,A.BPS_FNDT,A.BPS_STS,A.BPS_RD,A.BPS_PR,C.OKCUNM\n"
                             + "FROM BRLDTA0100.BP_STDATE A,BRLDTA0100.BP_MASTER B, M3FDBPRD.OCUSMA C\n"
                             + "WHERE B.BPM_CUNO = A.BPS_CUNO\n"
+                            + "AND B.BPM_CONO  = A.BPS_CONO\n"
+                            + "AND B.BPM_DIVI = A.BPS_DIVI\n"
                             + "AND A.BPS_CONO = C.OKCONO\n"
-                            + "AND A.BPS_CUNO = C.OKCUNO 	\n"
-                            + "AND B.BPM_RINV =" + invoicerd + "\n"
-                            + "AND A.BPS_CONO =" + cono + "\n"
+                            + "AND A.BPS_CUNO = C.OKCUNO\n"
+                            + "AND B.BPM_RINV = " + invoicerd + " \n"
+                            + "AND A.BPS_CONO = " + cono + "\n"
+                            + "AND A.BPS_DIVI = " + divi + "\n"
                             + "AND  MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) = " + month + "\n"
                             + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year;
                 } else {
                     query = "SELECT A.BPS_CONO,A.BPS_CUNO,A.BPS_STDT,A.BPS_FNDT,A.BPS_STS,A.BPS_RD,A.BPS_PR,C.OKCUNM\n"
                             + "FROM BRLDTA0100.BP_STDATE A,BRLDTA0100.BP_MASTER B, M3FDBPRD.OCUSMA C\n"
                             + "WHERE B.BPM_CUNO = A.BPS_CUNO\n"
+                            + "AND B.BPM_CONO  = A.BPS_CONO\n"
+                            + "AND B.BPM_DIVI = A.BPS_DIVI\n"
                             + "AND A.BPS_CONO = C.OKCONO\n"
-                            + "AND A.BPS_CUNO = C.OKCUNO \n"
-                            + "AND A.BPS_CONO =" + cono + "\n"
-                            + "AND  MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + month + "\n"
+                            + "AND A.BPS_CUNO = C.OKCUNO\n"
+                            + "AND A.BPS_CONO = " + cono + "\n"
+                            + "AND A.BPS_DIVI = " + divi + "\n"
+                            + "AND  MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) = " + month + "\n"
                             + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPS_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + "\n"
                             + "AND B.BPM_RINV <> 7 AND B.BPM_RINV <> 15 AND B.BPM_RINV <> 30";
                 }
@@ -520,7 +543,7 @@ public class Select {
 
     }
 
-    public static JSONArray getHeaderDate(String month, String year, String invoicerd) throws Exception {
+    public static JSONArray getHeaderDate(String cono, String divi, String month, String year, String invoicerd) throws Exception {
 
         JSONArray mJSonArr = new JSONArray();
         Connection conn = ConnectDB2.ConnectionDB();
@@ -528,12 +551,14 @@ public class Select {
         try {
             if (conn != null) {
                 Statement stmt2 = conn.createStatement();
+                //CHECK STATUS AND UPDATE TO 10 IF THE BILL HAS BEEN FOUND
                 String query2 = "UPDATE BRLDTA0100.BP_HBILL E\n"
-                        + "SET E.BPH_STS = '10'\n"
-                        + "WHERE EXISTS(\n"
-                        + "SELECT A.BPH_CONO,A.BPH_CUNO,A.BPH_STDT,A.BPH_FNDT,A.BPH_STS,C.OKCUNM,D.HB_BNNO\n"
+                        + "SET E.BPH_STS = 10\n"
+                        + "WHERE EXISTS(SELECT A.BPH_CONO,A.BPH_DIVI,A.BPH_CUNO,A.BPH_STDT,A.BPH_FNDT,A.BPH_STS,C.OKCUNM,D.HB_BNNO\n"
                         + "FROM BRLDTA0100.BP_HBILL A,BRLDTA0100.BP_MASTER B, M3FDBPRD.OCUSMA C,BRLDTA0100.H_BILLNOTE D\n"
                         + "WHERE B.BPM_CUNO = A.BPH_CUNO\n"
+                        + "AND B.BPM_CONO = A.BPH_CONO\n"
+                        + "AND B.BPM_DIVI = A.BPH_DIVI\n"
                         + "AND A.BPH_CONO = C.OKCONO\n"
                         + "AND A.BPH_CUNO = C.OKCUNO\n"
                         + "AND D.HB_CUNO = A.BPH_CUNO\n"
@@ -542,12 +567,16 @@ public class Select {
                         + "AND E.BPH_CUNO = A.BPH_CUNO \n"
                         + "AND E.BPH_STDT = A.BPH_STDT\n"
                         + "AND E.BPH_FNDT = A.BPH_FNDT\n"
-                        + "AND B.BPM_RINV =" + invoicerd + "\n"
-                        + "AND MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPH_STDT as varchar(8)), 'YYYYMMDD'))) =" + month + "\n"
-                        + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPH_STDT as varchar(8)), 'YYYYMMDD'))) =" + year + ")";
+                        + "AND E.BPH_DIVI = A.BPH_DIVI\n"
+                        + "AND B.BPM_RINV = " + invoicerd + "\n"
+                        + "AND B.BPM_CONO = " + cono + "\n"
+                        + "AND B.BPM_DIVI = " + divi + "\n"
+                        + "AND MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPH_STDT as varchar(8)), 'YYYYMMDD'))) = " + month + "\n"
+                        + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPH_STDT as varchar(8)), 'YYYYMMDD'))) = " + year + "\n"
+                        + ")";
                 System.out.println(query2);
                 stmt2.execute(query2);
-
+                //CHANGE STATUS TO 20 if it also been found in second step
                 Statement stmt3 = conn.createStatement();
                 String query3 = "UPDATE BRLDTA0100.BP_HBILL E\n"
                         + "SET BPH_STS = '20'\n"
@@ -555,19 +584,24 @@ public class Select {
                         + "FROM BRLDTA0100.H_BILLNOTE A,BRLDTA0100.LN_BILLNOTE B, BRLDTA0100.BP_HBILL C, BRLDTA0100.BP_MASTER D\n"
                         + "WHERE A.HB_BNNO = B.LB_BNNO\n"
                         + "AND C.BPH_CUNO = A.HB_CUNO\n"
+                        + "AND C.BPH_CONO  = D.BPM_CONO\n"
+                        + "AND C.BPH_DIVI = D.BPM_DIVI\n"
                         + "AND A.HB_TRDT = C.BPH_BPDT\n"
                         + "AND E.BPH_CONO = C.BPH_CONO AND E.BPH_CUNO = C.BPH_CUNO\n"
+                        + "AND E.BPH_DIVI = C.BPH_DIVI\n"
                         + "AND E.BPH_STDT = C.BPH_STDT AND E.BPH_FNDT = E.BPH_FNDT\n"
                         + "AND E.BPH_CUNO = D.BPM_CUNO AND E.BPH_CONO = E.BPH_CONO\n"
-                        + "AND D.BPM_RINV =" + invoicerd + " AND MONTH(DATE(TIMESTAMP_FORMAT(cast(E.BPH_STDT as varchar(8)), 'YYYYMMDD'))) =" + month + "\n"
+                        + "AND D.BPM_RINV = " + invoicerd + "\n"
+                        + "AND D.BPM_CONO = " + cono + "\n"
+                        + "AND D.BPM_DIVI = " + divi + "\n"
+                        + "AND MONTH(DATE(TIMESTAMP_FORMAT(cast(E.BPH_STDT as varchar(8)), 'YYYYMMDD'))) = " + month + "\n"
                         + "AND YEAR(DATE(TIMESTAMP_FORMAT(cast(E.BPH_STDT as varchar(8)), 'YYYYMMDD'))) = " + year + "\n"
                         + "GROUP BY LB_BNNO,LB_INVDT,C.BPH_CUNO,C.BPH_STDT,B.LB_STS,A.HB_STS,A.HB_STS,C.BPH_FNDT\n"
-                        + "ORDER BY LB_BNNO\n"
-                        + ")";
+                        + "ORDER BY LB_BNNO)";
                 System.out.println(query3);
                 stmt3.execute(query3);
                 Statement stmt = conn.createStatement();
-                String query = "SELECT A.BPH_CONO ,A.BPH_CUNO,A.BPH_STDT,A.BPH_FNDT,A.BPH_BPDT,A.BPH_CLDT,A.BPH_STS,C.OKCUNM,D.BPS_RD\n"
+                String query = "SELECT A.BPH_CONO ,A.BPH_DIVI,A.BPH_CUNO,A.BPH_STDT,A.BPH_FNDT,A.BPH_BPDT,A.BPH_CLDT,A.BPH_STS,C.OKCUNM,D.BPS_RD\n"
                         + "FROM BRLDTA0100.BP_HBILL A,BRLDTA0100.BP_MASTER B, M3FDBPRD.OCUSMA C,BRLDTA0100.BP_STDATE D\n"
                         + "WHERE B.BPM_CUNO = A.BPH_CUNO\n"
                         + "AND A.BPH_CONO = C.OKCONO\n"
@@ -575,8 +609,14 @@ public class Select {
                         + "AND A.BPH_CUNO = D.BPS_CUNO\n"
                         + "AND D.BPS_STDT = A.BPH_STDT\n"
                         + "AND D.BPS_FNDT = A.BPH_FNDT\n"
-                        + "AND B.BPM_RINV =" + invoicerd + "\n"
-                        + "AND  MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPH_STDT as varchar(8)), 'YYYYMMDD'))) =" + month + "\n"
+                        + "AND B.BPM_CONO = A.BPH_CONO\n"
+                        + "AND B.BPM_DIVI = A.BPH_DIVI\n"
+                        + "AND A.BPH_CONO = D.BPS_CONO\n"
+                        + "AND A.BPH_DIVI = D.BPS_DIVI\n"
+                        + "AND B.BPM_RINV = " + invoicerd + "\n"
+                        + "AND B.BPM_CONO = " + cono + "\n"
+                        + "AND b.BPM_DIVI = " + divi + "\n"
+                        + "AND  MONTH(DATE(TIMESTAMP_FORMAT(cast(A.BPH_STDT as varchar(8)), 'YYYYMMDD'))) = " + month + "\n"
                         + "AND YEAR (DATE(TIMESTAMP_FORMAT(cast(A.BPH_STDT as varchar(8)), 'YYYYMMDD'))) =" + year;
                 System.out.println(query);
                 ResultSet mRes = stmt.executeQuery(query);
@@ -617,17 +657,22 @@ public class Select {
                     if (value9 != null) {
                         value9 = value9.trim();
                     }
+                    String value10 = mRes.getString(10);
+                    if (value10 != null) {
+                        value10 = value10.trim();
+                    }
                     Map<String, Object> mMap = new HashMap<>();
 
                     mMap.put("RCOMPANY", value1);
-                    mMap.put("RCUSTOMERID", value2);
-                    mMap.put("RSTARTDATE", value3);
-                    mMap.put("RENDDATE", value4);
-                    mMap.put("RBILLDATE", value5);
-                    mMap.put("RPAYDATE", value6);
-                    mMap.put("RSTATUS", value7);
-                    mMap.put("RCUSTOMERNAME", value8);
-                    mMap.put("RROUND", value9);
+                    mMap.put("RDIVI", value2);
+                    mMap.put("RCUSTOMERID", value3);
+                    mMap.put("RSTARTDATE", value4);
+                    mMap.put("RENDDATE", value5);
+                    mMap.put("RBILLDATE", value6);
+                    mMap.put("RPAYDATE", value7);
+                    mMap.put("RSTATUS", value8);
+                    mMap.put("RCUSTOMERNAME", value9);
+                    mMap.put("RROUND", value10);
                     mJSonArr.put(mMap);
 
                 }
@@ -654,7 +699,7 @@ public class Select {
 
     }
 
-    public static String deleteStartDatecustomer(String Customer) throws Exception {
+    public static String deleteStartDatecustomer(String cono, String divi, String Customer) throws Exception {
 
         Connection conn = ConnectDB2.ConnectionDB();
         String query1 = "";
@@ -670,7 +715,9 @@ public class Select {
                 Statement stmt4 = conn.createStatement();
                 query4 = "SELECT BPS_CUNO\n"
                         + "FROM BRLDTA0100.BP_STDATE bs\n"
-                        + "WHERE BPS_CUNO = '" + Customer + "'";
+                        + "WHERE BPS_CUNO = '" + Customer + "'\n"
+                        + "AND BPS_CONO = " + cono + "\n"
+                        + "AND BPS_DIVI = " + divi + "";
                 ResultSet mRes = stmt4.executeQuery(query4);
                 while (mRes.next()) {
                     if (Customer.equals(mRes.getString(1))) {
@@ -681,7 +728,9 @@ public class Select {
                 if (check.equals("1")) {
                     //--Import data from start date 7 days
                     query1 = "DELETE FROM BRLDTA0100.BP_STDATE\n"
-                            + "WHERE BPS_CUNO = '" + Customer + "'";
+                            + "WHERE BPS_CUNO = '" + Customer + "'\n"
+                            + "AND BPS_CONO = " + cono + "\n"
+                            + "AND BPS_DIVI = " + divi;
                     stmt.execute(query1);
                     System.out.println("Delete start date per customer\n" + query1);
                     respond = "Delete Customer" + Customer + " successfully!";
@@ -708,7 +757,7 @@ public class Select {
         return respond;
     }
 
-    public static String deleteHeaderDatecustomer(String Customer) throws Exception {
+    public static String deleteHeaderDatecustomer(String cono, String divi, String Customer) throws Exception {
 
         Connection conn = ConnectDB2.ConnectionDB();
         String query1 = "";
@@ -724,7 +773,9 @@ public class Select {
                 Statement stmt4 = conn.createStatement();
                 query4 = "SELECT BPH_CUNO\n"
                         + "FROM BRLDTA0100.BP_HBILL\n"
-                        + "WHERE BPH_CUNO = '" + Customer + "'";
+                        + "WHERE BPH_CUNO = '" + Customer + "'\n"
+                        + "AND BPH_CONO = " + cono + "\n"
+                        + "AND BPH_DIVI = " + divi;
                 ResultSet mRes = stmt4.executeQuery(query4);
                 while (mRes.next()) {
                     if (Customer.equals(mRes.getString(1))) {
@@ -734,8 +785,11 @@ public class Select {
                 }
                 if (check.equals("1")) {
                     //--Import data from start date 7 days
-                    query1 = "DELETE FROM BRLDTA0100.BP_HBILL\n"
-                            + "WHERE BPH_CUNO = '" + Customer + "'";
+                    query1 = "SELECT BPH_CUNO\n"
+                            + "FROM BRLDTA0100.BP_HBILL\n"
+                            + "WHERE BPH_CUNO = '" + Customer + "'\n"
+                            + "AND BPH_CONO = " + cono + "\n"
+                            + "AND BPH_DIVI =" + divi;
                     stmt.execute(query1);
                     System.out.println("Delete start date per customer\n" + query1);
                     respond = "Delete Customer" + Customer + " successfully!";
@@ -1087,7 +1141,7 @@ public class Select {
 
     }
 
-    public static JSONArray getMonthInvoice(String year, String invround) throws Exception {
+    public static JSONArray getMonthInvoice(String cono, String divi, String year, String invround) throws Exception {
 
         JSONArray mJSonArr = new JSONArray();
         Connection conn = ConnectDB2.ConnectionDB();
@@ -1097,9 +1151,12 @@ public class Select {
                 if (!"Special".equals(invround)) {
                     String query = "SELECT DISTINCT SUBSTRING(a.BPS_STDT,5,2)\n"
                             + "FROM BRLDTA0100.BP_STDATE A, BRLDTA0100.BP_MASTER B\n"
-                            + "WHERE SUBSTRING(a.BPS_STDT,1,4) =" + year + "\n"
-                            + "AND B.BPM_RINV =" + invround + "\n"
+                            + "WHERE SUBSTRING(a.BPS_STDT,1,4) = " + year + "\n"
+                            + "AND B.BPM_RINV = " + invround + "\n"
+                            + "AND B.BPM_CONO = " + cono + "\n"
+                            + "AND B.BPM_DIVI = " + divi + "\n"
                             + "AND A.BPS_CONO = B.BPM_CONO \n"
+                            + "AND A.BPS_DIVI = B.BPM_DIVI\n"
                             + "AND A.BPS_CUNO = B.BPM_CUNO \n"
                             + "ORDER BY SUBSTRING(a.BPS_STDT,5,2)";
                     System.out.println("getPeriod\n" + query);
@@ -1150,7 +1207,7 @@ public class Select {
 
     }
 
-    public static JSONArray getMonthMaster(String year, String invround) throws Exception {
+    public static JSONArray getMonthMaster(String cono, String divi, String year, String invround) throws Exception {
 
         JSONArray mJSonArr = new JSONArray();
         Connection conn = ConnectDB2.ConnectionDB();
@@ -1162,9 +1219,12 @@ public class Select {
                 String query = "SELECT DISTINCT SUBSTRING(BPH_STDT,5,2)\n"
                         + "FROM BRLDTA0100.BP_HBILL A,BRLDTA0100.BP_MASTER B\n"
                         + "WHERE A.BPH_CONO = B.BPM_CONO\n"
+                        + "AND A.BPH_DIVI = B.BPM_DIVI\n"
                         + "AND A.BPH_CUNO = B.BPM_CUNO\n"
-                        + "AND B.BPM_RINV =" + invround + "\n"
-                        + "AND SUBSTRING(BPH_STDT,1,4) =" + year + "\n"
+                        + "AND B.BPM_RINV = " + invround + "\n"
+                        + "AND B.BPM_CONO = " + cono + "\n"
+                        + "AND B.BPM_DIVI = " + divi + "\n"
+                        + "AND SUBSTRING(BPH_STDT,1,4) = " + year + "\n"
                         + "ORDER BY SUBSTRING(BPH_STDT,5,2)";
                 System.out.println("getPeriod\n" + query);
                 ResultSet mRes = stmt.executeQuery(query);

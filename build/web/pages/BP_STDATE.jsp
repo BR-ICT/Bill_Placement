@@ -439,7 +439,8 @@
                 month: month,
                 year: year,
                 invround: invround,
-                company: cono
+                company: cono,
+                divi:divi
             },
             async: false
         }).done(function (response) {
@@ -452,6 +453,8 @@
                 dataType: 'json',
                 data: {
                     path: "getMonthInvoice",
+                    cono:cono,
+                    divi:divi,
                     year: $("#vYear").val(),
                     invround: $("#vInvround").val()
                 },
@@ -476,6 +479,8 @@
                 dataType: 'json',
                 data: {
                     path: "getYearInvoice",
+                    cono:cono,
+                    divi:divi,
                     invround: $("#vInvround").val()
                 },
                 async: false
@@ -584,7 +589,9 @@
                     path: "deleteStartMonth",
                     year: $("#vYear").val(),
                     month: $("#vMonth").val(),
-                    invround: $("#vInvround").val()
+                    invround: $("#vInvround").val(),
+                    cono:cono,
+                    divi
                 },
                 async: false
             }).done(function (response) {
@@ -666,6 +673,8 @@
             dataType: 'text',
             data: {
                 path: "addStartMonth",
+                cono:cono,
+                divi:divi,
                 customer: $("#vCustomer").val(),
                 startdate: $("#vDate").val(),
                 invround: $("#vInvround").val(),
@@ -691,7 +700,9 @@
             dataType: 'text',
             data: {
                 path: "deleteStartDatecustomer",
-                customer: $("#vCustomer").val()
+                customer: $("#vCustomer").val(),
+                cono:cono,
+                divi:divi
             },
             async: false
         }).done(function (response) {

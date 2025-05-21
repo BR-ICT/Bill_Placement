@@ -157,7 +157,7 @@ public class Report extends HttpServlet {
                     String path2 = getServletContext().getRealPath("/jaspers/");
 
                     JPD4 = JRXmlLoader.load(path2 + "Report_Billplacement_new.jrxml");
-                     if (type2.equals("Special")) {
+                    if (type2.equals("Special")) {
                         JPD4 = JRXmlLoader.load(path2 + "Report_Billplacement_special.jrxml");
                     }
                     JasperReport jasperReport2 = JasperCompileManager.compileReport(JPD4);
@@ -169,7 +169,8 @@ public class Report extends HttpServlet {
                     parameters2.put("startdate", startdate);
                     parameters2.put("enddate", enddate);
                     parameters2.put("Pinvround", request.getParameter("invoiceround"));
-
+                    parameters2.put("cono", request.getParameter("cono"));
+                    parameters2.put("divi", request.getParameter("divi"));
                     JasperPrint jasp = JasperFillManager.fillReport(jasperReport2, parameters2, conn2);
                     response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
                     response.setHeader("Content-Disposition", "attachment; filename=\"" + "Calender_" + startdate + "_" + enddate + ".xlsx" + "\"");
@@ -214,7 +215,8 @@ public class Report extends HttpServlet {
                     parameters3.put("startdate", startdate2);
                     parameters3.put("enddate", enddate2);
                     parameters3.put("Pinvround", request.getParameter("invoiceround"));
-
+                    parameters3.put("cono", request.getParameter("cono"));
+                    parameters3.put("divi", request.getParameter("divi"));
                     JasperPrint jasp3 = JasperFillManager.fillReport(jasperReport3, parameters3, conn3);
                     ServletOutputStream ouputStream3 = response.getOutputStream();
                     JasperExportManager.exportReportToPdfStream(jasp3, ouputStream3);

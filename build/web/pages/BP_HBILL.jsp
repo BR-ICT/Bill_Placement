@@ -281,7 +281,9 @@
                         path: "getHeaderDate",
                         month: $("#vMonth").val(),
                         year: $("#vYear").val(),
-                        invoicerd: $("#vInvround").val()
+                        invoicerd: $("#vInvround").val(),
+                        cono: cono,
+                        divi: divi
                     },
                     async: false,
                     timeout: 60000
@@ -410,8 +412,8 @@
             alert("Please select invround!");
             return;
         }
-        console.log(month);
-        console.log(year);
+//        console.log(month);
+//        console.log(year);
 
 
         $("#jsGrid").jsGrid("loadData");
@@ -594,6 +596,8 @@
             dataType: 'json',
             data: {
                 path: "getMonthMaster",
+                cono: cono,
+                divi: divi,
                 year: $("#vYear").val(),
                 invround: $("#vInvround").val()
             },
@@ -670,6 +674,8 @@
             dataType: 'text',
             data: {
                 path: "addHeaderMonth",
+                cono: cono,
+                divi: divi,
                 customer: $("#vCustomer").val(),
                 invround: $("#vInvround").val(),
                 year: $("#vYear").val(),
@@ -692,7 +698,9 @@
             dataType: 'json',
             data: {
                 path: "getYearHeader",
-                invround: $("#vInvround").val()
+                invround: $("#vInvround").val(),
+                cono: cono,
+                divi: divi
             },
             async: false
         }).done(function (response) {

@@ -50,24 +50,40 @@ public class Action extends HttpServlet {
                 break;
 
             case "getHeaderDate":
-                out.print(Select.getHeaderDate(request.getParameter("month"), request.getParameter("year"), request.getParameter("invoicerd")));
+                out.print(Select.getHeaderDate(request.getParameter("cono"),
+                        request.getParameter("divi"),
+                        request.getParameter("month"),
+                        request.getParameter("year"),
+                        request.getParameter("invoicerd")
+                ));
                 out.flush();
                 break;
             case "getYearHeader":
-                out.print(Select.getYearHeader(request.getParameter("invround")));
+                out.print(Select.getYearHeader(request.getParameter("cono"),
+                        request.getParameter("divi"),
+                        request.getParameter("invround")));
                 out.flush();
                 break;
             case "getYearInvoice":
-                out.print(Select.getYearInvoice(request.getParameter("invround")));
+                out.print(Select.getYearInvoice(
+                        request.getParameter("cono"),
+                        request.getParameter("divi"),
+                        request.getParameter("invround")));
                 out.flush();
                 break;
             case "getMonthInvoice":
-                out.print(Select.getMonthInvoice(request.getParameter("year")
-                        , request.getParameter("invround")));
+                out.print(Select.getMonthInvoice(request.getParameter("cono"),
+                        request.getParameter("divi"),
+                        request.getParameter("year"),
+                        request.getParameter("invround")));
                 out.flush();
                 break;
             case "getMonthMaster":
-                out.print(Select.getMonthMaster(request.getParameter("year"), request.getParameter("invround")));
+                out.print(Select.getMonthMaster(
+                        request.getParameter("cono"),
+                        request.getParameter("divi"),
+                        request.getParameter("year"),
+                        request.getParameter("invround")));
                 out.flush();
                 break;
 
@@ -78,7 +94,7 @@ public class Action extends HttpServlet {
 
             case "getMasterFinance":
                 out.print(Select.getMasterFinance(request.getParameter("cono"),
-                         request.getParameter("divi")));
+                        request.getParameter("divi")));
                 out.flush();
                 break;
 
@@ -93,20 +109,40 @@ public class Action extends HttpServlet {
                 break;
             //INSERT
             case "addStartMonth":
-                out.print(Insert.addStartMonth(request.getParameter("year"), request.getParameter("month"), request.getParameter("invround"), request.getParameter("customer"), request.getParameter("startdate")));
+                out.print(Insert.addStartMonth(
+                        request.getParameter("cono"),
+                        request.getParameter("divi"),
+                        request.getParameter("year"),
+                        request.getParameter("month"),
+                        request.getParameter("invround"),
+                        request.getParameter("customer"),
+                        request.getParameter("startdate")));
                 out.flush();
                 break;
 
             case "insertfinanceheader":
-                out.print(Insert.insertfinanceheader(request.getParameter("company"), request.getParameter("customerid"), request.getParameter("startdate"), request.getParameter("month"), request.getParameter("year"), request.getParameter("status"), request.getParameter("invoicerd")));
+                out.print(Insert.insertfinanceheader(request.getParameter("company"),
+                        request.getParameter("divi"),
+                        request.getParameter("customerid"),
+                        request.getParameter("startdate"),
+                        request.getParameter("month"),
+                        request.getParameter("year"),
+                        request.getParameter("status"),
+                        request.getParameter("invoicerd")));
                 out.flush();
                 break;
             case "importStartData":
-                out.print(Insert.importStartData(request.getParameter("month"), request.getParameter("year"), request.getParameter("invround")));
+                out.print(Insert.importStartData(request.getParameter("cono"),
+                         request.getParameter("divi"),
+                         request.getParameter("month"),
+                        request.getParameter("year"),
+                        request.getParameter("invround")));
                 out.flush();
                 break;
             case "addHeaderMonth":
-                out.print(Insert.addHeaderMonth(request.getParameter("month"),
+                out.print(Insert.addHeaderMonth(request.getParameter("cono"),
+                        request.getParameter("divi"),
+                        request.getParameter("month"),
                         request.getParameter("year"),
                         request.getParameter("invround"),
                         request.getParameter("customer")));
@@ -144,12 +180,12 @@ public class Action extends HttpServlet {
             // Insert
             case "addFinanceMaster":
                 out.print(Insert.insertfinancemaster(request.getParameter("company"),
-                         request.getParameter("divi"),
-                         request.getParameter("customerid"),
-                         request.getParameter("customertype"),
-                         request.getParameter("roundinv"),
-                         request.getParameter("roundbill"),
-                         request.getParameter("roundpay")));
+                        request.getParameter("divi"),
+                        request.getParameter("customerid"),
+                        request.getParameter("customertype"),
+                        request.getParameter("roundinv"),
+                        request.getParameter("roundbill"),
+                        request.getParameter("roundpay")));
                 out.flush();
                 break;
             case "importInvoiceData":
@@ -157,7 +193,8 @@ public class Action extends HttpServlet {
                         request.getParameter("month"),
                         request.getParameter("year"),
                         request.getParameter("invround"),
-                        request.getParameter("company")
+                        request.getParameter("company"),
+                        request.getParameter("divi")
                 ));
                 out.flush();
                 break;
@@ -200,24 +237,37 @@ public class Action extends HttpServlet {
             case "deleteFinanceMaster":
                 out.print(Delete.deleteFinanceMaster(request.getParameter("company"),
                         request.getParameter("divi"),
-                         request.getParameter("customerid")));
+                        request.getParameter("customerid")));
                 out.flush();
                 break;
             case "deleteStartMonth":
-                out.print(Delete.deleteStartMonth(request.getParameter("year"), request.getParameter("month"), request.getParameter("invround")));
+                out.print(Delete.deleteStartMonth(request.getParameter("year"),
+                        request.getParameter("year"),
+                        request.getParameter("year"),
+                        request.getParameter("month"),
+                        request.getParameter("invround")));
                 out.flush();
                 break;
             case "deleteHeaderMonth":
-                out.print(Delete.deleteHeaderMonth(request.getParameter("year"), request.getParameter("month"), request.getParameter("invround")));
+                out.print(Delete.deleteHeaderMonth(request.getParameter("cono"),
+                        request.getParameter("divi"),
+                        request.getParameter("year"),
+                        request.getParameter("month"),
+                        request.getParameter("invround")));
                 out.flush();
                 break;
 
             case "deleteStartDatecustomer":
-                out.print(Select.deleteStartDatecustomer(request.getParameter("customer")));
+                out.print(Select.deleteStartDatecustomer(request.getParameter("cono"),
+                        request.getParameter("divi"),
+                        request.getParameter("customer")));
                 out.flush();
                 break;
             case "deleteHeaderDatecustomer":
-                out.print(Select.deleteHeaderDatecustomer(request.getParameter("customer")));
+                out.print(Select.deleteHeaderDatecustomer(
+                        request.getParameter("cono"),
+                        request.getParameter("divi"),
+                        request.getParameter("customer")));
                 out.flush();
                 break;
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.5.1  -->
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Report_Billplacement_new" pageWidth="5000" pageHeight="1000" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="5830c67b-cef7-41e1-afaf-a5911890188b">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -117,6 +117,8 @@
 	</style>
 	<parameter name="startdate" class="java.lang.String"/>
 	<parameter name="enddate" class="java.lang.String"/>
+	<parameter name="cono" class="java.lang.String"/>
+	<parameter name="divi" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT * FROM (
 --BILL
@@ -130,9 +132,9 @@ SELECT CUSTOMER.OKCUNO,BPM_RINV,master.BPM_TYPE,BPM_REMARK,customer.OKCUNM,TRIM(
 ,BPM_BILDESC, BPM_COLDESC, BPM_COLBY
 FROM BRLDTA0100.BP_HBILL bill
 LEFT JOIN M3FDBPRD.OCUSMA customer ON  CUSTOMER.OKCONO = BILL.BPH_CONO  AND CUSTOMER.OKCUNO = BILL.BPH_CUNO 
-JOIN BRLDTA0100.BP_MASTER master ON master.BPM_CONO  = bill.BPH_CONO  AND master.BPM_CUNO = bill.BPH_CUNO
+JOIN BRLDTA0100.BP_MASTER master ON master.BPM_CONO  = bill.BPH_CONO  AND master.BPM_CUNO = bill.BPH_CUNO AND bill.BPH_DIVI = master.BPM_DIVI
 WHERE (BPH_BPDT BETWEEN $P{startdate} AND $P{enddate}) 
-and (master.BPM_RINV <> 7 AND master.BPM_RINV <> 15 AND master.BPM_RINV <> 30)
+and (master.BPM_RINV <> 7 AND master.BPM_RINV <> 15 AND master.BPM_RINV <> 30) AND master.BPM_CONO =  $P{cono} AND master.BPM_DIVI = $P{divi}
 GROUP BY  OKCUNO,BPM_TYPE,OKCUNM,OKSMCD,OKPYCD,OKCFC3,BPH_BPDT,BPM_BILDESC, BPM_COLDESC, BPM_COLBY,BPM_RINV,BPM_REMARK
 --PAY
 UNION
@@ -153,10 +155,10 @@ bill.BPH_CLDT AS rawdate,
 ,BPM_BILDESC, BPM_COLDESC, BPM_COLBY
 FROM BRLDTA0100.BP_HBILL bill
 LEFT JOIN M3FDBPRD.OCUSMA customer ON  CUSTOMER.OKCONO = BILL.BPH_CONO  AND CUSTOMER.OKCUNO = BILL.BPH_CUNO 
-JOIN BRLDTA0100.BP_MASTER master ON master.BPM_CONO  = bill.BPH_CONO AND master.BPM_CUNO = bill.BPH_CUNO
+JOIN BRLDTA0100.BP_MASTER master ON master.BPM_CONO  = bill.BPH_CONO AND master.BPM_CUNO = bill.BPH_CUNO AND bill.BPH_DIVI = master.BPM_DIVI
 LEFT JOIN BRLDTA0100.H_BILLNOTE billnote ON billnote.HB_CUNO = bill.BPH_CUNO 
 AND bill.BPH_CONO = billnote.HB_CONO AND billnote.HB_TRDT = bill.BPH_BPDT
-WHERE (BPH_CLDT BETWEEN $P{startdate} AND $P{enddate}) and (master.BPM_RINV <> 7 AND master.BPM_RINV <> 15 AND master.BPM_RINV <> 30)
+WHERE (BPH_CLDT BETWEEN $P{startdate} AND $P{enddate}) and (master.BPM_RINV <> 7 AND master.BPM_RINV <> 15 AND master.BPM_RINV <> 30) AND master.BPM_CONO =  $P{cono} AND master.BPM_DIVI = $P{divi}
 GROUP BY OKCUNO,BPM_TYPE,OKCUNM,OKSMCD,OKPYCD,OKCFC3,BPH_CLDT ,BPM_BILDESC, BPM_COLDESC, BPM_COLBY,BPM_RINV,BPM_REMARK
 UNION
 SELECT CUSTOMER.OKCUNO,BPM_RINV,master.BPM_TYPE,BPM_REMARK,customer.OKCUNM,TRIM(customer.oksmcd) AS oksmcd,customer.okpycd,customer.okcfc3
@@ -174,17 +176,20 @@ LEFT(XMLSERIALIZE(XMLAGG(XMLTEXT(HB_BNNO||','))AS VARCHAR(50)), LENGTH(XMLSERIAL
 ,BPM_BILDESC, BPM_COLDESC, BPM_COLBY
 FROM BRLDTA0100.BP_HBILL bill
 LEFT JOIN M3FDBPRD.OCUSMA customer ON  CUSTOMER.OKCONO = BILL.BPH_CONO  AND CUSTOMER.OKCUNO = BILL.BPH_CUNO 
-JOIN BRLDTA0100.BP_MASTER master ON master.BPM_CONO  = bill.BPH_CONO AND master.BPM_CUNO = bill.BPH_CUNO
+JOIN BRLDTA0100.BP_MASTER master ON master.BPM_CONO  = bill.BPH_CONO AND master.BPM_CUNO = bill.BPH_CUNO AND bill.BPH_DIVI = master.BPM_DIVI
  JOIN BRLDTA0100.H_BILLNOTE billnote ON billnote.HB_CUNO = bill.BPH_CUNO 
 AND bill.BPH_CONO = billnote.HB_CONO AND billnote.HB_TRDT = bill.BPH_BPDT
-WHERE (BPH_CLDT BETWEEN $P{startdate} AND $P{enddate}) and (master.BPM_RINV <> 7 AND master.BPM_RINV <> 15 AND master.BPM_RINV <> 30)
+WHERE (BPH_CLDT BETWEEN $P{startdate} AND $P{enddate}) and (master.BPM_RINV <> 7 AND master.BPM_RINV <> 15 AND master.BPM_RINV <> 30) AND master.BPM_CONO =  $P{cono} AND master.BPM_DIVI = $P{divi}
 GROUP BY OKCUNO,BPM_TYPE,OKCUNM,OKSMCD,OKPYCD,OKCFC3,BPH_CLDT ,BPM_BILDESC, BPM_COLDESC, BPM_COLBY,BPM_RINV,BPM_REMARK
 UNION 
-SELECT BPM_CUNO AS OKCUNO,BPM_RINV,master.BPM_TYPE,BPM_REMARK,customer.OKCUNM, trim(OKSMCD) AS OKSMCD, OKPYCD, OKCFC3,'NODETAIL',  '0', 'A',0 AS RAWDATE, 'X',BPM_BILDESC, BPM_COLDESC, BPM_COLBY FROM BRLDTA0100.BP_MASTER master
-LEFT JOIN M3FDBPRD.OCUSMA customer ON  CUSTOMER.OKCONO = MASTER.BPM_CONO  AND CUSTOMER.OKCUNO = master.BPM_CUNO 
-WHERE (master.BPM_RINV <> 7 AND master.BPM_RINV <> 15 AND master.BPM_RINV <> 30)
+SELECT BPM_CUNO AS OKCUNO,BPM_RINV,master.BPM_TYPE,BPM_REMARK,customer.OKCUNM, trim(OKSMCD) AS OKSMCD, OKPYCD, OKCFC3,'NODETAIL',  '0', 'A',0 AS RAWDATE, 'X',BPM_BILDESC, BPM_COLDESC, BPM_COLBY
+FROM BRLDTA0100.BP_MASTER master
+LEFT JOIN M3FDBPRD.OCUSMA customer ON  CUSTOMER.OKCONO = MASTER.BPM_CONO  AND CUSTOMER.OKCUNO = master.BPM_CUNO  
+WHERE (master.BPM_RINV <> 7 AND master.BPM_RINV <> 15 AND master.BPM_RINV <> 30) AND master.BPM_CONO =  $P{cono} AND master.BPM_DIVI = $P{divi}
 AND BPM_CUNO NOT IN 
-(SELECT BPH_CUNO FROM BRLDTA0100.BP_HBILL)
+(SELECT BPH_CUNO FROM BRLDTA0100.BP_HBILL
+WHERE  BPH_CONO = $P{cono}
+AND BPH_DIVI =  $P{divi})
 ORDER BY OKCUNO
 ) AS A
 ORDER BY SORTINGORDER]]>
@@ -251,6 +256,9 @@ ORDER BY SORTINGORDER]]>
 					<property name="com.jaspersoft.studio.crosstab.style.total" value="Crosstab 1_CT"/>
 					<property name="com.jaspersoft.studio.crosstab.style.detail" value="Crosstab 1_CD"/>
 				</reportElement>
+				<crosstabDataset>
+					<dataset resetType="Report"/>
+				</crosstabDataset>
 				<crosstabHeaderCell>
 					<cellContents>
 						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
