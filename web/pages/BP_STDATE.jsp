@@ -486,7 +486,7 @@
                 async: false
             }).done(function (response) {
                 console.log(response);
-                warehouse = response;
+//                warehouse = response;
                 $('#vYear').empty().append('<option value="" selected="selected">Select Year!!</option>');
                 $.each(response, function (i, obj) {
                     var div_data = "<option value=" + obj.vYear + ">" + obj.vYear + "</option>";
@@ -606,6 +606,8 @@
                     data: {
                         path: "getMonthInvoice",
                         year: $("#vYear").val(),
+                        cono:cono,
+                        divi:divi,
                         invround: $("#vInvround").val()
                     },
                     async: false
@@ -624,6 +626,8 @@
                             dataType: 'json',
                             data: {
                                 path: "getYearInvoice",
+                                cono:cono,
+                                divi:divi,
                                 invround: $("#vInvround").val()
                             },
                             async: false
@@ -718,6 +722,8 @@
             dataType: 'json',
             data: {
                 path: "getMonthInvoice",
+                cono:cono,
+                divi:divi,
                 year: $("#vYear").val(),
                 invround: $("#vInvround").val()
             },
@@ -742,6 +748,8 @@
             dataType: 'json',
             data: {
                 path: "getYearInvoice",
+                cono:cono,
+                divi:divi,
                 invround: $("#vInvround").val()
             },
             async: false
