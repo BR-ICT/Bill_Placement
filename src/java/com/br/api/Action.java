@@ -241,8 +241,8 @@ public class Action extends HttpServlet {
                 out.flush();
                 break;
             case "deleteStartMonth":
-                out.print(Delete.deleteStartMonth(request.getParameter("year"),
-                        request.getParameter("year"),
+                out.print(Delete.deleteStartMonth(request.getParameter("cono"),
+                        request.getParameter("divi"),
                         request.getParameter("year"),
                         request.getParameter("month"),
                         request.getParameter("invround")));

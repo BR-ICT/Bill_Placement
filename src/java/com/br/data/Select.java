@@ -785,11 +785,10 @@ public class Select {
                 }
                 if (check.equals("1")) {
                     //--Import data from start date 7 days
-                    query1 = "SELECT BPH_CUNO\n"
-                            + "FROM BRLDTA0100.BP_HBILL\n"
+                    query1 = "DELETE FROM BRLDTA0100.BP_HBILL\n"
                             + "WHERE BPH_CUNO = '" + Customer + "'\n"
-                            + "AND BPH_CONO = " + cono + "\n"
-                            + "AND BPH_DIVI =" + divi;
+                            + "AND BPH_CONO =" + cono + "\n"
+                            + "AND BPH_DIVI = " + divi;
                     stmt.execute(query1);
                     System.out.println("Delete start date per customer\n" + query1);
                     respond = "Delete Customer" + Customer + " successfully!";

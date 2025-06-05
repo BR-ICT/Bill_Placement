@@ -1936,7 +1936,12 @@ public class Insert {
                 payspecial = payday1 + paydaysamemonthornot;
                 payday1 = "0";
             } else if (pay.equals("5")) {
-                payspecial = payday1 + payday2;
+
+                int number1 = Integer.parseInt(payday1);
+                int number2 = Integer.parseInt(payday2);
+                String result1 = String.format("%02d", number1);
+                String result2 = String.format("%02d", number2);
+                payspecial = result1 + number2;
                 payday1 = "0";
             } else if (pay.equals("6")) {
                 payspecial = payday1 + payday2 + "Y" + payday3 + payday4 + "N";

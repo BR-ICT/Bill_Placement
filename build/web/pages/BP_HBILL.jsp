@@ -445,8 +445,8 @@
                 path: "importStartData",
                 month: month,
                 year: year,
-                cono:cono,
-                divi:divi,
+                cono: cono,
+                divi: divi,
                 invround: invround
             },
             async: false
@@ -461,8 +461,8 @@
                 data: {
                     path: "getMonthMaster",
                     year: $("#vYear").val(),
-                    cono:cono,
-                    divi:divi,
+                    cono: cono,
+                    divi: divi,
                     invround: $("#vInvround").val()
                 },
                 async: false
@@ -485,8 +485,8 @@
                 data: {
                     path: "getYearHeader",
                     invround: $("#vInvround").val(),
-                    cono:cono,
-                    divi:divi
+                    cono: cono,
+                    divi: divi
                 },
                 async: false
             }).done(function (response) {
@@ -539,7 +539,9 @@
                     path: "deleteHeaderMonth",
                     year: $("#vYear").val(),
                     month: $("#vMonth").val(),
-                    invround: $("#vInvround").val()
+                    invround: $("#vInvround").val(),
+                    cono: cono,
+                    divi: divi
                 },
                 async: false
             }).done(function (response) {
@@ -554,8 +556,8 @@
                     data: {
                         path: "getMonthMaster",
                         year: $("#vYear").val(),
-                        cono:cono,
-                        divi:divi,
+                        cono: cono,
+                        divi: divi,
                         invround: $("#vInvround").val()
                     },
                     async: false
@@ -575,8 +577,8 @@
                             dataType: 'json',
                             data: {
                                 path: "getYearHeader",
-                                cono:cono,
-                                divi:divi,
+                                cono: cono,
+                                divi: divi,
                                 invround: $("#vInvround").val()
                             },
                             async: false
@@ -653,7 +655,9 @@
             dataType: 'text',
             data: {
                 path: "deleteHeaderDatecustomer",
-                customer: $("#vCustomer").val()
+                customer: $("#vCustomer").val(),
+                cono: cono,
+                divi: divi
             },
             async: false
         }).done(function (response) {
