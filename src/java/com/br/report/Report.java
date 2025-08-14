@@ -229,6 +229,91 @@ public class Report extends HttpServlet {
                 } catch (Exception ex) {
                     Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            case "Report_Billplacement_newV2":
+               String type3 = request.getParameter("invoiceround");
+                String startdate4 = request.getParameter("startdate");
+                String enddate4 = request.getParameter("enddate");
+                startdate4 = startdate4.substring(0, 4) + startdate4.substring(5, 7) + startdate4.substring(8, 10);
+                enddate4 = enddate4.substring(0, 4) + enddate4.substring(5, 7) + enddate4.substring(8, 10);
+                System.out.println(startdate4);
+                System.out.println(enddate4);
+                System.out.println(request.getParameter("invoiceround"));
+                JasperDesign JPD7;
+                try {
+                    String path3 = getServletContext().getRealPath("/jaspers/");
+
+                    JPD7 = JRXmlLoader.load(path3 + "Report_Billplacement_newV2.jrxml");
+                    if (type3.equals("Special")) {
+                        JPD7 = JRXmlLoader.load(path3 + "Report_Billplacement_newV2_special.jrxml");
+                    }
+                    JasperReport jasperReport3 = JasperCompileManager.compileReport(JPD7);
+                    File reportFile = new File(getServletContext().getRealPath("jaspers/Report_Billplacement_newV2.jasper"));
+
+                    conn3 = ConnectDB2.ConnectionDB();
+
+                    Map parameters3 = new HashMap();
+                    parameters3.put("startdate", startdate4);
+                    parameters3.put("enddate", enddate4);
+                    parameters3.put("Pinvround", request.getParameter("invoiceround"));
+                    parameters3.put("cono", request.getParameter("cono"));
+                    parameters3.put("divi", request.getParameter("divi"));
+                    JasperPrint jasp3 = JasperFillManager.fillReport(jasperReport3, parameters3, conn3);
+                    ServletOutputStream ouputStream3 = response.getOutputStream();
+                    JasperExportManager.exportReportToPdfStream(jasp3, ouputStream3);
+                    ouputStream3.flush();
+                    ouputStream3.close();
+
+                } catch (JRException ex) {
+                    Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
+
+                } catch (Exception ex) {
+                    Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            case "Report_Billplacement_newV2XLSX":
+                String type4 = request.getParameter("invoiceround");
+                String startdate5 = request.getParameter("startdate");
+                String enddate5 = request.getParameter("enddate");
+                startdate5 = startdate5.substring(0, 4) + startdate5.substring(5, 7) + startdate5.substring(8, 10);
+                enddate5 = enddate5.substring(0, 4) + enddate5.substring(5, 7) + enddate5.substring(8, 10);
+                System.out.println(startdate5);
+                System.out.println(enddate5);
+                System.out.println(request.getParameter("invoiceround"));
+                JasperDesign JPD8;
+                try {
+                    String path3 = getServletContext().getRealPath("/jaspers/");
+
+                    JPD8 = JRXmlLoader.load(path3 + "Report_Billplacement_newV2.jrxml");
+                    if (type4.equals("Special")) {
+                        JPD8 = JRXmlLoader.load(path3 + "Report_Billplacement_newV2_special.jrxml");
+                    }
+                    JasperReport jasperReport3 = JasperCompileManager.compileReport(JPD8);
+                    File reportFile = new File(getServletContext().getRealPath("jaspers/Report_Billplacement_newV2.jasper"));
+
+                    conn3 = ConnectDB2.ConnectionDB();
+
+                    Map parameters3 = new HashMap();
+                    parameters3.put("startdate", startdate5);
+                    parameters3.put("enddate", enddate5);
+                    parameters3.put("Pinvround", request.getParameter("invoiceround"));
+                    parameters3.put("cono", request.getParameter("cono"));
+                    parameters3.put("divi", request.getParameter("divi"));
+                    JasperPrint jasp = JasperFillManager.fillReport(jasperReport3, parameters3, conn3);
+                    response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                    response.setHeader("Content-Disposition", "attachment; filename=\"" + "Calender_" + startdate5 + "_" + enddate5 + ".xlsx" + "\"");
+                    JRXlsxExporter exporterXls2 = new JRXlsxExporter();
+                    ServletOutputStream ouputStream2 = response.getOutputStream();
+                    exporterXls2.setParameter(JRExporterParameter.JASPER_PRINT, jasp);
+                    exporterXls2.setParameter(JRExporterParameter.OUTPUT_STREAM, ouputStream2);
+                    exporterXls2.exportReport();
+                    ouputStream2.flush();
+                    ouputStream2.close();
+
+                } catch (JRException ex) {
+                    Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
+
+                } catch (Exception ex) {
+                    Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
+                }
             case "customer_calender":
 
                 JasperDesign JPD3;

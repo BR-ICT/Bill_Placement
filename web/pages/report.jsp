@@ -74,6 +74,10 @@
                         <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="customer_calenderXLSX" type="submit">เรียกรายงาน Excel</button>-->
             <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="Report_Billplacement_new" type="submit">เรียกรายงาน</button>
             <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="Report_Billplacement_newXLSX" type="submit">เรียกรายงาน Excel</button>
+            <br>
+            
+             <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="Report_Billplacement_newV2" type="submit">เรียกรายงานใหม่2</button>
+            <button class="btn btn-primary mb-2" style="color:#FFFFFF;" form="detailsForm" name="report" value="Report_Billplacement_newV2XLSX" type="submit">เรียกรายงาน Excel2</button>
         </form>
 
     </div>

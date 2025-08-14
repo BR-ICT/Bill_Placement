@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape_2" language="javascript" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="3594ccb8-df5f-4579-93ec-eae883f18ca4">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="false"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB2"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="cono" class="java.lang.String"/>
+	<parameter name="startdate" class="java.lang.String"/>
+	<parameter name="enddate" class="java.lang.String"/>
+	<parameter name="divi" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT BPM_TYPE,OKCUNO,trim(OKCUNM) as OKCUNM,BPM_RINV,OKCFC3,BPM_BILDESC,BPM_COLDESC,OKSMCD,OKPYCD,BPM_COLBY,BPM_REMARK
+FROM BRLDTA0100.BP_MASTER master
+LEFT JOIN M3FDBPRD.OCUSMA customer ON  CUSTOMER.OKCONO = master.BPM_CONO  AND CUSTOMER.OKCUNO = master.BPM_CUNO 
+WHERE (master.BPM_RINV <> 7 AND master.BPM_RINV <> 15 AND master.BPM_RINV <> 30)
+AND master.BPM_CONO =  $P{cono}
+AND master.BPM_DIVI = $P{divi}
+ORDER BY OKCUNO]]>
+	</queryString>
+	<field name="BPM_TYPE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BPM_TYPE"/>
+		<property name="com.jaspersoft.studio.field.label" value="BPM_TYPE"/>
+	</field>
+	<field name="OKCUNO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="OKCUNO"/>
+		<property name="com.jaspersoft.studio.field.label" value="OKCUNO"/>
+	</field>
+	<field name="OKCUNM" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="OKCUNM"/>
+		<property name="com.jaspersoft.studio.field.label" value="OKCUNM"/>
+	</field>
+	<field name="BPM_RINV" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="BPM_RINV"/>
+		<property name="com.jaspersoft.studio.field.label" value="BPM_RINV"/>
+	</field>
+	<field name="OKCFC3" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="OKCFC3"/>
+		<property name="com.jaspersoft.studio.field.label" value="OKCFC3"/>
+	</field>
+	<field name="BPM_BILDESC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BPM_BILDESC"/>
+		<property name="com.jaspersoft.studio.field.label" value="BPM_BILDESC"/>
+	</field>
+	<field name="BPM_COLDESC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BPM_COLDESC"/>
+		<property name="com.jaspersoft.studio.field.label" value="BPM_COLDESC"/>
+	</field>
+	<field name="OKSMCD" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="OKSMCD"/>
+		<property name="com.jaspersoft.studio.field.label" value="OKSMCD"/>
+	</field>
+	<field name="OKPYCD" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="OKPYCD"/>
+		<property name="com.jaspersoft.studio.field.label" value="OKPYCD"/>
+	</field>
+	<field name="BPM_COLBY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BPM_COLBY"/>
+		<property name="com.jaspersoft.studio.field.label" value="BPM_COLBY"/>
+	</field>
+	<field name="BPM_REMARK" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BPM_REMARK"/>
+		<property name="com.jaspersoft.studio.field.label" value="BPM_REMARK"/>
+	</field>
+	<variable name="Customername" class="java.lang.String"/>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="230" y="0" width="60" height="20" uuid="63f92d7a-1f8a-41c2-82df-db912f001dca"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="11"/>
+				</textElement>
+				<text><![CDATA[Billing/วางบิล]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="30" height="20" uuid="0a063c98-83ed-49b2-8c2a-5a329647c977"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="11"/>
+				</textElement>
+				<text><![CDATA[Channel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="30" height="20" uuid="aa4911a8-40a5-4b04-abb1-f87ca65aaa14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="11"/>
+				</textElement>
+				<text><![CDATA[TYPE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="0" width="60" height="20" uuid="68414eca-e7a3-4a0c-8f7a-53a67860ad21"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="11"/>
+				</textElement>
+				<text><![CDATA[Collected by]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="0" width="100" height="20" uuid="e0624456-d6c4-466e-ba15-6889657c18f1"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="11"/>
+				</textElement>
+				<text><![CDATA[Remark]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="0" width="80" height="20" uuid="53fb67ad-eb31-4c29-ad33-162712054598"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="11"/>
+				</textElement>
+				<text><![CDATA[Customer name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="30" height="20" uuid="ae8b72f5-f70a-4d85-8c5c-d7f345d1b127"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7"/>
+				</textElement>
+				<text><![CDATA[วิธีการ
+ชำระเงิน]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="0" width="30" height="20" uuid="73f89fee-4f68-49a9-816b-794731928e71"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="9"/>
+				</textElement>
+				<text><![CDATA[Salesman]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="0" width="60" height="20" uuid="1cd7b247-d47c-41c5-98b1-f870d28e84ed"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="11"/>
+				</textElement>
+				<text><![CDATA[Customer ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="0" width="30" height="20" uuid="121d4d75-8b43-4b72-9b29-c2fb5c540577"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="7"/>
+				</textElement>
+				<text><![CDATA[Credit
+ term]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="0" width="60" height="20" uuid="7016f34f-499b-4b5f-98d6-1bc84e3b2a3c"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="11"/>
+				</textElement>
+				<text><![CDATA[Collection Day/วันรับเงิน]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" uuid="5d5dc9f3-ba05-4e21-a7f3-a7b26040ec00">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3aee37ce-9700-4c7d-aa18-9ab9079f306c"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BPM_TYPE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="30" y="0" width="60" height="20" uuid="c5686bb9-8626-48a7-90de-0c7503c96bba">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7a0711de-2fa7-40d4-8e5e-267857ba4d21"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OKCUNO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="90" y="0" width="80" height="20" uuid="e01948b4-8366-4776-969d-bd6585e7edee">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e0ec8ae-6666-4d6b-b874-e6075a0a0759"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OKCUNM}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="170" y="0" width="30" height="20" uuid="9e7c8a04-2488-4a9c-9970-dad4ba6bd313">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e618f32e-1148-4f39-b5ed-29917ae22bca"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BPM_RINV}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="200" y="0" width="30" height="20" uuid="4f762115-d841-41de-875a-1b5d801a4744">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="74de5ac2-7da5-4562-9d5a-a37d1d486b4b"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OKCFC3}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="230" y="0" width="60" height="20" uuid="b906af2f-b703-4bb5-b704-f1c6e368ca51">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e239a53-2d78-473b-843f-6f27148e7e6b"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BPM_BILDESC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="290" y="0" width="60" height="20" uuid="fbe67e1b-ba2b-4936-b534-a2a9fd3e968d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bdf54536-75d8-481b-8206-bb944cedec42"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BPM_COLDESC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="350" y="0" width="30" height="20" uuid="045f54d2-47ab-43e1-9cce-e90e18c14895">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c46d65f9-9806-49de-98c4-9d5a0caefb5e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OKSMCD}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="380" y="0" width="30" height="20" uuid="566e4b3a-c2ab-474a-a508-b24952be5c6e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2a6edcb2-d4ff-44b9-aab5-1d2845818934"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OKPYCD}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="410" y="0" width="60" height="20" uuid="14bf7b69-431a-4cb6-9192-172c9a1c48d8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b638f9f1-7517-4827-ab61-af3520bd1b1d"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BPM_COLBY}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="470" y="0" width="100" height="20" uuid="f22e5831-cbb7-4990-97ef-6969a8432f5c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e59fd39a-d2b1-4d44-b361-4cce2ce52e3e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BPM_REMARK}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
